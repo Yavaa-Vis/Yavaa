@@ -1,0 +1,19 @@
+# part of valuesInCodelists
+# combine the queries for a single concept
+#
+# Variables
+# {codelist}    ...     the codelist
+# {values}      ...     the values
+# {index}       ...     some unique id for this part
+{
+  # bind input values
+  VALUES ?enumRange{index} { {codelist} }
+  VALUES ?enumValue{index} { {values} }
+
+  # and contain the values
+  ?enumRange{index} skos:hasTopConcept ?enumValue{index} .
+
+  # add to global result
+  BIND( ?enumRange{index} AS ?enumRange ) .
+  BIND( ?enumValue{index} AS ?enumValue ) .
+}

@@ -1,0 +1,23 @@
+# get the base unit for non-prefixed units
+# (prefixed units will not be included in result)
+#
+# Variables
+# {units}   ... units to convert
+PREFIX om: <http://www.wurvoc.org/vocabularies/om-1.8/> 
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT (?mediator AS ?source) ?factor ?base
+WHERE {
+
+  # bind input units
+  VALUES ?start { {units} } .
+  
+  # there might be some units along the way
+  ?start (om:definition/om:unit_of_measure_or_measurement_scale)* ?mediator .
+  
+  # conversion data
+  ?mediator om:definition ?def .
+  ?def om:numerical_value ?factor ;
+       om:unit_of_measure_or_measurement_scale ?base .
+
+}

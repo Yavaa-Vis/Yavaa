@@ -1,0 +1,19 @@
+# get the number of values for the given codelist
+#
+# Variables
+# {codelist}          ... the codelist
+
+PREFIX skos:<http://www.w3.org/2004/02/skos/core#>
+
+SELECT  ?codelist
+        (COUNT(DISTINCT ?colEnumVal) AS ?count)
+WHERE {
+
+  # restrict to given codelists
+  VALUES ?codelist { {codelist} }
+  
+  # get all associated concepts
+  ?codelist skos:hasTopConcept        ?colEnumVal.
+  
+}
+GROUP BY ?codelist

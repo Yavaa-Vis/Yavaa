@@ -1,0 +1,8 @@
+#{id} path {
+  fill:   none;
+  stroke: currentColor;
+}
+#{id} text {
+  text-anchor: end;
+  dominant-baseline: central;
+}

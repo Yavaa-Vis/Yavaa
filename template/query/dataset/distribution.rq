@@ -1,0 +1,14 @@
+# Variables
+# {url}   ... the URL of the respective dataset
+
+PREFIX dcat:<http://www.w3.org/ns/dcat#>
+
+SELECT ?distr ?p ?o
+WHERE {
+  <{url}> dcat:distribution ?distr .
+  ?distr ?p ?o .
+
+  # do not show rdf and rdfs properties
+  FILTER( ! STRSTARTS( STR(?p), "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ) ) .
+  FILTER( ! STRSTARTS( STR(?p), "http://www.w3.org/2000/01/rdf-schema#" ) ) .
+}

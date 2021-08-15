@@ -1,0 +1,50 @@
+# get differently prefixed versions of the given units
+#
+# Variables
+# {unit}   ... the base unit, which alternatives are to find
+
+PREFIX om: <http://www.wurvoc.org/vocabularies/om-1.8/> 
+
+SELECT  ?unit 
+        ?label
+        ?dimension
+        ?symbol
+        ?isScaled
+WHERE {
+
+# bind input to variable
+  VALUES ?source { {unit} } .
+  
+# find the base unit
+  { ?source om:singular_unit ?base . }
+  UNION
+  { BIND( ?source AS ?base ) . }
+  
+# find all derived units
+  { ?unit om:singular_unit ?base . }
+  UNION
+  { BIND( ?base AS ?unit ) . }
+  
+# get factors (default 1 for base unit itself)
+  OPTIONAL { ?unit om:prefix ?prefix . ?prefix om:factor ?realfactor } .
+  BIND( IF( BOUND( ?realfactor ), ?realfactor, 1 ) AS ?factor ) .
+
+# get some more info
+  ?unit om:dimension ?dimension .
+  ?unit om:symbol ?symbol .
+
+# get english label for all units
+  ?unit rdfs:label ?label .
+  FILTER( LANG(?label) = "en" ) .
+
+# try to find an attached scale
+  OPTIONAL {
+    ?scale a                  om:Measurement_scale ;
+           om:unit_of_measure ?unit .
+  }
+  BIND( IF( BOUND( ?scale ), true, false ) AS ?isScaled ).
+
+}
+
+# order by factors
+ORDER BY DESC( ?factor )

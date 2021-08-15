@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" 
+     xmlns:xhtml="http://www.w3.org/1999/xhtml"
+     viewBox="-5 0 {totalWidth} {totalHeight}" 
+     style="{style}" 
+     class="workflowDiagram">
+  <defs>
+    <marker
+      orient="auto"
+      markerHeight="4"
+      markerWidth="4"
+      markerUnits="strokeWidth"
+      refY="5"
+      refX="2"
+      viewBox="-1 -1 12 12"
+      id="arrowHead">
+       <path d="M 0,0 l 10,5 l -10,5 z" />
+    </marker>
+
+    <style>{styledef}</style>
+  </defs>
+  <g class="col">{col}</g>
+  <g class="usedcol">{usedcol}</g>
+  <g>{obj}</g>
+</svg>

@@ -1,0 +1,28 @@
+# Variables
+# {system}      ... the system of measurement from which to pick
+# {dimension}   ... the dimension for which to pick
+
+PREFIX om: <http://www.wurvoc.org/vocabularies/om-1.8/> 
+
+SELECT ?unit ?label ?dimension ?dimVal
+WHERE{
+
+# bind input to variable
+  VALUES ?system { {system} } .
+  VALUES ?dimension { {dimension} } .
+  
+# get english label for all units
+  ?unit rdfs:label ?label .
+  FILTER( LANG(?label) = "en" ) .
+
+# ------------------------------ get by system ------------------------------ #
+
+  ?system (om:derived_unit | om:base_unit) ?unit .
+
+# ---------------------------- get by dimension ----------------------------- #
+
+  ?dimension om:unit_of_measure ?unit .
+
+}
+
+ORDER BY ASC( ?label )

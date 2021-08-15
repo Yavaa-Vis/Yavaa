@@ -1,0 +1,13 @@
+/.settings
+.project
+/node_modules
+/.externalToolBuilders
+/*.svg
+/*.htm
+/*.tmp.js
+/lib/socket.io/socket.io.slim.js
+/lib/socket.io/socket.io.js
+/webRoot/gfx/icons.svg
+/webRoot/index.htm
+/.project
+/package-lock.json

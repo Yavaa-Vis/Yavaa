@@ -1,0 +1,58 @@
+/*
+ * styles for the view switch
+ */
+@import "def.less";
+@import "basic.less";
+
+@viewSwitch-transition-duration: 0.35s;
+@viewSwitch-transition-fct: ease;
+@viewSwitch-background: white;
+
+#viewSwitch {
+  opacity: 0.3;
+}
+#viewSwitch.active {
+  opacity: 1;
+}
+
+#viewSwitch div {
+  display: inline-block;
+  position: absolute;
+  top:    @viewport_content;
+  width:  @viewport-horMargin * 1.6;
+  height: calc( ~"100% - "@viewport_content );
+  cursor: pointer;
+}
+#viewSwitch .left {
+  left:  -@viewport-horMargin * 0.8;
+  transition: left @viewSwitch-transition-duration  @viewSwitch-transition-fct;
+}
+#viewSwitch .right {
+  right:  -@viewport-horMargin * 0.8;
+  transition: right @viewSwitch-transition-duration @viewSwitch-transition-fct;
+  transform: rotate(180deg);
+}
+#viewSwitch.active .left:hover {
+  left: 0;
+}
+#viewSwitch.active .right:hover {
+  right: 0;
+}
+
+.viewNavBtn {
+  background-color:     @bgcolor-fg;
+  background-image:     url("@{base-path}gfx/icons/viewNav.svg");
+  background-size:      50%;
+  background-repeat:    no-repeat;
+  background-position:  right;
+}
+
+.viewNavBtn:hover {
+  background-color: @bgcolor-popup;
+}
+
+/* XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX viewport navigation XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX */
+
+#content .invis {
+  display: none;
+}

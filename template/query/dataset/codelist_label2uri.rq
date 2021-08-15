@@ -1,0 +1,20 @@
+# given a certain codelist, find the respective URI for all given labels
+#
+# Variables
+# {codelist}    ... the codelist
+# {label}       ... the labels to resolve
+
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+SELECT ?label ?uri
+WHERE {
+  
+  # bind codelist
+  VALUES ?codelist { {codelist} }
+  
+  # bind labels
+  VALUES ?label { {label} }
+  
+  # link
+  ?codelist skos:hasTopConcept             ?uri .
+  ?uri      (skos:notation|skos:prefLabel) ?label .
+}

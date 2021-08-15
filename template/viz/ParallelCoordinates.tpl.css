@@ -1,0 +1,19 @@
+#{id} * {
+  font: 10px sans-serif;
+}
+
+#{id} path {
+  fill:   none;
+  stroke: black;
+}
+
+#{id} .axis text {
+  text-anchor:        start;
+  dominant-baseline:  auto;
+  fill:               currentColor;
+  /* text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff; */
+}
+
+#{id} .axis .tick line {
+  /* display: none; */
+}

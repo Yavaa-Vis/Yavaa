@@ -1,0 +1,47 @@
+/*
+ * overwrite jQuery UI styles for tabs
+ */
+
+.ui-tabs {
+  padding:  1.5rem;
+  display: flex;
+  flex-direction: column; 
+}
+
+.ui-tabs-panel {
+    flex-grow: 1;
+    overflow: auto;
+}
+
+.ui-tabs .ui-tabs-nav {
+  display:        flex;
+  margin-bottom:  1.5em;
+  padding: 0;
+}
+
+.ui-tabs .ui-tabs-nav li {
+  list-style: none;
+  position: relative;
+  top: 0;
+  margin: 1px .2em 0 0;
+  border-bottom-width: 0;
+  padding: 0;
+  white-space: nowrap;
+  flex-grow: 1;
+}
+
+.ui-tabs .ui-tabs-nav li a {
+  width: 100%;
+  display: inline-block;
+  text-align: center;
+  padding-bottom: 0.3em;
+  
+  transition: all .28s ease;
+  border-bottom: 2px solid transparent;
+  
+  outline: none;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-active a {
+  border-color: transparent transparent @color-accent;
+}

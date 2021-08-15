@@ -1,0 +1,24 @@
+# find the path in the conversion graph for the given units
+#
+# Variables
+# {units}   ... units to convert
+
+PREFIX om: <http://www.wurvoc.org/vocabularies/om-1.8/> 
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?unit
+WHERE {
+
+# bind input units
+  VALUES ?source { {units} } .
+  
+  OPTIONAL { ?source om:singular_unit ?realBase . }
+  BIND( IF( BOUND( ?realBase ), ?realBase, ?source ) AS ?base ) .
+  
+  OPTIONAL { 
+    ?base (om:definition/om:unit_of_measure_or_measurement_scale)+ ?realDef . 
+    ?realDef a om:Unit_of_measure .
+  }
+  BIND( IF( BOUND( ?realDef ), ?realDef, ?base ) AS ?unit ) .
+
+}

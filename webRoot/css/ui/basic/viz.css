@@ -1,0 +1,14 @@
+#viz {
+    display: inline-block;
+    padding: 1%;
+    position: absolute;
+    right: 0;
+    top: 0;
+/*  
+    height: 45%;
+    width: 49%;
+*/
+    height: 90%;
+    width: 90%;
+
+}

@@ -1,0 +1,34 @@
+# Variables
+# {scales}   ... scales to define
+
+PREFIX om: <http://www.wurvoc.org/vocabularies/om-1.8/> 
+
+SELECT DISTINCT
+        ?scale 
+        ?refScale 
+        ?convFactor 
+        ?convOffset
+WHERE{
+
+# get all involved scales
+  {
+    SELECT ?scale
+    WHERE {
+# bind input to variable
+      VALUES ?source { {scales} } .
+      ?source om:definition_relative_to* ?scale
+    }
+  }
+
+# definition values; optional, so that there is a returned row for the base scale
+  OPTIONAL {
+
+# get definition scales
+    ?scale om:definition_relative_to ?refScale .
+  
+# get factor and offset
+    ?scale om:definition_off-set ?convOffset .
+    ?scale om:definition_factor ?convFactor .
+
+  }
+}

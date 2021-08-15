@@ -1,0 +1,62 @@
+/*
+ * styles for the debug logger
+ */
+#log {
+  height: 5%;
+  width: 100%;
+  padding: 0.3em 0 0;
+  margin: 0;
+
+  overflow: auto;
+
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
+  font-size: 80%;
+  
+  background-color: @bgcolor-fg;
+  
+  * {
+    -webkit-user-select: text;
+       -moz-user-select: text;
+        -ms-user-select: text;
+            user-select: text;
+  }
+}
+
+#log:hover {
+  height: 50%;
+}
+
+#log .error {
+  color: #F5A9A9;
+}
+
+#log .undef {
+  background-color: @bgcolor-popup;  
+}
+
+#log > div {
+  padding: 0.2em 0 0.2em 1.5rem;
+  margin: 0;
+}
+
+#log > hr {
+  margin: 0.2em;
+}
+
+#log .inMsg {
+  background-image: url( 'data:image/svg+xml,%3C?xml%20version=%221.0%22%20encoding=%22UTF-8%22?%3E%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22%3E%09%3Cpath%20d=%22M%200,50%2050,0%2050,35%20100,35%20100,65%2050,65%2050,100%20Z%22%20style=%22fill:%20%23FA5858;%20stroke:%20black;%20stroke-width:%201px;%22%20/%3E%3C/svg%3E' );
+}
+
+#log .outMsg {
+  background-image: url( 'data:image/svg+xml,%3C?xml%20version=%221.0%22%20encoding=%22UTF-8%22?%3E%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22%3E%09%3Cpath%20d=%22M%2050,0%20100,50%2050,100%2050,65%200,65%200,35%2050,35%20Z%22%20style=%22fill:%20%2358FA58;%20stroke:%20black;%20stroke-width:%201px;%22%20/%3E%3C/svg%3E' );
+}
+
+#log .inMsg, 
+#log .outMsg {
+  background-size: 1em;
+  background-position: 0.3em 0.1em;
+  background-repeat: no-repeat;
+}

@@ -1,0 +1,15 @@
+# checks, if all units, that are the target of a definition are Singular_Units themselves
+
+PREFIX om: <http://www.wurvoc.org/vocabularies/om-1.8/> 
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?source ?target
+WHERE{
+
+  ?source om:definition ?def .
+  ?def om:unit_of_measure_or_measurement_scale ?target .
+  
+  ?target a om:Unit_of_measure .
+  FILTER NOT EXISTS { ?target a om:Singular_unit } .
+
+}

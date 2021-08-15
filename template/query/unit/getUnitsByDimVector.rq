@@ -1,0 +1,61 @@
+# return a list of units, which have a dimension, which is given by its vector
+#
+# Variables
+# {onlySingular}  ... (boolean) return only singular units
+# {dimL}          ... dimension vector entry for length
+# {dimM}          ... dimension vector entry for mass
+# {dimT}          ... dimension vector entry for time
+# {dimI}          ... dimension vector entry for electric current
+# {dimTh}         ... dimension vector entry for thermodynamic temperature
+# {dimN}          ... dimension vector entry for amount of substance
+# {dimJ}          ... dimension vector entry for luminous intensity
+
+PREFIX om: <http://www.wurvoc.org/vocabularies/om-1.8/> 
+
+SELECT  ?unit 
+        ?label 
+        ?dimension
+        ?isScaled
+WHERE {
+  
+# --------------------------------- units ----------------------------------- #
+
+  BIND( IF( {onlySingular}, om:Singular_unit, om:Unit_of_measure ) AS ?unitType ) .  
+  ?unit a ?unitType .
+  
+  # get English label for all units
+  ?unit rdfs:label ?label .
+  FILTER( LANG(?label) = "en" ) .
+
+  # the symbol attached
+  ?unit om:symbol ?symbol .
+  
+  # try to find an attached scale
+  OPTIONAL {
+    ?scale a                  om:Measurement_scale ;
+           om:unit_of_measure ?unit .
+  }
+  BIND( IF( BOUND( ?scale ), true, false ) AS ?isScaled ).
+  
+
+# ------------------------ get dimension by vector  ------------------------- #
+
+  ?dimension om:SI_length_dimension_exponent                      {dimL} ;
+             om:SI_mass_dimension_exponent                        {dimM} ;
+             om:SI_time_dimension_exponent                        {dimT} ;
+             om:SI_electric_current_dimension_exponent            {dimI} ;
+             om:SI_thermodynamic_temperature_dimension_exponent   {dimTh} ;
+             om:SI_amount_of_substance_dimension_exponent         {dimN} ;
+             om:SI_luminous_intensity_dimension_exponent          {dimJ} .
+             
+# -------------------------- get unit by dimension -------------------------- #
+
+  ?unit om:dimension ?dimension .
+  
+# ------------------------------ order results ------------------------------ #
+  
+  BIND( IF( EXISTS{ ?base om:definition ?unit }, 1, 0 ) AS ?order ) .
+  
+}
+
+ORDER BY ASC( ?order ) ASC( ?label )

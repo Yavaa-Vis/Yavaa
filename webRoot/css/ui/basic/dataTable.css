@@ -1,0 +1,26 @@
+#dataContainer {
+  displaY: inline-block;
+  width: 49%;
+  vertical-align: top;
+}
+
+#dataTable {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+#dataTable tr:nth-child(odd) {
+	background-color: #D8D8D8;
+}
+
+#dataTable td {
+	text-align: center;
+}
+
+#dataTable tr:hover {
+	background-color: #D0F5A9;
+}
+
+#dataTable thead {
+	border-bottom: 1px solid black;
+}

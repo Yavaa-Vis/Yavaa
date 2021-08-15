@@ -1,0 +1,42 @@
+# get information about all datasets and columns that include the given codelist concept
+#
+# Variables
+# {ds}          ...     SPARQL-fragment to filter datasets
+# {concept}     ...     columns concept
+# {colEnums}    ...     SPARQL-fragment to filter values within the columns' codelists
+# {separator}   ...     separator used to split value list in return value
+
+PREFIX qb:    <http://purl.org/linked-data/cube#>
+PREFIX skos:  <http://www.w3.org/2004/02/skos/core#>
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?ds
+       ?colOrder
+       ( MIN(?role)        AS ?role )
+       ( MIN(?colConcept)  AS ?colConcept )
+       ( MIN(?colCodelist) AS ?codelist )
+       ( GROUP_CONCAT(?colEnums; separator="{separator}") AS ?colEnums )
+WHERE {
+
+  # input values
+  {ds}
+  {colEnums}
+  VALUES ?colConcept { {concept} }
+
+  # get columns
+  ?ds qb:structure/qb:component ?col .
+  
+  # get column properties
+  VALUES ?role { qb:dimension qb:measure } .
+  ?col qb:order ?colOrder .
+  ?col ?role    ?colDesc .
+  ?colDesc  rdfs:range  ?colRange .
+
+  # match values
+  ?colDesc  qb:concept/skos:exactMatch  ?colConcept ;
+            qb:codeList                 ?colCodelist .
+  ?colCodelist skos:hasTopConcept  ?colEnums ;           
+  
+}
+GROUP BY ?ds ?colOrder

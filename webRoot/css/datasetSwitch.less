@@ -1,0 +1,88 @@
+/*
+ * style the data set switcher in main viewport
+ */
+
+@import "def.less";
+@import "icons.less";
+
+
+#dataSwitch {
+  height: @viewport-datasetSwitch-height;
+  line-height: @viewport-datasetSwitch-height;
+  margin: 0;
+  width: 100%;
+}
+
+.dsNavItem {
+  display:  inline-block;
+  height:   100%;
+  vertical-align: bottom;
+  position: relative;
+  
+  .context {
+    position: absolute;
+    right:    -40%;
+    top:      -70%;
+    height:   1.7em;
+    
+    border: 1px solid black;
+    border-radius: 0.5em;
+    display:  none;
+    
+    z-index: 100;
+    
+    background-color: @bgcolor-popup;
+    
+    .icon {
+      width:  1.5em;
+      height: 1.5em;
+      margin: 0.1em;
+    }
+    
+  }
+  
+  &:hover .context {
+    display: inline-block;
+    
+    .icon {
+      opacity: @opacity-disabled
+    }
+    .icon:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.dsNavItem:hover {
+  background-color: @bgcolor-highlight;
+}
+
+.dsNavNewItem {
+  background-image: url("@{base-path}gfx/icons.svg#loadDatasetView");
+  background-size: 70%;
+  width:  @viewport-datasetSwitch-height;
+  height: 100%;
+  position: static
+}
+
+.dsNavItem.active {
+  font-weight:      bold;
+  background-color: @bgcolor-highlight;
+}
+
+.dsNavItem, .dsNavNewItem {
+  
+  border: 1px solid @color-border;
+  border-bottom: transparent;
+  border-left: transparent;
+  padding: 0 0.3em;
+  
+  &:first-child {
+    border-top-left-radius: @border-radius-dsNav;
+    border-left: 1px solid  @color-border;
+  }
+  &:last-child {
+    border-top-right-radius: @border-radius-dsNav;
+  }
+
+}

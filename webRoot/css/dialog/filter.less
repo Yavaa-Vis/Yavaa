@@ -1,0 +1,65 @@
+#filter {
+  .container {
+      text-align: center;
+  }
+  .container div {
+      vertical-align: top;
+  }
+  .menu {    
+      text-align:   center;
+      width:        75px;
+      display:      inline-block;
+      box-sizing:   border-box;
+      padding-top:  80px;
+  }
+  .menu button {
+      width:      45px;
+      height:     45px;
+      box-sizing: border-box;
+      margin:     0;
+      margin-top: 0.5em;
+  }
+  .selection {
+    text-align: center;
+    width:      calc(~"48% - 35px" );
+    display:    inline-block;
+  }
+  .dropzone {
+    vertical-align: middle;
+    background:     @bgcolor-highlight;
+    border:         0.2em solid transparent;
+    margin:         0.5em 0;
+    box-sizing:     border-box;
+    height:         300px;
+    overflow-x:     hidden;
+    overflow-y:     auto;
+  }
+  .dropzone.valid {
+    border-color: #0F0;
+  }
+  [draggable=true] {
+    cursor:         move;
+    margin:         0.3em;
+    box-sizing:     border-box;
+    white-space:    nowrap;
+    overflow:       hidden;
+    text-overflow:  ellipsis;
+  }
+  
+  input[type="radio"] {
+    display: none;
+  }
+  input[type="radio"] + .selection {
+    opacity: 0.7;
+  }
+  input[type="radio"]:checked + .selection {
+    opacity: 1;
+  }
+  input[type="radio"]:checked + .selection h2 {
+    text-decoration: underline;
+  }
+  
+  .values {
+    text-align: center;
+  }
+}

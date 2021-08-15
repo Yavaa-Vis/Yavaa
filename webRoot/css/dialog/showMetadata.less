@@ -1,0 +1,55 @@
+#showMeta {
+
+  .sep {
+    .tag;
+    border: transparent;
+  }
+  .from, .to {
+    display: inline-block;
+  }
+
+  /* ----------------------------- common: column lists -------------------------------------- */
+
+  .columns {
+    margin-top: 1em;
+    font-size: 90%;
+  }
+
+  .colitem {
+    display: flex;
+  }
+
+  .col, .val {
+    display: inline-block;
+  }
+
+  .col {
+    width: 15em;
+    margin-right: 1em;
+  }
+
+  .remCol {
+    margin: 0.2em 1em 0.2em 0.2em;
+    width: 2.5em;
+    height: 2.5em;
+  }
+
+  .val {
+    width: calc( 100% - 20em );
+
+    label {
+      width: 100%;
+    }
+  }
+
+  .val.range label {
+    width: 40%;
+  }
+
+  .colitem:not(:first-child),
+  .adjitem:not(:first-child) {
+    border-top: 1px solid fade(@color-accent-dark, 70%);
+    padding-top: 0.5em;
+  }
+
+}

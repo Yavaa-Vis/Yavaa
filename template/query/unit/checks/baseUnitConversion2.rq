@@ -1,0 +1,26 @@
+# Checks, if there is just one base unit per dimension for all conversions
+# grouping by dimension
+
+PREFIX om: <http://www.wurvoc.org/vocabularies/om-1.8/> 
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT  ?dim
+        (GROUP_CONCAT( DISTINCT ?unit; separator="\n" ) AS ?units)
+WHERE {
+  
+# get the conversion
+  ?convBase a om:Unit_of_measure .
+  ?convBase om:definition ?conv .
+  
+# link it to the unit
+  ?conv om:unit_of_measure_or_measurement_scale ?unit .
+  
+# make sure it is a unit
+  ?unit a om:Unit_of_measure .
+  
+# get the respective dimension
+  ?dim a om:Dimension .
+  ?unit om:dimension ?dim .
+}
+
+GROUP BY ?dim

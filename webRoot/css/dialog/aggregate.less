@@ -1,0 +1,65 @@
+#aggregate {
+
+  .dropzone {
+      margin: 0.5em 0;
+      box-sizing: border-box;
+      min-height: 2em;
+      
+      border-style: solid;
+      border-color: transparent;
+  }
+  .dropzone.valid {
+      border-color: #0F0;
+  }
+  [draggable=true] {
+    cursor: move;
+  }
+  
+  hr {
+    color: @color-accent;
+  }
+  
+  .group {
+    select {
+      display: none;
+    }
+    
+    [draggable=true] {
+      display: inline-block;
+    }
+  }
+  
+  .aggr {
+    .columnwrapper {
+      text-align: right;
+    }
+    
+    select {
+      margin-left: 2em;
+      width: calc( 100% - 25em );
+    }
+    
+    .column {
+      max-width: 21em;
+    }
+    
+    [draggable=true] {
+      padding: 1em;
+      box-sizing: border-box;
+      white-space: nowrap;
+    }
+  }
+  
+  option {
+      display: none;
+  }
+  [data-type="numeric"]    option[data-type~="numeric"],
+  [data-type="string"]     option[data-type~="string"],
+  [data-type="bag"]        option[data-type~="bag"],
+  [data-type="semantic"]   option[data-type~="semantic"],
+  [data-type="time"]       option[data-type~="time"],
+  option[data-type~="all"] {
+      display: block;
+  }
+
+}

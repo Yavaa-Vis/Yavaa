@@ -1,0 +1,26 @@
+<div class="container">
+  <input type="radio" name="filter_select" value="include" id="filter_select_in" />
+  <div class="selection">
+    <h2>
+      <label for="filter_select_in">
+        Include
+      </label>
+    </h2>
+    <div class="dropzone" data-filter="include"></div>
+  </div>
+  <div class="menu">
+    <!-- <button type="button" class="batch" data-target="include" data-all="false" disabled>&lt;</button>  -->
+    <button type="button" class="batch" data-target="include" data-all="true">&lt;&lt;</button>
+    <button type="button" class="batch" data-target="exclude" data-all="true">&gt;&gt;</button>
+    <!-- <button type="button" class="batch" data-target="exclude" data-all="false" disabled>&gt;</button>  -->
+  </div>
+  <input type="radio" name="filter_select" value="exclude" id="filter_select_ex" checked />
+  <div class="selection">
+    <h2>
+      <label for="filter_select_ex">
+        Exclude
+      </label>
+    </h2>
+    <div class="dropzone" data-filter="exclude"></div>
+  </div>
+</div>

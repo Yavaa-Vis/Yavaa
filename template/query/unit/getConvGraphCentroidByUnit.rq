@@ -1,0 +1,30 @@
+# find the center of the conversion graph for a sample unit
+# as the conversions graphs are star shaped, there is a unique result defined
+# may be the unit itself, if it is the center
+#
+# Variables
+# {units}   ... sample unit for the dimension
+
+PREFIX om: <http://www.wurvoc.org/vocabularies/om-1.8/> 
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?centroid
+WHERE {
+
+  # bind input units
+  VALUES ?source { {units} } .
+  
+  # resolve prefixed units
+  OPTIONAL { ?source om:singular_unit ?realBase . }
+  BIND( IF( BOUND( ?realBase ), ?realBase, ?source ) AS ?base ) .
+  
+  # find the centroid
+  ?base (om:definition/om:unit_of_measure_or_measurement_scale)* ?centroid . 
+  ?centroid a om:Unit_of_measure .
+  
+  # make sure it is the centroid
+  FILTER NOT EXISTS { 
+    ?centroid om:definition/om:unit_of_measure_or_measurement_scale ?unit .
+    ?unit a om:Unit_of_measure .
+  }
+}

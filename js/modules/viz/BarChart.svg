@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <style>
+      .axis {
+        stroke: black;
+        stroke-width: 4px;
+        fill: none;
+      }
+      .line {
+        stroke-width: 5px;
+        fill: none;
+      }
+    </style>
+  </defs>
+  <path class="axis" d="M 10,10 10,280 380,280" />
+
+  <rect x="60"  y="228" width="80" height="50"  style="fill: red;"  />
+  <rect x="140" y="70"  width="80" height="208" style="fill: green;"  />
+  <rect x="220" y="160" width="80" height="118" style="fill: blue;"  />
+
+</svg>

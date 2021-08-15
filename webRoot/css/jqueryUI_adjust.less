@@ -1,0 +1,238 @@
+@import "def.less";
+/* 
+ * overwrite settings from the jQuery UI CSS file
+ * some copied over from jQuery UI theme CSS
+ * https://github.com/jquery/jquery-ui/tree/master/themes/base
+ */
+
+body {
+  
+  .ui-widget{
+    font-family: inherit;
+    font-size: inherit;
+  }
+
+  /* needed for autocomplete within dialogs to see the whole autocomplete list */
+  .ui-dialog, 
+  .ui-dialog-content { 
+    overflow:   visible;
+    z-index:    200;
+    max-width:  900px;
+  }
+  
+  .ui-autocomplete {
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: default;
+    max-height: 200px;
+    overflow: auto;
+  }
+  
+  .ui-helper-hidden-accessible {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  
+  .ui-state-disabled {
+    opacity: @opacity-disabled;
+  }
+  
+  .ui-dialog-titlebar + .ui-dialog-content {
+    max-height: 60vh !important;
+    overflow: auto;
+  }
+  
+  /* Layout helpers
+  ----------------------------------*/
+  .ui-helper-hidden {
+    display: none;
+  }
+  .ui-helper-hidden-accessible {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  .ui-helper-reset {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    line-height: 1.3;
+    text-decoration: none;
+    font-size: 100%;
+    list-style: none;
+  }
+  .ui-helper-clearfix:before,
+  .ui-helper-clearfix:after {
+    content: "";
+    display: table;
+    border-collapse: collapse;
+  }
+  .ui-helper-clearfix:after {
+    clear: both;
+  }
+  .ui-helper-zfix {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    opacity: 0;
+  }
+  
+  .ui-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: block;
+    outline: none;
+    .shadow-3;
+  }
+  .ui-menu .ui-menu {
+    position: absolute;
+  }
+  .ui-menu .ui-menu-item {
+    position: relative;
+    margin: 0;
+    padding: 3px 1em 3px .4em;
+    cursor: pointer;
+    min-height: 0; /* support: IE7 */
+    /* support: IE10, see #8844 */
+    list-style-image: url("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7");
+    border: 1px solid transparent
+  }
+  .ui-menu .ui-menu-divider {
+    margin: 5px 0;
+    height: 0;
+    font-size: 0;
+    line-height: 0;
+    border-width: 1px 0 0 0;
+  }
+  
+  /* icon support */
+  .ui-menu-icons {
+    position: relative;
+  }
+  .ui-menu-icons .ui-menu-item {
+    padding-left: 2em;
+  }
+  
+  /* left-aligned */
+  .ui-menu .ui-icon {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: .2em;
+    margin: auto 0;
+
+    width: 1em;
+    height: 1em;
+  }
+  
+  /* right-aligned */
+  .ui-menu .ui-menu-icon {
+    left: auto;
+    right: 0;
+  }
+  
+  /* Component containers
+  ----------------------------------*/
+  .ui-widget-content {
+    background: @bgcolor-popup;
+  }
+  
+  
+  /* Interaction states
+  ----------------------------------*/
+  .ui-menu-item.ui-state-focus,
+  .ui-menu-item:hover,
+  .ui-menu-item .ui-state-active {
+    background: @bgcolor-highlight;
+  }
+
+
+  /* Slider
+  ----------------------------------*/
+  .ui-slider {
+    position: relative;
+    text-align: left;
+    background-color: @bgcolor-highlight;
+  }
+  .ui-slider .ui-slider-handle {
+    position: absolute;
+    z-index: 2;
+    width: 1.2em;
+    height: 1.2em;
+    cursor: pointer;
+    -ms-touch-action: none;
+    touch-action: none;
+    
+    background-color: @color-accent-light;
+    border-radius:    50%;
+  }
+  .ui-slider .ui-slider-range {
+    position: absolute;
+    z-index: 1;
+    font-size: .7em;
+    display: block;
+    border: 0;
+    background-position: 0 0;
+  }
+  
+  /* support: IE8 - See #6727 */
+  .ui-slider.ui-state-disabled .ui-slider-handle,
+  .ui-slider.ui-state-disabled .ui-slider-range {
+    filter: inherit;
+  }
+  
+  .ui-slider-horizontal {
+    height: .8em;
+  }
+  .ui-slider-horizontal .ui-slider-handle {
+    top: -.3em;
+    margin-left: -.6em;
+  }
+  .ui-slider-horizontal .ui-slider-range {
+    top: 0;
+    height: 100%;
+  }
+  .ui-slider-horizontal .ui-slider-range-min {
+    left: 0;
+  }
+  .ui-slider-horizontal .ui-slider-range-max {
+    right: 0;
+  }
+  
+  .ui-slider-vertical {
+    width: .8em;
+    height: 100px;
+  }
+  .ui-slider-vertical .ui-slider-handle {
+    left: -.3em;
+    margin-left: 0;
+    margin-bottom: -.6em;
+  }
+  .ui-slider-vertical .ui-slider-range {
+    left: 0;
+    width: 100%;
+  }
+  .ui-slider-vertical .ui-slider-range-min {
+    bottom: 0;
+  }
+  .ui-slider-vertical .ui-slider-range-max {
+    top: 0;
+  }
+
+}

@@ -1,0 +1,57 @@
+#setUnit {
+
+  text-align: center;
+
+  @input-width: 20em;
+  @input-sep:   2em;
+  
+  ul {
+    height: 10em;
+    width: @input-width;
+    overflow: auto;
+    display: inline-block;
+  }
+  li {
+    list-style: none;
+    white-space: nowrap;
+    text-align: right;
+    padding-right: 2em;
+  }
+  
+  label.input {
+    width: 1.5*@input-width;
+  }
+
+  ul label {
+    display: flex;
+  }
+  ul label span {
+    flex-grow: 1;
+    padding: 0.1em 1em;
+  }
+
+  input[type="radio"] {
+    display: none;
+  }
+  
+  input:checked + span {
+    background-color: @color-accent-dark;
+  }
+  
+  .selection {
+    margin-top: @input-sep;
+  }
+  .selection > span {
+    font-size: 80%;
+    opacity: @opacity-sec;
+  }
+  .centered {
+    display: flex;
+  }
+  .centered span {
+    flex-grow: 1;
+    flex-basis: 0;
+  }
+  .centered span:first-child { text-align: right; margin-right: 1em; }
+  .centered span:last-child  { text-align: left;  margin-left: 1em; }
+}

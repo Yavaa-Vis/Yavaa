@@ -1,0 +1,67 @@
+#joinDatasets {
+  svg {
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+  }
+
+  .column {
+      width: 95%;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      cursor: pointer;
+  }
+
+  .column.selected ~ .column:not(:hover):not(.selected),
+  svg.add:hover .column:not(:hover):not(.selected) {
+    opacity: @opacity-disabled;
+  }
+  
+
+  .dataset {
+      display: inline-block;
+      width: 35%;
+      overflow: hidden;
+  }
+  .arrow {
+      stroke: black;
+      stroke-width: 1px;
+      pointer-events: all;
+  }
+  svg.del .arrowUnderlay:hover + .arrow, svg.del .arrow:hover {
+      stroke: red;
+  }
+  .arrowUnderlay {
+      stroke: transparent;
+      stroke-width: 10px;
+  }
+  
+  #arrowStart, #arrowEnd {
+      fill: black;
+      fill: context-fill; /* "better" approach, but not feasible due to lacking browser support */
+  }
+  
+  .controls {
+      text-align: center;
+      margin-top: 1em;
+      margin-bottom: 2em;
+      position: relative;
+  }
+  input[type="radio"] + label {
+      opacity: 0.3;
+      font-weight: bold;
+  }
+  input[type="radio"]:checked + label {
+      opacity: 1;
+  }
+  
+  button.helper {
+    position: absolute;
+    right: 2em;
+    top: 0;
+  }
+}

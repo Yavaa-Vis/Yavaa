@@ -1,0 +1,50 @@
+/* 
+ * style definition for styleguide
+ * must NOT modify any frontent element for the webapp
+ */
+ 
+ /* load the base styles */
+ @import "../../webRoot/css/styles.less";
+ 
+#styleguide {
+  
+  padding: 1em;
+  overflow: auto;
+  
+  li {
+    margin-top: 0.2em;
+  }
+  
+  section > h1,
+  section > h2,
+  section > h3,
+  section > h4,
+  section > h5,
+  section > h6,
+  section > h7 {
+    margin-top: 1em;
+  }
+  
+  section:last-of-type {
+    margin-bottom: 4em;
+  }
+
+  /* action icons */
+  #menu {
+    margin-top: 1em;
+  }
+  #menu ul {
+    column-count: 2;
+  }
+  #menu li {
+    margin-top: 0.5em;
+  }
+  #menu .icon {
+    vertical-align: top;
+    margin-left: 1em;
+  }
+}
+
+  
+/* change the base paths */
+@base-path: './../../webRoot/';

@@ -1,0 +1,16 @@
+# filter for time
+#
+# Variables
+# {minValue}     ... start of the time interval
+# {maxValue}     ... end of the time interval
+{
+  ?colDesc qb:concept/skos:exactMatch <http://eurostat.linked-statistics.org/dic/time> .
+  OPTIONAL {
+    ?colRange owl:withRestrictions/rdf:first*/xsd:minInclusive ?minNumVal .
+  }
+  OPTIONAL {
+    ?colRange owl:withRestrictions/rdf:first*/xsd:maxInclusive ?maxNumVal .
+  }
+  FILTER( IF( BOUND( ?minTimeVal ) && ("{minValue}" != ""), ?minTimeVal <= "{minValue}"^^xsd:dateTime, true ) ) .
+  FILTER( IF( BOUND( ?maxTimeVal ) && ("{maxValue}" != ""), ?maxTimeVal >= "{minValue}"^^xsd:dateTime, true ) ) .
+}

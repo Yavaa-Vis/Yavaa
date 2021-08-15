@@ -1,0 +1,38 @@
+/*
+ * style the main menu
+ */
+
+@import "def.less";
+@import "colors.less";
+
+
+#menu {
+  display: inline-block;
+  width: 100%;
+  height: @viewport-menu-height;
+  
+  margin-bottom: @viewport-space;
+  padding: 3px 10px;
+}
+
+.menuitem:not(.disabled) {
+  cursor: pointer;
+  display: inline-block;
+}
+
+.menuitem.active {
+  border: 1px solid black;
+  background-color: white;
+}
+
+
+#menu:hover .menuitem:not(.disabled) {
+  opacity: @opacity-disabled;
+}
+#menu:hover .menuitem:not(.disabled):hover {
+  opacity: 1;
+}
+
+.menuitem.disabled {
+  opacity: @opacity-disabled;
+}

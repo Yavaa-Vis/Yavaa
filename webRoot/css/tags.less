@@ -1,0 +1,45 @@
+.tag {
+  display: inline-block;
+
+  height: @tag-height;
+  
+  margin: 0.2em;
+  padding: @tag-vertPadding 1em;
+
+  border: 1px solid black;
+  border-radius: 0.5em;
+  
+  max-width:      95%;
+  white-space:    nowrap;
+  overflow:       hidden;
+  text-overflow:  ellipsis;
+  line-height:    initial;
+
+  text-align: center;
+}
+
+.tag.nobreak {
+  white-space:  unset;
+  height:       auto;
+  text-align:   center;
+}
+
+.tag.column {
+  background-color: @color-column;
+}
+.tag.column.dimension {
+  background-color: @color-dim;
+}
+.tag.column.measurement {
+  background-color: @color-meas;
+}
+.tag.value {
+  background-color: @color-value;
+  font-size:        80%;
+}
+
+.tag.dataset {
+  background-color: @color-dataset;
+  
+  border-radius: 0;
+}

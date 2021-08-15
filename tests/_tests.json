@@ -1,0 +1,85 @@
+{
+  "compEngine/formulaParser": [
+      "compEngine_formulaParser-general.js"
+    , "compEngine_formulaParser-constantFolding.js"
+    , "grammar_formula.js"
+  ],  
+  "compEngine/validation/validateMessage": [
+      "compEngine_validate_validateMessage.js"
+  ],
+  "comp": [
+  ],
+  "comm/search": [
+    "comm_search_searchByCombination.js",
+    "comm_search_searchByCombination2.js"
+  ],
+  "comm/viz": [
+      "comm_viz_getStaticSVG.js"
+    , "comm_viz_getStaticSVG-missingValues.js"
+    , "comm_viz_getStaticSVG-nesting.js"
+    , "comm_viz_getStaticSVG-singleValuedArray.js"
+  ],
+  "comm/helper": [
+      "comm_helper_suggestJoin.js"
+  ],
+  "basic/ArbNumber": [
+      "basic_ArbNumber-general.js"
+    , "basic_ArbNumber-simpleArithmeticsInteger.js"
+    , "basic_ArbNumber-simpleArithmeticsFloat.js"
+    , "basic_ArbNumber-issue2.js"
+  ],
+  "basic/Unit": [
+      "basic_Unit-general.js"
+  ],
+  "comp/stats": [
+      "comp_stats_getQuantiles.js"
+  ],
+  "store/unit_sparql": [
+    "store_unit_sparql-conversion.js",
+    "store_unit_sparql-populateCompounds.js",
+    "store_unit_sparql-getBaseunit.js",
+    "store_unit_sparql-convertVirtualUnits.js",
+    "store_unit_sparql-resolveVirtualUnit.js"
+  ],
+  "store/unit/estimateUnit": [
+    "store_unit_estimateUnit.js"
+  ],
+  "search/searchByCombination": [
+    "search_searchByCombination_getIntersection.js",
+    "search_searchByCombination_rateCandidate.js",
+    "search_searchByCombination_rateCandidate2.js",
+    "search_searchByCombination_createSubregions.js",
+    "search_searchByCombination_reorderCandidate.js",
+    "search_searchByCombination_getCoverage.js",
+    "search_searchByCombination_createPseudoworkflow_classifyCombination.js",
+    "search_searchByCombination_cleanUp.js",
+    "search_searchByCombination_createPseudoworkflow.js",
+    "search_searchByCombination_createPseudoworkflow_complex.js"
+  ],
+  "store/metadata_sparql": [
+    "store_metadata_sparql-searchDatasetByConstraint.js",
+    "store_metadata_sparql-getMetadata.js",
+    "store_metadata_sparql-getColumns.js",
+    "store_metadata_sparql-getCodelistValues.js",
+    "store_metadata_sparql-typeAhead.js"
+  ],
+  "store/viz": [
+    "store_viz_suggestExact.js",
+    "store_viz_suggestApprox.js"
+  ],
+  "testing/createDataset": [
+    "testing_createDataset.js"
+  ],
+  "workflow/parser": [
+    "workflow_parser_workflow_complex.js",
+    "workflow_parser_pwf_complex.js"
+  ],
+  "viz": [
+    "viz_general.js",
+    "viz_helper_colorLegend.js",
+    "viz_helper_colorRangeLegend.js"
+  ],
+  "test": [
+    "test.js"
+  ]
+}

@@ -1,0 +1,58 @@
+<div id="loadDataset" title="Load a new dataset" data-help="https://tutorial.yavaa.org/#yavaa,search">
+  <ul>
+    <li><a href="#loadDataset_frag0"><span>Search</span></a></li>
+    <li><a href="#loadDataset_frag1"><span>Upload File</span></a></li>
+    <li><a href="#loadDataset_frag2"><span>Dataset by ID</span></a></li>
+  </ul>
+  
+  <div id="loadDataset_frag0">
+    <div id="search_keyword" class="inline-input">
+      <label class="input">
+        <input type="text" placeholder="please enter keywords" autocomplete="off" id="search_keywords">
+        <span class="label">Keywords</span>
+      </label>
+      <button class="helper" style="margin-left: 2em;" id="search_button">Search</button>
+    </div>
+    <div style="margin-top: 2em;">
+      <div id="search_results" style="display: inline-block; width: 45%; vertical-align: top;"></div>
+      <div style="display: inline-block; width: 5%;"></div>
+      <div id="search_details" style="display: inline-block; width: 45%; vertical-align: top; text-align: left;"></div>
+    </div>
+  </div>
+  
+  <div id="loadDataset_frag1">
+  
+    <label class="input file">
+      <button type="button">Browse ...</button>
+      <input class="fileInputPath" readonly value="" placeholder="no file selected" autocomplete="off">
+      <input id="loadDataset_file" type="file" style="display: none;" autocomplete="off" >
+      <span class="label">File to load</span>
+    </label>
+    <div class="inline-input">
+      <br>
+      <label class="input">
+        <select class="parserlist"></select>
+        <span class="label">Type</span>
+      </label>
+      <button class="loadDataset_testparse helper" type="button" disabled>Test</button>
+    </div>
+    
+    <div class="loadDataset_testoutput compact"></div>
+    <br>
+    <div class="loadDataset_settings" data-legend="Settings"></div>
+    
+  </div>
+  
+  <div id="loadDataset_frag2">
+    <div class="errMsg">
+      <span data-name="invalidid" style="display: inline;">Sorry, but we do not know this ID.</span>
+    </div>
+    <div id="search_keyword" class="inline-input">
+      <label class="input">
+        <input type="text" placeholder="ID or URI of a dataset" autocomplete="off" id="loadData_byID">
+        <span class="label">Dataset ID</span>
+      </label>
+    </div>
+  </div>
+  
+</div>

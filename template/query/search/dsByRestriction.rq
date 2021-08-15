@@ -1,0 +1,19 @@
+# find datasets matching certain restrictions
+#
+# Variables
+# {restrictions}     ... restrictions applied
+ 
+PREFIX :<http://yavaa.org/ns/eurostat/dsd#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dct:<http://purl.org/dc/terms/>
+PREFIX qb:<http://purl.org/linked-data/cube#>
+
+SELECT DISTINCT ?ds ?title ?src ?srcLabel
+WHERE {
+ ?ds qb:structure ?dsd .
+ ?ds dct:title ?title .
+{restrictions}
+ ?ds dct:publisher ?src .
+ OPTIONAL { ?src rdfs:label ?srcLabel  }
+}
+ORDER BY desc( ?ds )

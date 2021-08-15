@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <style>
+      .axis {
+        stroke: black;
+        stroke-width: 4px;
+        fill: none;
+      }
+      text {
+        font-size: 5em;
+        dominant-baseline: central;
+        text-anchor: middle;
+        opacity: 0.7;
+      }
+    </style>
+  </defs>
+
+  <path class="axis" 
+        d="M 10,280 380,280
+           M 10,190 380,190
+           M 10,100 380,100
+           M 10, 10 380, 10" />
+
+   <text x="185" y="55">?</text>
+   <text x="185" y="145">?</text>
+   <text x="185" y="235">?</text>
+</svg>

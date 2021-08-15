@@ -1,0 +1,71 @@
+# decompose the given units, if possible
+# used in estimation of the result unit of a formula
+#
+# units can be of the following form:
+# prefixed unit => get prefix factors
+# single units => get definition => get compounds
+# compound units => get compounds 
+#
+# Variables
+# {units}   ... units to convert
+
+PREFIX qudt: <http://qudt.org/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX om:   <http://www.wurvoc.org/vocabularies/om-1.8/>
+
+SELECT DISTINCT
+       ?unit
+       ?def
+       ?defIsUnit
+       ?baseUnit
+       ?baseExponent
+       ?atorProp
+       ?component
+       ?prefixBase
+       ?prefixFactor
+       
+WHERE {
+
+# bind units under test
+  VALUES ?unit { {units} } .
+ 
+# check for definition
+  OPTIONAL {
+    
+    ?unit om:definition ?def .
+    BIND( IF( EXISTS{ ?def a om:Unit_of_measure }, true, false ) AS ?defIsUnit ) .
+  
+    # hotfix to prevent irregular conversion from showing up
+    # example: degree_Celsius
+    FILTER NOT EXISTS{
+      ?scale a                  om:Measurement_scale ;
+             om:unit_of_measure ?unit .
+    }
+
+  }
+  
+# check for base / exp
+  OPTIONAL {
+  
+    ?unit om:base     ?baseUnit ;
+          om:exponent ?baseExponent .
+  
+  }
+  
+# decomposition
+  OPTIONAL {
+  
+    VALUES ?atorProp { om:denominator om:numerator om:term_1 om:term_2 } .
+    ?unit  ?atorProp ?component .
+  
+  }
+  
+# prefixed unit
+  OPTIONAL {
+    
+    ?unit om:prefix         ?prefix ;
+          om:singular_unit  ?prefixBase .
+    
+    ?prefix om:factor ?prefixFactor .
+  }
+}

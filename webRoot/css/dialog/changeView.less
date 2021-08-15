@@ -1,0 +1,50 @@
+#changeView {
+
+  div {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  
+  .container {
+    display:    block;
+    text-align: center;
+  }
+
+  [data-nav] {
+    color:      @color-accent;
+    font-size:  20pt;
+
+    width:  2em;
+    height: 2em;
+
+    cursor: pointer;
+  }
+  
+  .element {
+    opacity:    @opacity-disabled;
+    position:   absolute;
+    top:        0;
+    padding:    2em;
+    box-sizing: border-box;
+    cursor:     pointer;
+  }
+  .element:nth-child(5) {
+    opacity:    @opacity-prim;
+  }
+
+  .elements {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .hint {
+    display: block;
+    text-align: center;
+  }
+
+  .hint > [data-view] { display: none; }
+  .container[data-view="data"]  + .hint > [data-view="data"]  { display: block; }
+  .container[data-view="wf"]    + .hint > [data-view="wf"]    { display: block; }
+  .container[data-view="viz"]   + .hint > [data-view="viz"]   { display: block; }
+
+}

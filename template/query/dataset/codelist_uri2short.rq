@@ -1,0 +1,20 @@
+# given a certain codelist, find the short notations for given URIs
+#
+# Variables
+# {codelist}    ... the codelist
+# {uri}         ... the values to resolve
+
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+SELECT ?short ?uri
+WHERE {
+
+  # bind codelist
+  VALUES ?codelist { {codelist} }
+
+  # bind labels
+  VALUES ?uri { {uri} }
+
+  # link
+  ?codelist skos:hasTopConcept  ?uri .
+  ?uri      skos:notation     ?short .
+}

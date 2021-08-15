@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+     version="1.1" viewBox="0 0 2 2">
+  <defs>
+    <g id="e">
+      <rect x="-0.05" y="-1" width="0.2" height="0.5" style="fill: #999; opacity: 1;" />
+    </g>
+  </defs>
+    <use xlink:href="#e" x="1" y="1">
+      <animate attributeName="opacity" to="0" dur="1s" repeatCount="indefinite" begin="-0.875s"/>
+    </use>
+    <use xlink:href="#e" x="1" y="1" transform="rotate(45 1 1)">
+      <animate attributeName="opacity" to="0" dur="1s" repeatCount="indefinite" begin="-0.75s" />
+    </use>
+    <use xlink:href="#e" x="1" y="1" transform="rotate(90 1 1)">
+      <animate attributeName="opacity" to="0" dur="1s" repeatCount="indefinite" begin="-0.625s" />
+    </use>
+    <use xlink:href="#e" x="1" y="1" transform="rotate(135 1 1)">
+      <animate attributeName="opacity" to="0" dur="1s" repeatCount="indefinite" begin="-0.5s" />
+    </use>
+    <use xlink:href="#e" x="1" y="1" transform="rotate(180 1 1)">
+      <animate attributeName="opacity" to="0" dur="1s" repeatCount="indefinite" begin="-0.375s" />
+    </use>
+    <use xlink:href="#e" x="1" y="1" transform="rotate(225 1 1)">
+      <animate attributeName="opacity" to="0" dur="1s" repeatCount="indefinite" begin="-0.25s" />
+    </use>
+    <use xlink:href="#e" x="1" y="1" transform="rotate(270 1 1)">
+      <animate attributeName="opacity" to="0" dur="1s" repeatCount="indefinite" begin="-0.125s" />
+    </use>
+    <use xlink:href="#e" x="1" y="1" transform="rotate(315 1 1)">
+      <animate attributeName="opacity" to="0" dur="1s" repeatCount="indefinite" begin="0s" />
+    </use>
+</svg>

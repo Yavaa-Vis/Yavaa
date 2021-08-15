@@ -1,0 +1,69 @@
+# get columns for the given datasets
+# 
+# Variables
+# {uri}   ... the URL of the respective datasets
+
+PREFIX qb:<http://purl.org/linked-data/cube#>
+PREFIX dcat:<http://www.w3.org/ns/dcat#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos:<http://www.w3.org/2004/02/skos/core#>
+PREFIX yavaa:<http://yavaa.org/ns/yavaa#>
+PREFIX owl:<http://www.w3.org/2002/07/owl#>
+PREFIX dct:   <http://purl.org/dc/terms/>
+
+
+SELECT DISTINCT ?ds ?label ?order ?concept ?role ?coded ?codelist ?time ?numeric ?unit
+WHERE {
+  
+  # bind datasets
+  VALUES ?ds { {uri} }
+
+  # select correct dataset structure
+  ?ds qb:structure ?dsd .
+
+  # all columns
+  ?dsd qb:component ?colNode .
+
+  # order of columns
+  ?colNode qb:order ?order .
+
+  #label of columns
+  ?concept rdfs:label|dct:title|skos:prefLabel ?label .
+
+  # is it dimension or property?
+  VALUES ?role { qb:dimension qb:measure } .
+  ?colNode ?role ?descNode .
+
+  # concept
+  ?descNode qb:concept ?conceptNode .
+  VALUES ?conceptType { skos:exactMatch skos:relatedMatch } .
+  ?conceptNode ?conceptType ?concept .
+
+  # coded property?
+  OPTIONAL {
+    VALUES ?coded { qb:CodedProperty } .
+    ?descNode a ?coded .
+    ?descNode qb:codeList ?codelist
+  } .
+
+  # range
+  ?descNode rdfs:range ?rangeNode .
+
+  # time property?
+  OPTIONAL {
+    ?descNode yavaa:hasFormat ?time .
+    ?time rdf:type yavaa:TimeFormat .
+  }
+
+  # numeric value
+  OPTIONAL {
+    ?rangeNode owl:onDatatype ?numericType .
+    FILTER ( ?numericType != xsd:dateTime )
+    BIND( "numeric" AS ?numeric ) .
+  }
+  
+  # get unit, if present
+  OPTIONAL {
+    ?descNode yavaa:hasUnit ?unit .
+  }
+}

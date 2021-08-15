@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf8" />
+  <title>Yavaa</title>  
+  <link rel="shortcut icon" href="./gfx/favicon.svg" type="image/svg+xml"/>
+  <link rel="alternate icon" type="image/png" href="./gfx/favicon.png"/>
+
+  <script>
+  !function(){
+    // chrome messes up some paths, if there is no trailing slashs
+    const path = window.location.href;
+    if( path[ path.length-1 ] != '/' ) {
+      window.location.href = window.location.href + '/';
+    }
+  }();
+  </script>
+  
+  <link rel="stylesheet" type="text/css" href="./lib/jquery/jquery.dataTables.css">
+  <link rel="stylesheet" type="text/css" href="./lib/jquery/jquery.datetimepicker.css">
+  <link rel="stylesheet" type="text/css" href="./lib/codemirror/codemirror.css">
+
+  <!-- css -->
+
+</head>
+<body>
+<div id="info">
+  <span id="sessionId">SessionId: <span></span></span>
+  <div id="connection"></div>
+</div>
+
+<div id="viewport">
+  <nav id="menu"></nav>
+
+  <nav id="dataSwitch"></nav>
+
+  <section id="content">
+    <div id="carousel">
+      <div id="content-data" class="invis"></div>
+      <div id="content-viz"  class="invis"></div>
+      <div id="content-wf"   class="invis"></div>
+    </div>
+  </section>
+</div>
+
+<nav id="viewSwitch">
+  <div class="viewNavBtn left" ></div>
+  <div class="viewNavBtn right"></div>
+</nav>
+
+<div id="log"></div>
+
+<script src="./lib/requirejs/require.js"></script>
+<script src="./script.js"></script>
+</body>
+</html>

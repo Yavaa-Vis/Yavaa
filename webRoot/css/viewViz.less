@@ -1,0 +1,44 @@
+#content-viz {
+  
+  .noselection {
+
+    height:           100%;
+    text-align:       center;
+    font-style:       italic;
+    font-size:        120%;
+    background-color: @bgcolor-fg;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    .text {
+      opacity: @opacity-sec;
+    }
+    
+    .icon {
+      width:      5em;
+      height:     5em;
+      margin-top: 5%;
+      opacity:    @opacity-sec;
+    }
+   
+    .icon:hover {
+      opacity:  @opacity-prim;
+    }
+  }
+    
+  .overlay svg {
+    background-color: transparent;
+  }
+  
+  /* overwrite colors, so we can still spot them vs the black background here */
+  svg {
+
+    path {  stroke: @text-color; }
+    text {  fill:   @text-color; }
+    .axis { fill:   @text-color; }
+
+  }
+  
+}

@@ -1,0 +1,314 @@
+#constructDataset {
+
+  /* ----------------------------- common: column lists -------------------------------------- */
+
+  .collist {
+    margin-top: 1em;
+    font-size: 90%;
+  }
+
+  .colitem {
+    display: flex;
+  }
+
+  .col, .val {
+    display: inline-block;
+  }
+
+  .col {
+    width: 15em;
+    margin-right: 1em;
+  }
+
+  .remCol {
+    margin: 0.2em 1em 0.2em 0.2em;
+    width: 2.5em;
+    height: 2.5em;
+  }
+
+  .val {
+    width: calc( 100% - 20em );
+
+    label {
+      width: 100%;
+    }
+  }
+
+  .val.range label {
+    width: 40%;
+  }
+
+  .colitem:not(:first-child),
+  .adjitem:not(:first-child) {
+    border-top: 1px solid fade(@color-accent-dark, 70%);
+    padding-top: 0.5em;
+  }
+
+  /* -------------------------------- tab 1: specify ----------------------------------------- */
+  ul {
+    list-style: none;
+  }
+
+  input.columnHead {
+    max-width: 80%;
+  }
+
+  #constructDatasetTabs1 {
+
+    position: relative;
+
+    .tag {
+      cursor: not-allowed;
+    }
+
+    .helperbtns {
+      position: absolute;
+      right: 2em;
+      top: 0;
+    }
+
+  }
+
+  /* -------------------------------- tab 2: results ----------------------------------------- */
+
+  #constructDatasetTabs2 {
+
+    .colitem {
+      line-height: @tag-height;
+    }
+
+    /* ---------------- no match --------------------------------- */
+
+    .nomatch {
+      border-color:     @error-color;
+      background-color: @bgcolor-highlight;
+      font-size:        80%;
+      vertical-align:   middle;
+      height:           calc( 0.8 * @tag-height );
+      line-height:      80%;
+    }
+
+    .nomatch::before {
+      font-family:    FontAwesome;
+      color:          @error-color;
+      content:        '\f06a';
+      margin-right:   0.5em;
+      font-size:      120%;
+      vertical-align: middle;
+    }
+
+    /* ---------------- partial numeric match -------------------- */
+
+    .container {
+      width:          100%;
+      display:        flex;
+      flex-direction: row;
+      font-size:      80%;
+    }
+
+    .container:not(.requestMin) .requestMin { visibility: hidden; }
+    .container:not(.requestMax) .requestMax { visibility: hidden; }
+    .container:not(.requestMin):not(.requestMax) .requestBoth { display: none; }
+
+    .total,
+    .partial {
+      width:      ~"calc( 100% - 1em )";
+      position:   relative;
+      box-sizing: border-box;
+      display:    inline-block;
+      margin:     0;
+      padding:    0;
+      height:     20px;
+    }
+
+    div.total {
+      background-color: red;
+      margin: 0 0.5em;
+      opacity: @opacity-sec;
+    }
+
+    .partial {
+      background-color: green;
+    }
+
+    .bordered {
+      border-color: @color-accent-light;
+      border-width: 1px;
+      height:       10px;
+      display:      inline-block;
+      position:     absolute;
+      box-sizing:   content-box;
+    }
+
+    div:nth-of-type(1) > .bordered {
+      bottom: 0;
+    }
+
+    div:nth-of-type(3) > .bordered {
+      top: 0
+    }
+
+    .bordered:nth-of-type(1) {
+      left: 0;
+    }
+
+    .bordered:nth-of-type(2) {
+      right: 0;
+    }
+
+    div:nth-of-type(1) .bordered:nth-of-type(1) {
+      border-style: dotted dotted none none;
+    }
+
+    div:nth-of-type(1) .bordered:nth-of-type(2) {
+      border-style: dotted none none dotted;
+    }
+
+    div:nth-of-type(3) .bordered:nth-of-type(1) {
+      border-style: none dotted dotted none;
+    }
+
+    div:nth-of-type(3) .bordered:nth-of-type(2) {
+      border-style: none none dotted dotted;
+    }
+
+    .container > div > div {
+      height: 20px;
+      line-height: 20px;
+      vertical-align: middle;
+    }
+
+    .container > div:nth-of-type( 1),
+    .container > div:nth-of-type( 3) {
+      margin: 0 0.5em;
+    }
+
+    .container div:nth-of-type( 2) {
+      flex: 1 1 auto;
+    }
+
+    .markercontainer {
+      position: relative;
+    }
+
+    /* ---------------- value matches -------------------- */
+
+    .tag.suc::after {
+      content: '\0000a0\2714'; /* check mark symbol; */
+      color: green;
+      font-weight: bold;
+    }
+
+    .tag.fail::after {
+      content: '\0000a0\274C'; /* cross mark symbol; */
+      color: red;
+      font-weight: bold;
+    }
+
+    /* --------- "read more" codelist values ------------- */
+  
+    .val:not(.full) span:nth-child(n+20) {
+      display: none;
+    }
+    
+    .val:not(.full) span.readmore {
+      display:        inline-block;
+      font-size:      80%;
+      line-height:    @tag-height;
+      vertical-align: bottom;
+      
+      height:   @tag-height;
+      margin:   0.2em;
+      padding:  @tag-vertPadding 1em;
+      
+      cursor: pointer;
+    }
+    .val.full span.readmore {
+      display: none;
+    }
+
+  }
+
+  /* -------------------------------- tab 3: distribution ----------------------------------------- */
+
+  #constructDatasetTabs3 {
+
+    min-height: 250px; /* dirty fix to prevent unnecessary scrollbar from appearing */
+
+    .flexRow {
+      display: flex;
+    }
+
+    ul {
+      flex:       auto;
+      font-size:  90%
+    }
+    li {
+      cursor:       help;
+      line-height:  2.4em;
+    }
+
+    .distrChart {
+      width: 200px;
+      height: 200px;
+      display: inline-block;
+    }
+
+    .chartEl {
+      stroke: #fff;
+      transition: all .3s;
+    }
+
+    &.fade .chartEl,
+    &.fade .colorIcon {
+      opacity: .3;
+    }
+
+    &.fade .marked {
+      opacity: 1;
+    }
+
+    .colorIcon {
+      display:  inline-block;
+      width:    0.8em;
+      height:   0.8em;
+
+      margin-right: 0.5em;
+      margin-top: 0.8em;
+      transition: all .3s;
+
+      background-color: red;
+    }
+  }
+
+  /* -------------------------------- tab 4: adjustments ----------------------------------------- */
+
+  #constructDatasetTabs4 {
+
+    .filterDatatypes {
+
+      option {
+        display: none;
+      }
+      [data-type="numeric"]    option[data-type~="numeric"],
+      [data-type="string"]     option[data-type~="string"],
+      [data-type="bag"]        option[data-type~="bag"],
+      [data-type="semantic"]   option[data-type~="semantic"],
+      [data-type="time"]       option[data-type~="time"],
+      option[data-type~="all"] {
+        display: block;
+      }
+
+    }
+    
+    .removalList {
+      line-height: 2.4em;
+    }
+    
+    & > ul {
+      font-size: 90%;
+    }
+
+  }
+
+}

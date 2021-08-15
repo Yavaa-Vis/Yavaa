@@ -1,0 +1,20 @@
+# get the values included in codelists
+#
+# Variables
+# {codelist}    ... the codelists
+# {separator}   ... separtor character for list of matching enum values
+
+PREFIX skos:<http://www.w3.org/2004/02/skos/core#>
+
+SELECT  ?codelist 
+        (GROUP_CONCAT( ?value;  separator="{separator}" ) AS ?values)
+WHERE {
+
+  # restrict to given codlists
+  VALUES ?codelist { {codelist} }
+  
+  # get the columns of the dataset
+  ?codelist skos:hasTopConcept ?value.
+
+}
+GROUP BY ?codelist

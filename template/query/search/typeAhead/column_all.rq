@@ -1,0 +1,50 @@
+PREFIX :<http://yavaa.org/ns/eurostat/dsd#>
+PREFIX qb:<http://purl.org/linked-data/cube#>
+PREFIX owl:<http://www.w3.org/2002/07/owl#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos:<http://www.w3.org/2004/02/skos/core#>
+PREFIX yavaa:<http://yavaa.org/ns/yavaa#>
+PREFIX luc: <http://www.ontotext.com/owlim/lucene#>
+
+SELECT DISTINCT ?concept ?label ?type
+WHERE {
+
+  ?concept    luc:labelIndex    "{needleLucene}" .
+  ?concept    skos:prefLabel    ?label .
+
+  # get type - emulate SWITCH statement
+  BIND( 
+
+    # codelist property?
+    IF( EXISTS {
+          ?dim  qb:concept/skos:exactMatch ?concept ;
+                qb:codeList/rdf:type skos:ConceptScheme .
+        },
+        "{typeSemantic}",
+
+    # time property?
+        IF( EXISTS {
+              ?dim  qb:concept/skos:exactMatch  ?concept ;
+                    rdfs:range/owl:onDatatype   xsd:dateTime .
+            },
+            "{typeTime}",
+
+    # numeric property =
+            IF( EXISTS {
+                  VALUES ?numericType { xsd:integer xsd:float } .
+                  ?dim  qb:concept/skos:exactMatch  ?concept ;
+                        rdfs:range/owl:onDatatype   ?numericType .
+                },
+                "{typeNumeric}",
+                
+                ""
+            )
+        )
+    )
+    AS ?type )
+
+  # as a precaution we expect only those three types
+  FILTER( ?type != "" )
+
+}
+ORDER BY ASC( STRLEN( ?label ) ) ASC(?label)

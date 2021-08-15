@@ -1,0 +1,16 @@
+# Variables
+# {url}   ... URL to resolve
+
+PREFIX rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl:      <http://www.w3.org/2002/07/owl#>
+PREFIX xsd:      <http://www.w3.org/2001/XMLSchema#>
+PREFIX yavaa:    <http://yavaa.org/ns/yavaa#>
+
+SELECT ?type ?pattern ?order ?meaning
+WHERE {
+  VALUES ?type { <{url}> } .
+  ?type owl:withRestrictions/rdf:first/xsd:pattern ?pattern .
+  ?type yavaa:hasTimeComponent ?comp .
+  ?comp yavaa:order ?order .
+  ?comp yavaa:hasMeaning ?meaning
+}

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <style>
+      .axis {
+        stroke: black;
+        stroke-width: 4px;
+        fill: none;
+      }
+    </style>
+  </defs>
+
+  <rect x="10" y="10"  width="74" height="54" style="fill: rgb(243, 248, 171);" />
+  <rect x="10" y="64"  width="74" height="54" style="fill: rgb(241, 111, 68);" />
+  <rect x="10" y="118" width="74" height="54" style="fill: rgb(212, 51, 44);" />
+  <rect x="10" y="172" width="74" height="54" style="fill: rgb(101, 188, 97);" />
+  <rect x="10" y="226" width="74" height="54" style="fill: rgb(248, 247, 174);" />
+  
+  <rect x="84" y="10"  width="74" height="54" style="fill: rgb(185, 20, 39);" />
+  <rect x="84" y="64"  width="74" height="54" style="fill: rgb(241, 111, 68);" />
+  <rect x="84" y="118" width="74" height="54" style="fill: rgb(212, 51, 44);" />
+  <rect x="84" y="172" width="74" height="54" style="fill: rgb(254, 218, 138);" />
+  <rect x="84" y="226" width="74" height="54" style="fill: rgb(66, 171, 89);" />
+  
+  <rect x="158" y="10"  width="74" height="54" style="fill: rgb(245, 248, 173);" />
+  <rect x="158" y="64"  width="74" height="54" style="fill: rgb(251, 161, 93);" />
+  <rect x="158" y="118" width="74" height="54" style="fill: rgb(233, 245, 161);" />
+  <rect x="158" y="172" width="74" height="54" style="fill: rgb(254, 237, 161);" />
+  <rect x="158" y="226" width="74" height="54" style="fill: rgb(21, 137, 72);" />
+  
+  <rect x="232" y="10"  width="74" height="54" style="fill: rgb(171, 219, 113);" />
+  <rect x="232" y="64"  width="74" height="54" style="fill: rgb(148, 209, 106);" />
+  <rect x="232" y="118" width="74" height="54" style="fill: rgb(185, 20, 39);" />
+  <rect x="232" y="172" width="74" height="54" style="fill: rgb(252, 173, 100);" />
+  <rect x="232" y="226" width="74" height="54" style="fill: rgb(254, 214, 133);" />
+  
+  <rect x="306" y="10"  width="74" height="54" style="fill: rgb(236, 246, 165);" />
+  <rect x="306" y="64"  width="74" height="54" style="fill: rgb(154, 212, 107);" />
+  <rect x="306" y="118" width="74" height="54" style="fill: rgb(87, 181, 94);" />
+  <rect x="306" y="172" width="74" height="54" style="fill: rgb(11, 123, 65);" />
+  <rect x="306" y="226" width="74" height="54" style="fill: rgb(154, 212, 107);" />
+
+  <path class="axis" d="M 10,10 10,280 380,280" />
+
+</svg>

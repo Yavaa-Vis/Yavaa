@@ -1,0 +1,32 @@
+# resolve a label for given entities
+#
+# Variables
+# {urls}     ... comma separated list of ids for the entities to resolve
+
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dct:   <http://purl.org/dc/terms/>
+PREFIX skos:  <http://www.w3.org/2004/02/skos/core#>
+
+SELECT DISTINCT ?uri ?label ?title ?prefLabel
+WHERE {
+  VALUES ?uri { {uris} }
+  
+  # try label property
+  OPTIONAL{ 
+    ?uri rdfs:label ?label .
+    FILTER( LANG( ?label ) IN ( "en", "" ) ) .
+  }.
+  
+  # try title
+  OPTIONAL{ 
+    ?uri dct:title ?title .
+    FILTER( LANG( ?title ) IN ( "en", "" ) ) .
+  }.
+  
+  # try pref label
+  OPTIONAL{
+    ?uri skos:prefLabel ?prefLabel .
+    FILTER( LANG( ?prefLabel ) IN ( "en", "" ) ) .
+  }.
+
+}

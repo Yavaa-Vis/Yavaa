@@ -1,0 +1,196 @@
+/*
+ * overwrite jQuery UI styles for dialogs
+ */
+
+/* XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Dialog XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX */
+
+.ui-dialog {
+  background-color:   @bgcolor-popup;
+  padding:            1.5rem;
+  .shadow-4;
+}
+
+.ui-dialog .ui-dialog-titlebar-close {
+  font-family: FontAwesome;
+  font-size: 150%;
+}
+
+/* XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Dialog Title XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX */
+
+.ui-dialog .ui-dialog-titlebar {
+  position: relative;
+  margin-bottom: 1em;
+}
+ 
+.ui-dialog-title {
+  font-size:    2.28rem;
+  line-height:  110%;
+  margin:       1.14rem 0 0.912rem 0;
+  white-space:  nowrap;
+  overflow:     hidden;
+  text-overflow: ellipsis;
+}
+
+.ui-dialog .ui-dialog-titlebar .helplink {
+  font-family:  FontAwesome;
+  margin-left:  1em;
+  font-size:    150%;
+  opacity:      @opacity-disabled;
+  
+  &:hover {
+    opacity: @opacity-prim;
+  }
+}
+
+/* XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Error Message XXXXXXXXXXXXXXXXXXXXXXXXXXXXX */
+
+.ui-dialog .errMsg {
+  margin: 0.3em 0.5em 1em;
+  border: 1px solid @error-color;
+  padding: 0.3em;
+  border-radius: 1em;
+  background-color: @bgcolor-highlight;
+  display: none;
+  font-size:  90%;
+}
+
+.ui-dialog .errMsg > span {
+  display: none;
+}
+
+.ui-dialog .errMsg::before {
+    font-family:  FontAwesome;
+    color:        @error-color;
+    content:      '\f06a';
+    margin:       0 0.3em;
+    font-size:    130%;
+    vertical-align: middle;
+}
+
+/* XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Info Message XXXXXXXXXXXXXXXXXXXXXXXXXXXXX */
+
+.ui-dialog .infoMsg {
+  margin: 0.3em 0.5em 1em;
+  border: 1px solid @info-color;
+  padding: 0.3em;
+  border-radius: 1em;
+  background-color: @bgcolor-highlight;
+  font-size:  90%;
+}
+
+.ui-dialog .infoMsg > span {
+  display: none;
+}
+
+.ui-dialog .infoMsg::before {
+    font-family:  FontAwesome;
+    color:        @info-color;
+    content:      '\f071';
+    margin:       0 0.3em;
+    font-size:    130%;
+    vertical-align: middle;
+}
+
+/* XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Buttons XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX */
+
+.ui-dialog-buttonpane {
+  margin-top:   1.5em;
+  white-space:  nowrap;
+  text-align:   left;
+}
+
+.ui-dialog-titlebar button {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+button.ui-button-icon-only {
+  width:  2em;
+  height: 2em;
+  padding: 0;
+  box-sizing: content-box;
+  
+  position: absolute;
+  top: 0.1em;
+  right: 0.5em;
+}
+
+.ui-dialog-titlebar button:hover {
+  color: @color-accent-light;
+  background-color: transparent;
+}
+
+/* XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Headings XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX */
+
+.ui-dialog-content h1, 
+.ui-dialog-content h2,
+.ui-dialog-content h3 {
+  margin-bottom: 0.3em;
+}
+
+.ui-dialog-content h1:not(:first-child), 
+.ui-dialog-content h2:not(:first-child),
+.ui-dialog-content h3:not(:first-child) {
+  margin-top: 0.7em;
+}
+
+.ui-dialog-content h1 {
+  font-size: 1.5em;
+}
+
+.ui-dialog-content h2 {
+  font-size: 1.35em;
+}
+
+.ui-dialog-content h3 {
+  font-size: 1.15em;
+}
+
+/* XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Add. Info XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX */
+
+.ui-dialog {
+
+  input.infoToggle {
+    display: none;
+  }
+  
+  .infoToggle {
+    font-size:  80%;
+    font-style: italic;
+    cursor:     pointer;
+  }
+  
+  .infoToggle::before {
+    font-family:  FontAwesome;
+    content:      '\f071';
+    margin:       0 0.3em;
+    font-size:    100%;
+    vertical-align: middle;
+    font-style:   normal;
+    color:        @info-color;
+  }
+  
+  .infoBox {
+    border-radius:    0.5em;
+    background-color: @bgcolor-highlight;
+    display: none;
+  }
+
+  .infoToggle .shown  { display: none;   }
+  .infoToggle .hidden { display: inline; }
+  
+  input.infoToggle:checked {
+
+    & ~ .infoBox {
+      display: block;
+    }
+    
+    & ~ label .shown {
+      display: inline;
+    }
+    
+    & ~ label .hidden {
+      display: none;
+    }
+  }
+}

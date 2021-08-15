@@ -1,0 +1,17 @@
+# filter for time
+#
+# Variables
+# {concept}    ... the concept for the the filtered column
+# {minValue}   ... minimum value to be searched for
+# {maxValue}   ... maximum value to be searched for
+{
+  ?colDesc qb:concept/skos:exactMatch {concept} .
+  OPTIONAL {
+    ?colRange owl:withRestrictions/rdf:first*/xsd:minInclusive ?minNumVal .
+  }
+  OPTIONAL {
+    ?colRange owl:withRestrictions/rdf:first*/xsd:maxInclusive ?maxNumVal .
+  }
+  FILTER( IF( BOUND( ?minNumVal ), ?minNumVal <= {minValue}, true ) ) .
+  FILTER( IF( BOUND( ?maxNumVal ), ?maxNumVal >= {maxValue}, true ) ) .
+}

@@ -1,0 +1,41 @@
+PREFIX :<http://yavaa.org/ns/eurostat/dsd#>
+PREFIX qb:<http://purl.org/linked-data/cube#>
+PREFIX owl:<http://www.w3.org/2002/07/owl#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos:<http://www.w3.org/2004/02/skos/core#>
+PREFIX yavaa:<http://yavaa.org/ns/yavaa#>
+PREFIX luc: <http://www.ontotext.com/owlim/lucene#>
+
+SELECT DISTINCT ?concept ?label ?type 
+WHERE {
+  ?dim        a                   qb:{type}Property ;
+              qb:concept          ?colConcept ;
+              rdfs:range          ?rangeNode .
+  ?colConcept skos:exactMatch     ?concept .
+  ?concept    skos:prefLabel      ?label .
+  ?concept    luc:labelIndex      "{needleLucene}" .
+  
+  # codelist property?
+  OPTIONAL {
+    ?dim      qb:codeList         ?codelist .
+    BIND( "{typeSemantic}" AS ?type )
+  }
+  
+  # time property?
+  OPTIONAL {
+    ?dim yavaa:hasFormat/rdf:type yavaa:TimeFormat .
+    BIND( "{typeTime}" AS ?type )
+  }
+
+  # numeric value
+  OPTIONAL {
+    VALUES ?numericType { xsd:interger xsd:float } .
+    ?rangeNode owl:onDatatype ?numericType .
+    BIND( "{typeNumeric}" AS ?type ) .
+  }
+  
+  # type needs to be bound
+  FILTER( BOUND(?type) ) .
+  
+}
+ORDER BY ASC(?label)

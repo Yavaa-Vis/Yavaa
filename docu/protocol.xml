@@ -1,0 +1,614 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+
+    <!-- All messages from the worker to the client have a _jobID parameter to reference the job they refer to -->
+
+    <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX General XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+    <section title="General">
+
+    <!-- ..................................... Worker -> UI ..................................... -->
+    <sectionpart direction="W2UI">
+        <command name="invalidCommand">
+            <desc>Last issued command was invalid.</desc>
+            <params>
+                <param name="command"    type="Array">Invalid command</param>
+                <param name="message"    type="String">Error message</param>
+            </params>
+        </command>
+
+        <command name="queued">
+            <desc>Operation queued for execution.</desc>
+        </command>
+
+        <command name="error">
+            <desc>Description of an error happening on the server side.</desc>
+            <params>
+                <param name="msg"                           type="String">Error message</param>
+                <param name="stack"      optional="true"    type="String">Stack trace of the error</param>
+                <param name="ts"                            type="Number">Timestamp of the error; as Unix timestamp</param>
+                <param name="src"                           type="String">Module where the error occurred</param>
+            </params>
+        </command>
+    </sectionpart>
+
+    <!-- ..................................... Worker -> UI ..................................... -->
+    <sectionpart direction="UI2W">
+        <command name="error">
+            <desc>Description of error happening on the client side; to be logged on server side.</desc>
+            <params>
+                <param name="msg"                           type="String">Error message</param>
+                <param name="stack"      optional="true"    type="String">Stack trace of the error</param>
+                <param name="ts"                            type="Number">Timestamp of the error; as Unix timestamp</param>
+                <param name="src"                           type="String">Module where the error occurred</param>
+            </params>
+        </command>
+    </sectionpart>
+
+    </section>
+
+    <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Data Retrieval XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+    <section title="Data Retrieval">
+
+    <!-- ..................................... Worker -> UI ..................................... -->
+    <sectionpart direction="W2UI">
+
+        <command name="exported">
+            <desc>Result of export function.</desc>
+            <params>
+                <param name="data_id"    type="Number">Internal id of the retrieved dataset</param>
+                <param name="data"       type="String">Content of the exported file</param>
+                <param name="part"       type="String">Part triggered for download</param>
+                <param name="mime"       type="String">Mime type for the download</param>
+            </params>
+        </command>
+
+    </sectionpart>
+
+    <!-- ..................................... UI -> Worker ..................................... -->
+    <sectionpart direction="UI2W">
+
+        <command name="loadData">
+            <desc>Request loading of a dataset given by the ID.</desc>
+            <params>
+                <param name="id"         type="String">ID of the respective dataset</param>
+            </params>
+            <binding module="comm/load" method="loadData" />
+        </command>
+
+        <command name="loadFile">
+            <desc>Request parsing of the given string as a new dataset.</desc>
+            <params>
+                <param name="module"         type="String">Name of the parser module to use</param>
+                <param name="content"        type="String">Content of the file to parse</param>
+                <param name="settings"       type="Object">Settings for the parser</param>
+                <param name="parser"         type="Array">List of parsers to use for the columns</param>
+            </params>
+            <binding module="comm/load" method="loadFile" />
+        </command>
+
+        <command name="export">
+            <desc>Export a dataset to a file.</desc>
+            <params>
+                <param name="part"                              type="String">Part requested for download (ds, wf, vis)</param>
+                <param name="mime"                              type="String">Mime type of the download requested</param>
+                <param name="visoptions"     optional="true"    type="Object">If a vis is chosen as a part, this has to hold the respective parameters as defined in getStaticViz</param>
+                <param name="data_id"                           type="Number">ID of the dataset to export</param>
+            </params>
+            <binding module="comm/export" method="export" />
+        </command>
+    </sectionpart>
+    </section>
+
+    <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Search XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+    <section title="Search">
+
+    <!-- ..................................... Worker -> UI ..................................... -->
+    <sectionpart direction="W2UI">
+        <command name="search">
+            <desc>Results of a previous search.</desc>
+            <params>
+                <param name="results"    type="Array">results</param>
+            </params>
+        </command>
+
+        <command name="typeAhead">
+            <desc>List of possible terms.</desc>
+            <params>
+                <param name="terms"      type="Object">List of possible terms</param>
+                <param name="type"       type="String">Used type for the query</param>
+            </params>
+        </command>
+
+        <command name="getDsByCombination">
+            <desc>Possible combination of datasets found.</desc>
+            <params>
+                <param name="pwf"         type="Object|Number">Pseudo-workflow to achieve the proposed result</param>
+                <param name="components"  type="Array">List of datasets used</param>
+                <param name="result"      type="Object">Description of the resulting dataset</param>
+            </params>
+        </command>
+
+    </sectionpart>
+
+    <!-- ..................................... UI -> Worker ..................................... -->
+    <sectionpart direction="UI2W">
+
+        <command name="search">
+            <desc>Search datasets by keyword.</desc>
+            <params>
+                <param name="restrictions"   type="Object">Search restrictions</param>
+            </params>
+            <binding module="comm/search" method="doSearch" />
+        </command>
+
+        <command name="typeAhead">
+            <desc>Get a list of possible terms for an autocomplete field.</desc>
+            <params>
+                <param name="needle"                        type="String">Currently given substring</param>
+                <param name="type"                          type="String">Type to search for (dimension, measurement, column, value)</param>
+                <param name="codelist"  optional="true"     type="String">For values using codelist, define that codelist</param>
+            </params>
+            <binding module="comm/search" method="typeAhead" />
+        </command>
+
+        <command name="getDsByCombination">
+            <desc>Request a combination of datasets to fit the given description.</desc>
+            <params>
+                <param name="constraints"       type="Array">Constraints given per column</param>
+            </params>
+            <binding module="comm/search" method="searchByCombination" />
+        </command>
+
+    </sectionpart>
+    </section>
+
+
+    <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Data Filter XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+    <section title="Data Filtering">
+
+    <!-- ..................................... UI -> Worker ..................................... -->
+    <sectionpart direction="UI2W">
+
+        <command name="filterData">
+            <desc>Filter the given dataset.</desc>
+            <params>
+                <param name="data_id"    type="Number">ID of the respective dataset</param>
+                <param name="filterDef"  type="Object">Filter-options as an AST-like object</param>
+            </params>
+            <binding module="comm/comp" method="filter" />
+        </command>
+
+        <command name="dropColumns">
+            <desc>Drop the given columns from the given dataset.</desc>
+            <params>
+                <param name="data_id"    type="Number">ID of the respective dataset</param>
+                <param name="columns"    type="Array[Number]">IDs of the columns to drop</param>
+            </params>
+            <binding module="comm/comp" method="dropColumns" />
+        </command>
+
+    </sectionpart>
+    </section>
+
+    <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Data Communication XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+    <section title="Data Communication">
+
+    <!-- ..................................... Worker -> UI ..................................... -->
+    <sectionpart direction="W2UI">
+
+        <command name="data">
+            <desc>Subset of primary data.</desc>
+            <params>
+                <param name="data_id"    type="Number">ID of the respective dataset</param>
+                <param name="data"       type="Array[Array]">Requested chunk of data</param>
+            </params>
+        </command>
+
+        <command name="meta">
+            <desc>Metadata for the given dataset.</desc>
+            <params>
+                <param name="data_id"    type="Number">ID of the dataset</param>
+                <param name="meta"       type="Object">Requested metadata</param>
+                <param name="entries"    type="Number">Number of rows in the dataset</param>
+            </params>
+        </command>
+
+        <command name="columnValues">
+            <desc>List of distinct values for the given column/dataset.</desc>
+            <params>
+                <param name="values"     type="Object">Distinct column values; using "min"/"max" for numeric and time, "list" otherwise</param>
+                <param name="data_id"    type="Number">ID of the respective dataset</param>
+                <param name="col_id"     type="Number">ID of the respective column</param>
+            </params>
+        </command>
+
+    </sectionpart>
+
+    <!-- ..................................... UI -> Worker ..................................... -->
+    <sectionpart direction="UI2W">
+
+        <command name="getData">
+            <desc>Request a chunk of data from the given dataset.</desc>
+            <params>
+                <param name="data_id"    type="Number">ID of the respective dataset</param>
+                <param name="start"      type="Number">Start index inside the dataset</param>
+                <param name="entries"    type="Number">Amount of entries</param>
+            </params>
+            <binding module="comm/data" method="getPartialData" />
+        </command>
+
+        <command name="getMeta">
+            <desc>Request the metadata for a dataset.</desc>
+            <params>
+                <param name="data_id"    type="Number">ID of the respective dataset</param>
+            </params>
+            <binding module="comm/data" method="getMeta" />
+        </command>
+
+        <command name="getColumnValues">
+            <desc>Get a list of distinct values for a particular column.</desc>
+            <params>
+                <param name="data_id"    type="Number">ID of the dataset</param>
+                <param name="col_id"     type="Number">ID of the column</param>
+            </params>
+            <binding module="comm/data" method="getColumnValues" />
+        </command>
+
+    </sectionpart>
+    </section>
+
+    <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXX Dataset related information XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+    <section title="Dataset related information">
+
+    <!-- ..................................... UI -> Worker ..................................... -->
+    <sectionpart direction="UI2W">
+
+        <command name="resolveColValues">
+            <desc>
+              Resolve values for a given column (has to be of type semantic),
+              i.e. add labels.
+            </desc>
+            <params>
+                <param name="data_id"       type="Number">Referenced dataset</param>
+                <param name="columns"       type="Array">IDs of all columns to be resolved</param>
+            </params>
+            <binding module="comm/info" method="resolveColValues" />
+        </command>
+
+        <command name="setColLabel">
+            <desc>Set the label for a given column.</desc>
+            <params>
+                <param name="data_id"       type="Number">Referenced dataset</param>
+                <param name="col_id"        type="Number">ID of the column</param>
+                <param name="label"         type="String">New label</param>
+            </params>
+            <binding module="comm/data" method="setColLabel" />
+        </command>
+
+    </sectionpart>
+    </section>
+
+    <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX visualization XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+    <section title="visualization">
+
+    <!-- ..................................... UI -> Worker ..................................... -->
+    <sectionpart direction="UI2W">
+
+        <command name="suggestViz">
+          <desc>Get visualization recommendation for the given dataset.</desc>
+            <params>
+                <param name="data_id"     type="Number">ID of the result dataset</param>
+            </params>
+            <binding module="comm/viz" method="suggestViz" />
+        </command>
+
+        <command name="getStaticSVG">
+            <desc>Get a static SVG visualization.</desc>
+            <params>
+                <param name="data_id"   type="Number">ID of the result dataset</param>
+                <param name="type"      type="String">Type of requested visualization</param>
+                <param name="options"   type="Object">Settings for the visualization</param>
+            </params>
+            <binding module="comm/viz" method="getStaticSVG" />
+        </command>
+
+    </sectionpart>
+
+    <!-- ..................................... Worker -> UI ..................................... -->
+    <sectionpart direction="W2UI">
+
+        <command name="vizSuggestions">
+          <desc>List of recommended visualizations and the respective scoring.</desc>
+          <params>
+            <param name="data_id"     type="Number">ID of the referenced dataset</param>
+            <param name="sugg"        type="Array">List of suggestions</param>
+            <param name="omitted"     type="Array">Columns omitted from the suggestion; single valued dimensions</param>
+          </params>
+        </command>
+
+        <command name="viz">
+          <desc>Visualization in form of the respective (SVG) code.</desc>
+          <params>
+            <param name="data_id"     type="Number">ID of the referenced dataset</param>
+            <param name="code"        type="String">Requested code</param>
+            <param name="type"        type="String">Static or dynamic code returned</param>
+          </params>
+        </command>
+
+    </sectionpart>
+    </section>
+
+    <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Workflow XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+    <section title="Workflow">
+
+    <!-- ..................................... UI -> Worker ..................................... -->
+    <sectionpart direction="UI2W">
+        <command name="getWorkflow">
+            <desc>Get a serialized representation of the workflow leading to the given dataset.</desc>
+            <params>
+                <param name="data_id"       type="Number">ID of the result dataset</param>
+                <param name="format"        type="String">Format of the workflow</param>
+                <param name="includeStyles" type="Boolean" optional="true">Include styling information for visualizations?</param>
+            </params>
+            <binding module="comm/workflow" method="getWorkflow" />
+        </command>
+
+
+        <command name="execWorkflow">
+            <desc>Execute the given workflow.</desc>
+            <params>
+                <param name="workflow" type="Object">Workflow to be executed; JSON-encoded</param>
+                <param name="wfType"   type="String">Type of the transmitted workflow: "workflow" || "pwf"</param>
+            </params>
+            <binding module="comm/workflow" method="execWorkflow" />
+        </command>
+    </sectionpart>
+
+    <!-- ..................................... Worker -> UI ..................................... -->
+    <sectionpart direction="W2UI">
+
+        <command name="workflow">
+            <desc>Document representing the workflow.</desc>
+            <params>
+                <param name="data_id"     type="Number">ID of the dataset to this workflow</param>
+                <param name="format"      type="String">Format of the workflow</param>
+                <param name="workflow"    type="String">Requested workflow</param>
+            </params>
+        </command>
+
+    </sectionpart>
+    </section>
+
+    <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Computation XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+    <section title="Computation">
+
+    <!-- ..................................... Worker -> UI ..................................... -->
+    <sectionpart direction="W2UI">
+
+        <command name="progress">
+            <desc>Progress of current column operation.</desc>
+            <params>
+                <param name="progress"    type="Number">Current progress as value [0,1]</param>
+            </params>
+        </command>
+
+        <command name="done">
+            <desc>Operation has finished.</desc>
+            <params>
+                <param name="data_id"     type="Number">ID of the result dataset</param>
+            </params>
+        </command>
+
+    </sectionpart>
+
+    <!-- ..................................... UI -> Worker ..................................... -->
+
+    <sectionpart direction="UI2W">
+        <command name="compute">
+            <desc>Apply the given operation to a column.</desc>
+            <params>
+                <param name="data_id"     type="Number">ID of the respective dataset</param>
+                <param name="col_id"      type="Number">ID of the respective column</param>
+                <param name="label"       type="String"   optional="true">Label of the column, if it is a new one</param>
+                <param name="new_col"     type="Boolean">Result stored in a new column? will replace source column otherwise</param>
+                <param name="op_type"     type='["UDF"]'>Type of the operation</param>
+                <param name="op"          type="String">Actual operation</param>
+            </params>
+            <binding module="comm/comp" method="applyFunction" />
+        </command>
+
+        <command name="setUnit">
+            <desc>Change the unit for a given dataset and column.</desc>
+            <params>
+                <param name="data_id"     type="Number">ID of the respective dataset</param>
+                <param name="col_id"      type="Number">ID of the respective column</param>
+                <param name="unit"        type='String'>URI for the target unit</param>
+            </params>
+            <binding module="comm/comp" method="setUnit" />
+        </command>
+    </sectionpart>
+
+    </section>
+
+    <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Data joins XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+    <section title="Joins">
+
+    <!-- ..................................... UI -> Worker ..................................... -->
+    <sectionpart direction="UI2W">
+        <command name="join">
+            <desc>Join the two given datasets.</desc>
+            <params>
+                <param name="data_id"          type="Number">ID of the base dataset</param>
+                <param name="augm_data_id"     type="Number">ID of the augmenting dataset</param>
+                <param name="join_cond"        type="Array">List of matching columns</param>
+            </params>
+            <binding module="comm/comp" method="joinDatasets" />
+        </command>
+
+        <command name="union">
+            <desc>Union the two given datasets.</desc>
+            <params>
+                <param name="base_data_id"     type="Number">ID of the base dataset</param>
+                <param name="augm_data_id"     type="Number">ID of the augmenting dataset</param>
+                <param name="union_cond"        type="Array">List of matching columns</param>
+            </params>
+            <binding module="comm/comp" method="unionDatasets" />
+        </command>
+
+        <command name="suggestJoin">
+            <desc>Suggest a possible join condition for the two given datasets.</desc>
+            <params>
+                <param name="data_id1"    type="Number">ID of the left hand dataset</param>
+                <param name="data_id2"    type="Number">ID of the right hand dataset</param>
+            </params>
+            <binding module="comm/helper" method="suggestJoin" />
+        </command>
+    </sectionpart>
+
+    <!-- ..................................... Worker -> UI ..................................... -->
+    <sectionpart direction="W2UI">
+
+        <command name="suggestedJoin">
+            <desc>Proposed join condition.</desc>
+            <params>
+                <param name="data_id1"        type="Number">ID of the left hand dataset</param>
+                <param name="data_id2"        type="Number">ID of the right hand dataset</param>
+                <param name="join_cond"       type="Array[Array]">Join condition</param>
+            </params>
+        </command>
+
+        <command name="queued">
+            <desc>Operation queued for execution.</desc>
+        </command>
+    </sectionpart>
+    </section>
+
+    <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Aggregation XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+    <section title="Aggregation">
+
+    <!-- ..................................... UI -> Worker ..................................... -->
+    <sectionpart direction="UI2W">
+        <command name="aggregate">
+            <desc>Aggregate inside a dataset by the given columns.</desc>
+            <params>
+                <param name="data_id"                   type="Number">ID of the base dataset</param>
+                <param name="cols"                      type="Array">List of columns to group by</param>
+                <param name="agg"     optional="true"   type="Array">List of aggregation functions for columns to be aggregated</param>
+            </params>
+            <binding module="comm/comp" method="aggregate" />
+        </command>
+
+        <command name="unbag">
+            <desc>Unbag one column.</desc>
+            <params>
+                <param name="data_id"     type="Number">ID of the base dataset</param>
+                <param name="col"         type="Number">ID of column to unbag</param>
+                <param name="agg"         type="String">Function used to unbag</param>
+            </params>
+            <binding module="comm/comp" method="unbag" />
+        </command>
+    </sectionpart>
+
+    </section>
+
+    <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Knowledge Base XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+    <section title="Knowledge Base">
+
+    <!-- ..................................... Worker -> UI ..................................... -->
+    <sectionpart direction="W2UI">
+
+        <command name="compatibleUnits">
+            <desc>List of compatible units and the respective systems.</desc>
+            <params>
+                <param name="unit"        type="String">Unit requested</param>
+                <param name="units"       type="Array">List of compatible units</param>
+                <param name="systems"     type="Array">System represented by at least one unit</param>
+            </params>
+        </command>
+
+        <command name="resolvedLabels">
+            <desc>Labels for resolved URIs.</desc>
+            <params>
+                <param name="results"     type="Object">Map from URI to label</param>
+            </params>
+        </command>
+
+        <command name="resolvedCodelists">
+            <desc>Labels for resolved URIs.</desc>
+            <params>
+                <param name="results"     type="Object">Map from codelist-URI to array of contained values</param>
+            </params>
+        </command>
+
+        <command name="dsDetails">
+            <desc>Results of getDsDetails command.</desc>
+            <params>
+                <param name="meta"       type="Object">Metadata for this dataset</param>
+                <param name="cols"       type="Array[Object]">Column data for this dataset</param>
+            </params>
+        </command>
+
+    </sectionpart>
+
+    <!-- ..................................... UI -> Worker ..................................... -->
+
+    <sectionpart direction="UI2W">
+        <command name="getCompatibleUnits">
+            <desc>Request a list of compatible alternatives for a given unit.</desc>
+            <params>
+                <param name="unit"     type="Object">Unit for which alternatives are requested</param>
+            </params>
+            <binding module="comm/unit" method="getCompatibleUnits" />
+        </command>
+
+        <command name="resolveLabels">
+            <desc>Resolve labels for a given list of URIs.</desc>
+            <params>
+                <param name="uris"       type="Array[String]">List of URIs</param>
+            </params>
+            <binding module="comm/info" method="resolveLabels" />
+        </command>
+
+
+        <command name="resolveCodelists">
+            <desc>Find the associated values and labels for the given list of codelists-URIs.</desc>
+            <params>
+                <param name="uris"       type="Array[String]">List of codelist-URIs</param>
+            </params>
+            <binding module="comm/info" method="resolveCodelists" />
+        </command>
+
+        <command name="getDsDetails">
+            <desc>Request details for a specific dataset.</desc>
+            <params>
+                <param name="id"            type="String">URI of the dataset to get data about</param>
+            </params>
+            <binding module="comm/info" method="getDsDetails" />
+        </command>
+    </sectionpart>
+
+    </section>
+
+
+    <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Debug XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+    <section title="Debug">
+
+    <sectionpart direction="UI2W">
+        <command name="getMemory">
+            <desc>Retrieve the size of currently used memory.</desc>
+            <params></params>
+            <binding module="comm/debug" method="getMemory" />
+        </command>
+    </sectionpart>
+    <sectionpart direction="W2UI">
+        <command name="memory">
+            <desc>Description of the currently used memory.</desc>
+            <params>
+                <param name="size" type="Number">Size of currently used memory</param>
+            </params>
+        </command>
+    </sectionpart>
+
+    </section>
+
+</root>

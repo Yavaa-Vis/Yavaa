@@ -1,0 +1,1 @@
+define(function(){return [{"name":"DSV-file","desc":"Delimiter separated file","module":"dsv"}];});

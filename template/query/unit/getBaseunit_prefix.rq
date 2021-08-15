@@ -1,0 +1,19 @@
+# get the base unit for prefixed units
+# (non-prefixed units will not be included in result)
+#
+# Variables
+# {units}   ... units to convert
+PREFIX om: <http://www.wurvoc.org/vocabularies/om-1.8/> 
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT *
+WHERE {
+
+  # bind input units
+  VALUES ?source { {units} } .
+  
+  # get the base unit
+  ?source om:singular_unit    ?base ;
+          om:prefix/om:factor ?factor .
+
+}

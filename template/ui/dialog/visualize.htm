@@ -1,0 +1,68 @@
+<div title="Visualize Dataset" id="visualize" data-help="https://tutorial.yavaa.org/#yavaa,vis">
+  <div class="errMsg" style="display: none;">
+    <span data-name="noHit" style="display: inline;">Sorry, but we could not find any matching visualization for your dataset.</span>
+  </div>
+  <div class="infoMsg">
+    <span data-name="manyValues">
+      <div style="display: inline-block">
+        The current dataset contains a lot of data.
+        Consider aggregation or filtering to reduce the volume.
+        <br>
+        Visualizing datasets too large can cause problems and crash your browser.
+      </div>
+    </span>
+  </div>
+  <div data-step="1">
+    <div class="list"></div>
+  </div>
+  <div data-step="2">
+		<div class="visBindingContainer">
+      <div style="margin-bottom: 1em; position: relative; top: 1em;">
+        <input type="checkbox" id="infoToggle" autocomplete="off" class="infoToggle" />
+        <label for="infoToggle" class="infoToggle">
+          Available Columns
+        </label>
+        <div class="infoBox" style="padding: 1em;">Single-valued columns <span class="fontawesome" style="font-size: 7pt;"></span> are omitted by the recommender.</div>
+      </div>
+      <div class="helperbtns">
+        <button type="button" class="useSuggestion helper">Suggest</button>
+        <button type="button" class="resetBinding  helper secondary">Reset</button>        
+      </div>
+      <div class="collection dropzone"></div>
+	    <table class="bindings"></table>
+      <div style="text-align: right;font-size: 75%;">* &hellip; mandatory binding</div>
+		</div>
+  </div>
+  <template id="visualizeItem">
+    <label class="item">
+      <input type="radio" name="selectedViz" />
+      <img />
+      <div class="omittedcols"></div>
+    </label></template>
+  <template id="visualizeItem2">
+    <label class="item nested">
+      <input type="radio" name="selectedViz" />
+      <img />
+      <img />
+     <div class="omittedcols"></div>
+    </label>
+  </template>
+  <template id="visualizeBinding"><tr class="binding">
+    <td title="{desc}">{label}</td>
+    <td>
+      <div class="openslot dropzone">&nbsp;</div>
+    </td>
+  </tr></template>
+  <template id="visualizeOmittedMeas"><svg viewBox="0 0 20 20" class="omittedcol meas">
+    <title>Measurement omitted from suggestion</title>
+    <circle cx="10" cy="10" r="8" />
+    <text x="10" y="10">M</text>
+   <path d="M2,18 18,2" />
+  </svg></template>
+  <template id="visualizeOmittedDim"><svg viewBox="0 0 20 20" class="omittedcol dim">
+    <title>Dimension omitted from suggestion</title>
+    <circle cx="10" cy="10" r="8" />
+    <text x="10" y="10">D</text>
+   <path d="M2,18 18,2" />
+  </svg></template>
+</div>

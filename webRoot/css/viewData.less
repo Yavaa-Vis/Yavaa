@@ -1,0 +1,36 @@
+#content-data {
+  
+  .dataTables_wrapper, .dataTables_scroll {
+    height: 100%;
+  }
+  .dataTables_scrollBody {
+    overflow-x: hidden !important;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    max-height: 100%;
+  }
+  
+  td, th {
+    text-align: center;
+  }
+  
+  tbody tr:nth-child(odd) {
+    background-color: @bgcolor-popup;
+  }
+  
+  tbody tr:nth-child(even) {
+    background-color: @bgcolor-fg;
+  }
+  
+  tbody tr:hover {
+    background-color: @color-accent-dark;
+  }
+  
+  thead {
+    border-bottom: 1px solid black;
+  }
+  
+}

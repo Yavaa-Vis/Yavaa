@@ -1,0 +1,54 @@
+# find the conversion factors and offsets for a given set of units
+# conversion graph is star-shaped, so within a dimension all conversion converge at a single point
+#
+# Variables
+# {units}   ... units to convert
+
+PREFIX om: <http://www.wurvoc.org/vocabularies/om-1.8/> 
+
+SELECT DISTINCT
+        ?unit 
+        ?prefixBase 
+        ?label 
+        ?prefixFactor 
+        ?convFactor
+        ?convBase 
+        ?scale
+WHERE{
+
+# bind input to variable
+  VALUES ?unit { {units} } .
+  
+# get English label for all units
+  ?unit rdfs:label ?label .
+  FILTER( LANG(?label) = "en" ) .
+
+# ---------------------------- factor by prefix ----------------------------- #
+
+# find the base unit
+  OPTIONAL { ?unit om:singular_unit ?realPrefixBase . }
+  BIND( IF( BOUND( ?realPrefixBase ), ?realPrefixBase, ?unit ) AS ?prefixBase ) .
+  
+# get factors (default 1 for base unit itself)
+  OPTIONAL { ?unit om:prefix ?realPrefix . ?realPrefix om:factor ?realPrefixFactor } .
+  BIND( IF( BOUND( ?realPrefixFactor ), ?realPrefixFactor, 1 ) AS ?prefixFactor ) .
+
+# -------------------------- factor by conversion --------------------------- #
+
+  OPTIONAL {
+    ?prefixBase om:definition ?def .
+    ?def om:numerical_value ?realConvFactor .
+    ?def om:unit_of_measure_or_measurement_scale ?realConvBase .
+    ?realConvBase a om:Unit_of_measure .
+  }
+  BIND( IF( BOUND( ?realConvFactor ), ?realConvFactor, 1 ) AS ?convFactor ) .
+  BIND( IF( BOUND( ?realConvBase ), ?realConvBase, ?unit ) AS ?convBase ) .
+
+# -------------------------- offset by scales ------------------------------ #
+
+  OPTIONAL {
+    ?scale a om:Measurement_scale .
+    ?scale om:unit_of_measure ?unit .
+  }
+  
+}

@@ -1,0 +1,26 @@
+<div title="Restore Session" id="restoreSession">
+  <div>
+    We detected a previous session.
+    <br>
+    Do you want to restore any of the following datasets from that session?
+  </div>
+  <div class="infoMsg" style="display: block;">
+    <span data-name="limited" style="display: inline;">
+      <div style="display: inline-block">
+        We might not be able to restore all data, but we're trying!
+        <br>
+        Restoring all datasets might take some time.
+      </div>    
+    </span>
+  </div>
+  <div id="restoreSessionList">
+  </div>
+  <template id="restoreSessionEntry">
+    <div>
+      <label class="input">
+        <input type="checkbox" autocomplete="off"/>
+        <span class="label"></span>
+      </label>
+    </div>
+  </template>
+</div>

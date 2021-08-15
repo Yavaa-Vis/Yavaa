@@ -1,0 +1,12 @@
+lib/**/*.*
+js/modules/comp/aggregate/FunctionList.js
+ui/dialog/aggregate/column.htm
+ui/dialog/constructDataset/tabAdjust_entry_aggcol.htm
+webRoot/css/styles.css
+webRoot/index.htm
+webRoot/gfx/icons.svg
+js/modules/grammar/*.js
+js/modules/basic/protocol_server.*.js
+js/modules/export/List.js
+js/modules/load/loader/List.js
+js/modules/viz/RepoList.js

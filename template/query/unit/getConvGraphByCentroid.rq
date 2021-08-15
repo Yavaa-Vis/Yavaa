@@ -1,0 +1,25 @@
+# get all units of the conversion graph centered at a single unit
+#
+# Variables
+# {centroid}   ... the center of the conversion graph
+
+PREFIX om: <http://www.wurvoc.org/vocabularies/om-1.8/> 
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?unit
+WHERE {
+
+  # bind input units
+  VALUES ?centroid { {centroid} } .
+
+  # we are looking for units
+  ?unit a om:Unit_of_measure .
+
+  # it might be a prefixed unit
+  OPTIONAL { ?unit om:singular_unit ?realBase . }
+  BIND( IF( BOUND( ?realBase ), ?realBase, ?unit ) AS ?base ) .
+
+  # and has a conversion connection to the centroid
+  ?base (om:definition/om:unit_of_measure_or_measurement_scale)* ?centroid .
+
+}

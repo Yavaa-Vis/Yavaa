@@ -1,0 +1,170 @@
+@prefix rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:      <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:     <http://www.w3.org/2004/02/skos/core#> .
+
+@prefix :  <http://yavaa.org/ns/yavaa#> .
+
+# ----------------------------------------- Classes ------------------------------------------------- #
+
+:TimeFormat
+  a rdfs:Class, rdfs:Datatype ;
+  .
+
+:TimeInstantFormat
+  a rdfs:Class ;
+  rdfs:subClassOf :TimeFormat ;
+  .
+
+:TimeSpanFormat
+  a rdfs:Class ;
+  rdfs:subClassOf :TimeFormat 
+  .
+
+# ----------------------------------------- Time Span ----------------------------------------------- #
+
+:timespan-YYYY
+  a :TimeSpanFormat, :TimeFormat;
+  owl:onDatatype xsd:string ;
+  owl:withRestrictions ([
+    xsd:pattern "^([0-9]{4,4}).([0-9]{4,4})$"
+  ]) ;
+  :hasTimeComponent [
+      :order 0 ;
+      :hasMeaning :fullyear ;
+    ], [
+      :order 0 ;
+      :hasMeaning :fullyear ;
+    ] ;
+  .
+
+# ----------------------------------------- Time Instants ------------------------------------------- #
+
+:instant-YYYY
+  a :TimeInstantFormat, :TimeFormat;
+  owl:onDatatype xsd:string ;
+  owl:withRestrictions ([
+    xsd:pattern "^([0-9]{4,4})$"
+  ]) ;
+  :hasTimeComponent [
+      :order 0 ;
+      :hasMeaning :fullyear ;
+    ] ;
+  .
+
+:instant-YYYY_MM
+  a :TimeInstantFormat, :TimeFormat;
+  owl:onDatatype xsd:string ;
+  owl:withRestrictions ([
+    xsd:pattern "^([0-9]{4,4}).([0-9]{1,2})$"
+  ]) ;
+  :hasTimeComponent [
+      :order 0 ;
+      :hasMeaning :fullyear ;
+    ],[
+      :order 1 ;
+      :hasMeaning :month ;
+    ] ;
+  .
+
+:instant-YYYY_MM_DD
+  a :TimeInstantFormat, :TimeFormat;
+  owl:onDatatype xsd:string ;
+  owl:withRestrictions ([
+    xsd:pattern "^([0-9]{4,4}).([0-9]{1,2}).([0-9]{2,2})$"
+  ]) ;
+  :hasTimeComponent [
+      :order 0 ;
+      :hasMeaning :fullyear ;
+    ],[
+      :order 1 ;
+      :hasMeaning :month ;
+    ],[
+      :order 2 ;
+      :hasMeaning :day ;
+    ] ;
+  .
+
+:instant-YYYY_Q
+  a :TimeInstantFormat, :TimeFormat;
+  owl:onDatatype xsd:string ;
+  owl:withRestrictions ([
+    xsd:pattern "^([0-9]{4,4}).([0-9]{1})$"
+  ]) ;
+  :hasTimeComponent [
+      :order 0 ;
+      :hasMeaning :fullyear ;
+    ],[
+      :order 1 ;
+      :hasMeaning :quarter ;
+    ] ;
+  .
+
+:instant-YYYY_S
+  a :TimeInstantFormat, :TimeFormat;
+  owl:onDatatype xsd:string ;
+  owl:withRestrictions ([
+    xsd:pattern "^([0-9]{4,4}).([0-9]{1})$"
+  ]) ;
+  :hasTimeComponent [
+      :order 0 ;
+      :hasMeaning :fullyear ;
+    ],[
+      :order 1 ;
+      :hasMeaning :semester ;
+    ] ;
+  .
+
+# ----------------------------------------- Time Components ----------------------------------------- #
+
+:fullyear
+  a rdfs:Class;
+  skos:exactMatch <http://dbpedia.org/resource/Year>
+  .
+:semester
+  a rdfs:Class;
+  # skos:exactMatch ?
+  .
+:quarter
+  a rdfs:Class;
+  # skos:exactMatch ?
+  .
+:month
+  a rdfs:Class;
+  skos:exactMatch <http://dbpedia.org/resource/Month>
+  .
+:day
+  a rdfs:Class;
+  skos:exactMatch <http://dbpedia.org/resource/Day>
+  .
+:hour
+  a rdfs:Class;
+  skos:exactMatch <http://dbpedia.org/resource/Hour>
+  .
+:minute
+  a rdfs:Class;
+  skos:exactMatch <http://dbpedia.org/resource/Minute>
+  .
+:second
+  a rdfs:Class;
+  skos:exactMatch <http://dbpedia.org/resource/Second>
+  .
+:millisecond
+  a rdfs:Class;
+  skos:exactMatch <http://dbpedia.org/resource/Millisecond>
+  .
+# ----------------------------------------- Properties ---------------------------------------------- #
+
+:order
+  a rdf:Property ;
+  .
+
+:hasMeaning
+  a rdf:Property ;
+  .
+
+:hasTimeComponent
+  a rdf:Property ;
+  rdfs:domain rdfs:Datatype ;
+  .

@@ -1,0 +1,10 @@
+#{id} {
+  font: 10px sans-serif;
+}
+
+#{id} .axis path,
+#{id} .axis line {
+  fill: none;
+  stroke: currentColor;
+  shape-rendering: crispEdges;
+}

@@ -1,0 +1,2 @@
+socket.io-client\dist\socket.io.js
+socket.io-client\dist\socket.io.slim.js

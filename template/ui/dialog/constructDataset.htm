@@ -1,0 +1,114 @@
+<div style="min-width: 500px;" title="Construct dataset" id="constructDataset" data-help="https://tutorial.yavaa.org/#yavaa,search">
+  <div class="errMsg">
+    <span data-name="noresult">Could not find any dataset matching the query!</span>
+    <span data-name="noinput">A query has to contain at least two columns!</span>
+    <span data-name="unsupport">This computed workflow uses the UNION operator. This operator is currently not supported.</span>
+  </div>
+  <div class="tabs">
+    <ul>
+      <li><a href="#constructDatasetTabs1">Specify</a></li>
+      <li><a href="#constructDatasetTabs2">Result</a></li>
+      <li><a href="#constructDatasetTabs3">Distribution</a></li>
+      <li><a href="#constructDatasetTabs4">Adjust</a></li>
+    </ul>
+    <div id="constructDatasetTabs1">
+      Construct a dataset by specifying columns and/or their contents:
+      <div class="helperbtns">
+        <button type="button" class="addCol helper">Add Column</button>      
+      </div>
+      <br>
+      <template id="constructNewCol">
+        <div class="colitem">
+          <button type="button" class="remCol helper secondary icon icon-remove">&nbsp;</button>
+          <div class="col">
+            <label class="input">
+              <input type="text" placeholder="column title" autocomplete="off" class="columnHead" data-type="column">
+              <span class="label">Column Title</span>
+            </label>
+          </div>
+          <div class="val">
+          </div>
+        </div>
+      </template>
+      <template id="constructEntitySel">
+        <label class="input">
+          <input type="text" placeholder="value" autocomplete="off" data-type="value">
+          <span class="label">Value</span>
+        </label>
+      </template>
+      <template id="constructRangeSel">
+        <div>
+          <label class="input">
+            <input data-range="from" placeholder="from">
+            <span class="label">Between</span>
+          </label>
+          <span style="width: 10%;">&nbsp;</span>
+          <label class="input">
+            <input data-range="to" placeholder="to">
+            <span class="label">and</span>
+          </label>
+        </div>
+      </template>
+      <div class="collist taglist"></div>
+    </div>
+    <div id="constructDatasetTabs2"><!-- result tab -->
+      We were able to find the following parts of your request:
+      <br>
+      <div class="collist"></div>
+      <template id="constructResItem">
+        <div class="colitem">
+          <div class="col"></div>
+          <div class="val"></div>
+        </div>
+      </template>
+      <template id="constructResColNumeric">
+        <div class="container">
+          <!-- left block -->
+          <div style="text-align: right;" class="left">
+            <div class="requestMin requestBoth"></div>
+            <div>&nbsp;</div>
+            <div class="resultMin">}</div>
+          </div>
+          <!-- center block -->
+          <div>
+            <div class="markercontainer requestBoth">
+              &nbsp;
+              <div class="bordered requestMin" style="width: 0.5em;">&nbsp;</div>
+              <div class="bordered requestMax" style="width: 0.5em;">&nbsp;</div>
+            </div>
+            <div class="total colored">
+              <div class="partial colored"></div>
+            </div>
+            <div class="markercontainer">
+              &nbsp;
+              <div class="bordered barmin">&nbsp;</div>
+              <div class="bordered barmax">&nbsp;</div>
+            </div>
+          </div>
+          <!-- right block -->
+          <div style="text-align: left;" class="right">
+            <div class="requestMax requestBoth"></div>
+            <div>&nbsp;</div>
+            <div class="resultMax"></div>
+          </div>
+        </div>
+      </template>
+      <template id="constructResColCodelist">
+        <div>
+          <span class="readmore">&hellip; and <span class="amount"></span> more.</span>
+        </div>
+      </template>
+    </div>
+    <div id="constructDatasetTabs3"><!-- distribution tab -->
+      We use the following sources to fill your request:
+      <div class="flexRow" style="margin-top: 1em;">
+        <ul></ul>
+        <div class="distrChart"><svg></svg></div>
+      </div>
+    </div>
+    <div id="constructDatasetTabs4">
+      We need to remove some columns from the selected datasets. Please choose a strategy for each one:
+      <ul style="margin-top: 1em;"></ul>
+    </div>
+  </div>
+</div>

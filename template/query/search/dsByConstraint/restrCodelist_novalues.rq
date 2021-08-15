@@ -1,0 +1,9 @@
+# filter for codelists for which no values (and hence codelists) are given
+#
+# Variables
+# {concept}     ... the concept for the the filtered column
+# {separator}   ... separator character for list of matching enum values
+{
+  ?colDesc qb:concept/skos:exactMatch {concept}  ;
+           qb:codeList                ?inputCodelist .
+}

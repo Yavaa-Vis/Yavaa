@@ -1,0 +1,16 @@
+# find the notations for the given list of values
+#
+# Variables
+# {uri}         ... the values to resolve
+
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+SELECT ?short ?uri
+WHERE {
+
+  # bind labels
+  VALUES ?uri { {uri} }
+
+  # link
+  ?uri      skos:notation     ?short .
+
+}

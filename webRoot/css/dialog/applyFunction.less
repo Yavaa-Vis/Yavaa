@@ -1,0 +1,43 @@
+#applyFunction {
+  
+  .CodeMirror {
+    width: 100%;
+    height: 150px;
+    margin-top: 1em;
+  }
+
+  label {
+    padding-left: 0;
+    margin-bottom: 1em;
+  }
+  
+  #applyFunctionEditor {
+    margin-top: 1em;
+  }
+
+  .infoBox {
+    -webkit-column-count: 2;
+       -moz-column-count: 2;
+            column-count: 2;
+
+    padding:          0.5em 0.5em 0;
+
+    .shortcutItem {
+      display:  inline-flex;
+      width:    100%;
+      margin-bottom: 0.5em;
+    }
+  
+    .shortcut {
+      line-height: calc( @tag-height + @tag-vertPadding );
+      font-family: monospace;
+      margin-right: 1em;
+    }
+    
+    .colContainer {
+      flex-grow: 1;
+      width:     95%;
+    }
+  }
+  
+}

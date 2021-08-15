@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink='http://www.w3.org/1999/xlink' viewBox="0 0 400 300">
+  <defs>
+    <style>
+      .axis {
+        stroke: black;
+        stroke-width: 4px;
+        fill: none;
+      }
+      .line {
+        stroke-width: 5px;
+        fill: none;
+      }
+    </style>
+    <g id="circle">
+      <path d="M4.51351666838205,0A4.51351666838205,4.51351666838205,0,1,1,-4.51351666838205,0A4.51351666838205,4.51351666838205,0,1,1,4.51351666838205,0" 
+            transform="scale( 3 )" style="fill: #1f77b4;" />
+    </g>
+    <g id="cross">
+      <path d="M-5.366563145999495,-1.7888543819998317L-1.7888543819998317,-1.7888543819998317L-1.7888543819998317,-5.366563145999495L1.7888543819998317,-5.366563145999495L1.7888543819998317,-1.7888543819998317L5.366563145999495,-1.7888543819998317L5.366563145999495,1.7888543819998317L1.7888543819998317,1.7888543819998317L1.7888543819998317,5.366563145999495L-1.7888543819998317,5.366563145999495L-1.7888543819998317,1.7888543819998317L-5.366563145999495,1.7888543819998317Z" 
+            transform="scale( 3 )" style="fill: #ff7f0e;" />
+    </g>
+    <g id="rombus">
+      <path d="M0,-7.444838872816797L4.298279727294168,0L0,7.444838872816797L-4.298279727294168,0Z" 
+            transform="scale( 3 )" style="fill: #2ca02c;" />
+    </g>
+  </defs>
+  <path class="axis" d="M 10,10 10,280 380,280" />
+
+  <use x="25" y="30" xlink:href="#circle" />
+  <use x="90" y="45" xlink:href="#circle" />
+  <use x="130" y="70" xlink:href="#circle" />
+  <use x="50" y="100" xlink:href="#circle" />
+  <use x="40" y="230" xlink:href="#circle" />
+
+  <use x="240" y="90" xlink:href="#cross" />
+  <use x="300" y="50" xlink:href="#cross" />
+  <use x="350" y="120" xlink:href="#cross" />
+  <use x="270" y="150" xlink:href="#cross" />
+
+  <use x="170" y="250" xlink:href="#rombus" />
+  <use x="140" y="200" xlink:href="#rombus" />
+  <use x="190" y="150" xlink:href="#rombus" />
+  <use x="320" y="210" xlink:href="#rombus" />
+  <use x="140" y="130" xlink:href="#rombus" />
+  <use x="260" y="230" xlink:href="#rombus" />
+</svg>

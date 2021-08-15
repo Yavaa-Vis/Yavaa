@@ -1,0 +1,18 @@
+# get the number of dimensions in a given dataset
+#
+# Variables
+# {ds}          ... the dataset
+
+PREFIX qb: <http://purl.org/linked-data/cube#>
+SELECT ?ds 
+       (COUNT(?col) AS ?count )
+WHERE {
+    
+    # bin input
+    VALUES ?ds { {ds} }.
+    
+    # find dimensions
+    ?ds qb:structure/qb:component/qb:dimension ?col .
+
+}
+GROUP BY ?ds

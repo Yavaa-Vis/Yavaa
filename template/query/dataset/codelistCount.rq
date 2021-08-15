@@ -1,0 +1,35 @@
+# get the number of values per codelist in a given dataset
+#
+# Variables
+# {ds}          ... the dataset
+
+PREFIX :<http://yavaa.org/ns/eurostat/dsd#>
+PREFIX qb:<http://purl.org/linked-data/cube#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos:<http://www.w3.org/2004/02/skos/core#>
+
+SELECT  ?ds 
+        ?concept 
+        (COUNT(DISTINCT ?colEnumVal) AS ?count)
+WHERE {
+
+  # restrict to given dataset
+  VALUES ?ds { {ds} }
+  
+  # get the columns of the dataset
+  ?ds       qb:structure/qb:component ?col .
+  ?col      (qb:dimension|qb:measure) ?colDesc .
+  ?colDesc  rdfs:range                ?colRange .
+  
+  # get concept per column
+  ?colDesc qb:concept/skos:exactMatch ?concept .
+  
+  # limit to codelists
+  ?colDesc  qb:codeList               ?colRange .
+  ?colRange a                         skos:ConceptScheme .
+  
+  # get all associated concepts
+  ?colRange skos:hasTopConcept        ?colEnumVal.
+  
+}
+GROUP BY ?ds ?concept

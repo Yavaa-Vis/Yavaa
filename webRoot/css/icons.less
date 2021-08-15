@@ -1,0 +1,47 @@
+/*
+ * definition file for icons used
+ */
+@import "def.less";
+ 
+.icon {
+  display:              inline-block; 
+  background-size:      70%;
+  background-position:  center;
+  background-repeat:    no-repeat;
+  background-image:     url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' viewBox='0 0 20 20'><text x='10' y='10' style='font-size: 20px; text-anchor: middle; dominant-baseline: central; fill: white;'>?</text></svg>");
+  
+  &.icon-none                { background-image: none; }
+  
+  // icon listing
+  &.icon-aggregate           { background-image: url("@{base-path}gfx/icons.svg#aggregateView"); }
+  &.icon-applyFunction       { background-image: url("@{base-path}gfx/icons.svg#applyFunctionView"); }
+  &.icon-changeView          { background-image: url("@{base-path}gfx/icons.svg#changeViewView"); }
+  &.icon-composeCommand      { background-image: url("@{base-path}gfx/icons.svg#composeCommandView"); }
+  &.icon-connected           { background-image: url("@{base-path}gfx/icons.svg#connectedView"); }
+  &.icon-constructDataset    { background-image: url("@{base-path}gfx/icons.svg#constructDatasetView"); }
+  &.icon-disconnected        { background-image: url("@{base-path}gfx/icons.svg#disconnectedView"); }
+  &.icon-dropColumn          { background-image: url("@{base-path}gfx/icons.svg#dropColumnView"); }
+  &.icon-dropDs              { background-image: url("@{base-path}gfx/icons.svg#dropColumnView"); }
+  &.icon-renameDs            { background-image: url("@{base-path}gfx/icons.svg#editView"); }
+  &.icon-execWorkflow        { background-image: url("@{base-path}gfx/icons.svg#execWorkflowView"); }
+  &.icon-export              { background-image: url("@{base-path}gfx/icons.svg#downloadView"); }
+  &.icon-filter              { background-image: url("@{base-path}gfx/icons.svg#filterView"); }
+  &.icon-info                { background-image: url("@{base-path}gfx/icons.svg#infoView"); }
+  &.icon-joinDatasets        { background-image: url("@{base-path}gfx/icons.svg#joinDatasetsView"); }
+  &.icon-loadDataset         { background-image: url("@{base-path}gfx/icons.svg#loadDatasetView");  }
+  &.icon-redo                { background-image: url("@{base-path}gfx/icons.svg#redoView"); }
+  &.icon-remove              { background-image: url("@{base-path}gfx/icons.svg#removeView"); }
+  &.icon-resolve             { background-image: url("@{base-path}gfx/icons.svg#resolveView");  }
+  &.icon-search              { background-image: url("@{base-path}gfx/icons.svg#searchView"); }
+  &.icon-separator           { background-image: url("@{base-path}gfx/icons.svg#separatorView"); }
+  &.icon-unbag               { background-image: url("@{base-path}gfx/icons.svg#unbagView"); }
+  &.icon-undo                { background-image: url("@{base-path}gfx/icons.svg#undoView"); }
+  &.icon-unit                { background-image: url("@{base-path}gfx/icons.svg#unitView"); }
+  &.icon-visualize           { background-image: url("@{base-path}gfx/icons.svg#visualizeView"); }
+  
+  // icon sizes
+  #menu & {
+    width:  1.1 * @viewport-menu-height;
+    height: 0.8 * @viewport-menu-height;
+  }
+}

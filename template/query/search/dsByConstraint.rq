@@ -1,0 +1,54 @@
+# search for datasets by given constraints
+# wrapper query
+#
+# Variables
+# {filter}     ... list of filters for specific columns
+# {separator}  ... separator used in GROUP_CONCAT statements
+
+PREFIX qb:    <http://purl.org/linked-data/cube#>
+PREFIX skos:  <http://www.w3.org/2004/02/skos/core#>
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?ds 
+       (COUNT(?col) AS ?colCount)
+       (SUM(?isMeas) AS ?colMeasCount)
+       (GROUP_CONCAT( ?colConcept;    separator="{separator}" ) AS ?gColConcept)
+       (GROUP_CONCAT( ?colOrder;      separator="{separator}" ) AS ?gColOrder)
+       (GROUP_CONCAT( ?bMinNumVal;    separator="{separator}" ) AS ?gMinNumVal)
+       (GROUP_CONCAT( ?bMaxNumVal;    separator="{separator}" ) AS ?gMaxNumVal)
+       (GROUP_CONCAT( ?bMinTimeVal;   separator="{separator}" ) AS ?gMinTimeVal)
+       (GROUP_CONCAT( ?bMaxTimeVal;   separator="{separator}" ) AS ?gMaxTimeVal)
+       (GROUP_CONCAT( ?isMeas;        separator="{separator}" ) AS ?gIsMeas)
+       (GROUP_CONCAT( ?bCodelist;     separator="{separator}" ) AS ?gCodelist)
+
+WHERE {
+
+  # get the columns of the dataset
+  ?ds qb:structure/qb:component ?col .
+  
+  # get order number for column
+  ?col qb:order ?colOrder .
+  
+  # containing the columns
+  ?col (qb:dimension|qb:measure) ?colDesc .
+  ?colDesc  rdfs:range  ?colRange .
+  
+  # get concept per column
+  ?colDesc qb:concept/skos:exactMatch ?colConcept .
+
+  {filter}
+
+  # bind unbound
+  BIND( IF( BOUND( ?minNumVal ), ?minNumVal, "" ) AS ?bMinNumVal ) .
+  BIND( IF( BOUND( ?maxNumVal ), ?maxNumVal, "" ) AS ?bMaxNumVal ) .
+  BIND( IF( BOUND( ?minTimeVal ), ?minTimeVal, "" ) AS ?bMinTimeVal ) .
+  BIND( IF( BOUND( ?maxTimeVal ), ?maxTimeVal, "" ) AS ?bMaxTimeVal ) .
+  BIND( IF( BOUND( ?inputCodelist ), ?inputCodelist, "" ) AS ?bCodelist ) .
+  
+  # measurement or dimension
+  BIND( IF( EXISTS{ ?colDesc a qb:MeasureProperty }, 1, 0 ) AS ?isMeas ).
+
+}
+GROUP BY ( ?ds )
+HAVING( (?colCount > 1) && (?colMeasCount > 0) && (?colCount - ?colMeasCount > 0) )

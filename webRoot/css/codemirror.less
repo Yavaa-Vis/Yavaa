@@ -1,0 +1,35 @@
+/* Adapt Codemirror styles */
+
+@import "def.less";
+@import "colors.less";
+
+.CodeMirror.cm-s-yavaa { background: @bgcolor-highlight; color: @text-color; }
+.cm-s-yavaa div.CodeMirror-selected { background: #447; }
+
+.cm-s-yavaa .CodeMirror-line::-moz-selection, 
+.cm-s-yavaa .CodeMirror-line > span::-moz-selection, 
+.cm-s-yavaa .CodeMirror-line > span > span::-moz-selection,
+.cm-s-yavaa .CodeMirror-line::selection, 
+.cm-s-yavaa .CodeMirror-line > span::selection, 
+.cm-s-yavaa .CodeMirror-line > span > span::selection { 
+  background: @color-accent-dark;
+  opacity:    @opacity-sec;
+}
+
+.cm-s-yavaa .CodeMirror-cursor              { border-left: 1px solid @text-color; }
+
+.cm-s-yavaa span.cm-comment                               {  }
+.cm-s-yavaa span.cm-atom                                  { font-weight: bold; color: @text-color-accent; }
+.cm-s-yavaa span.cm-number, span.cm-attribute             {  }
+.cm-s-yavaa span.cm-keyword                               {  }
+.cm-s-yavaa span.cm-string                                {  }
+.cm-s-yavaa span.cm-meta                                  {  }
+.cm-s-yavaa span.cm-variable-2, span.cm-tag               {  }
+.cm-s-yavaa span.cm-variable-3, span.cm-def, span.cm-type {  }
+.cm-s-yavaa span.cm-bracket                               {  }
+.cm-s-yavaa span.cm-builtin, span.cm-special              {  }
+.cm-s-yavaa span.cm-link                                  {  }
+.cm-s-yavaa span.cm-error                                 { text-decoration: underline wavy red; background-color: rgba( 255, 0, 0, 0.2 ); }
+
+.cm-s-yavaa .CodeMirror-activeline-background             {  }
+.cm-s-yavaa .CodeMirror-matchingbracket                   { outline:1px solid grey; color:white !important; }

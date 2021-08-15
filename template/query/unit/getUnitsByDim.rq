@@ -1,0 +1,28 @@
+# Variables
+# {dimension}     ... the dimension for which to pick
+# {onlySingular}  ... (boolean) return only singular units
+
+PREFIX om: <http://www.wurvoc.org/vocabularies/om-1.8/> 
+
+SELECT ?unit ?label ?dimension ?dimVal
+WHERE{
+
+# bind input to variable
+  VALUES ?dimension { {dimension} } .
+  
+# get english label for all units
+  ?unit rdfs:label ?label .
+  FILTER( LANG(?label) = "en" ) .
+
+# ---------------------------- just base units ------------------------------ #
+
+  BIND( IF( {onlySingular}, om:Singular_unit, om:Unit_of_measure ) AS ?unitType ) .  
+  ?unit a ?unitType .
+
+# ---------------------------- get by dimension ----------------------------- #
+
+  ?unit om:dimension ?dimension.
+
+}
+
+ORDER BY ASC( ?label )

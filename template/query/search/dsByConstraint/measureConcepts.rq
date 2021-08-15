@@ -1,0 +1,18 @@
+# filter the concept list to those that can appear in a measurement
+#
+# Variables
+# {concept}     ...     list of concepts to test
+
+PREFIX qb:    <http://purl.org/linked-data/cube#>
+PREFIX skos:  <http://www.w3.org/2004/02/skos/core#>
+SELECT DISTINCT ?concept
+WHERE {
+
+  # input values
+  VALUES ?concept { {concept} }
+  
+  # get column properties
+  ?colDesc a qb:MeasureProperty ;
+           qb:concept/skos:exactMatch ?concept .
+
+}

@@ -1,0 +1,50 @@
+<div id="joinDatasets" title="Join Datasets" data-help="https://tutorial.yavaa.org/#yavaa,join">
+  <div class="errMsg">
+    <span data-name="toofewdatasets">At least two datasets have to be loaded for this operation!</span>
+  </div>
+  <div id="joinDatasets_step1">
+    <label class="input" style="margin-bottom: 1em;">
+      <input type="checkbox" autocomplete="off" id="joinDatasets_newDs" />
+      <span class="label">Create as a new dataset</span>
+    </label>
+    <div class="inline-input">
+      <span style="min-width: 12em; text-align: right;">Base Dataset:</span>
+      <select id="joinDatasets_baseDs"></select>
+    </div>
+    <div class="inline-input">
+      <span style="min-width: 12em; text-align: right;">Augmenting Dataset:</span>
+      <select id="joinDatasets_augmDs"></select>
+    </div>
+  </div>
+  <div id="joinDatasets_step2">
+		<div class="controls">
+		   <input type="radio" data-mode="add" checked name="controls" id="ctrl_add" style="display: none"/>
+		   <label for="ctrl_add">Add Connections</label>
+		    &hArr;
+		    <input type="radio" data-mode="del" name="controls" id="ctrl_rem" style="display: none" />
+		    <label for="ctrl_rem">Remove Connections</label> 
+        <button data-action="suggest" class="helper">Suggest</button>
+		</div>
+		<svg data-mode="add" class="add">
+		    <defs>
+		        <marker id="arrowEnd" viewBox="-1 -1 9 6" refX="5" refY="2" markerUnits="strokeWidth" markerWidth="20" markerHeight="20" orient="auto">
+		            <path d="M 0,0 L 7,2 L 0,4 z" />
+		        </marker>
+		        <marker id="arrowStart" viewBox="-1 -1 9 6" refX="2" refY="2" markerUnits="strokeWidth" markerWidth="20" markerHeight="20" orient="auto">
+		            <path d="M 7,0 L 0,2 L 7,4 z" />
+		        </marker>
+		    </defs>
+		    <line class="arrow" style="display: none;" marker-end="url(#arrowEnd)" marker-start="url(#arrowStart)" />    
+		    <g class="empty"></g>
+		    <foreignObject width="100%" height="100%">
+		        <div class="dataset" data-ds="base" style="float:left;">
+		          <div class="title"></div>
+		        </div>
+		        <div class="dataset" data-ds="augm" style="float: right;">
+		          <div class="title"></div>
+		        </div>
+		    </foreignObject>
+		    <g id="fixedArrows"></g>
+		</svg>
+  </div>
+</div>

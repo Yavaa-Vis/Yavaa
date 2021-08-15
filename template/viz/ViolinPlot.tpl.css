@@ -1,0 +1,24 @@
+#{id} * {
+  font: 10px sans-serif;
+}
+
+#{id} .axis path,
+#{id} .axis line {
+  fill: none;
+  stroke: currentColor;
+  shape-rendering: crispEdges;
+}
+
+#{id} line.horiz,
+#{id} line.vert,
+#{id} rect.box {
+  stroke: black;
+}
+
+#{id} line.horiz {
+  stroke-width: 3;
+}
+
+#{id} line.vert {
+  stroke-dasharray: 2 2;
+}

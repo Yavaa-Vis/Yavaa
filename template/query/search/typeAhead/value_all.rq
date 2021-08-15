@@ -1,0 +1,17 @@
+# find all codelist values from any type, that include the given value needle
+#
+# Variables
+# {needle} ... the value to look for
+# {amount} ... number of returned items
+PREFIX skos:<http://www.w3.org/2004/02/skos/core#>
+PREFIX luc: <http://www.ontotext.com/owlim/lucene#>
+
+SELECT DISTINCT ?concept ?label ?codelist ?codelistLabel
+WHERE {
+  ?concept luc:labelIndex "{needleLucene}" .
+  ?concept skos:prefLabel ?label .
+  
+  ?concept skos:inScheme  ?codelist .
+  ?codelist skos:prefLabel ?codelistLabel .
+}
+ORDER BY ASC( STRLEN( ?label ) ) ASC(?label)

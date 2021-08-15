@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   version="1.1"
+   viewBox="0 0 26 26">
+  <defs>
+    <path
+       id="el"
+       d="M 3,2 20,2 Q 21,2 21,3 L 21,6 Q 21,7 20,7 L 3,7 Q 2,7 2,6 L 2,3 Q 2,2 3,2"
+       />
+    <g id="ds">
+      <use x="0" y="0" xlink:href="#el" />
+      <use x="0" y="0" xlink:href="#el"
+         transform="translate( 0 6 )" />
+      <use x="0" y="0" xlink:href="#el"
+         transform="translate( 0 12 )" />
+      <use x="0" y="0" xlink:href="#el"
+         transform="translate( 0 18 )" />
+    </g>
+  </defs>
+  
+  <use x="0" y="0" xlink:href="#ds"  transform="scale( 0.35 )"/>
+  <use x="0" y="0" xlink:href="#ds"  transform="translate( 17.7 0 ) scale( 0.35 )"/>
+  
+  <use x="0" y="0" xlink:href="#ds"  transform="translate( 6 11 ) scale( 0.6 )"/>
+  
+  <path d="M 8,1.5 17.8,1.5 17.8,2.5 8,2.5 Z
+           M 12.4,2.5 13.4,2.5 13.4,10 12.4,10
+           M 12.9,11.5 10,5 12.9,6 15.8,5  Z" />
+</svg>

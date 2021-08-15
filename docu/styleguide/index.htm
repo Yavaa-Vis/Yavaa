@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf8" />
+  <title>Yavaa Styleguide</title>
+  
+  <link rel="stylesheet" type="text/css" href="../../lib/jquery/jquery.dataTables.css">
+  <link rel="stylesheet" type="text/css" href="../../lib/jquery/jquery.datetimepicker.css">
+
+  <link rel="stylesheet/less" type="text/css" href="./styles.less" />
+  <script src="../../lib/less/less.min.js"></script>
+
+  <script src="../../lib/jquery/jquery.min.js"></script>
+  <script src="../../lib/jquery/jquery-ui.min.js"></script>
+  <script src="../../lib/jquery/jquery.datetimepicker.js"></script>
+  <script src="../../lib/jquery/jquery.ui-contextmenu.min.js"></script>
+</head>
+<body id="styleguide">
+
+<nav></nav>
+
+<section>
+  <h1>Datasets, Tables, etc.</h1>
+  
+  <ul>
+    <li>Dataset: <span class="tag dataset">dataset label</span>
+  </ul>
+  
+  <h2>Columns</h2>
+  
+  <ul>
+    <li>Generic column: <span class="tag column">column label</span>
+    <li>Dimension:      <span class="tag column dimension">dimension label</span>
+    <li>Measurement:    <span class="tag column measurement">measurement label</span>
+    <li>Value:          <span class="tag value">value label</span>
+  </ul>
+</section>
+
+<section>
+  <h1>Buttons</h1>
+    
+  <ul>
+    <li><a href="https://www.lukew.com/ff/entry.asp?571">https://www.lukew.com/ff/entry.asp?571</a>
+  </ul>
+  
+  <h2>Primary buttons</h2>
+  
+  <p>"ok", "proceed", "execute", ...</p> 
+  
+  <button type="button">Active</button>
+  &nbsp;
+  <button type="button" disabled>Disabled</button>
+  &nbsp;
+  <button type="button" data-processing>Processing</button>
+
+  
+  <h2>Secondary buttons</h2>
+  
+  <p>"reset", "cancel", ...</p>
+  
+  <button type="button" class="secondary">Active</button>
+  &nbsp;
+  <button type="button" class="secondary" disabled>Disabled</button>
+  
+  
+  <h2>Helper buttons</h2>
+  
+  <button class="helper">active</button>
+  &nbsp;
+  <button class="helper" disabled>disabled</button>
+  &nbsp;
+  <button class="helper" data-processing="true">processing</button>
+</section>
+
+<section>
+  <h1>Inputs</h1>
+  
+  <ul>
+    <li>Use Labels for inputs
+  </ul>
+  
+  <ul style="margin-top: 2em;">
+    <li>
+      <label class="input">
+        <input type="text" placeholder="text-input" autocomplete="off">
+        <span class="label">Text</span>
+      </label>
+    <li>
+      <label class="input">
+        <input type="text" placeholder="disabled input" disabled autocomplete="off">
+        <span class="label">Disabled</span>
+      </label>
+    <li>
+      <label class="input">
+        <select>
+          <option>111</option>
+          <option>AAA</option>
+          <option>TTT</option>
+          <option>LLL</option>
+          <option>5</option>
+          <option>6</option>
+          <option>7</option>
+          <option>8</option>
+        </select>
+        <span class="label">Select</span>
+      </label>
+    <li>
+      <label class="input">
+        <select disabled><option>1</option><option>2</option></select>
+        <span class="label">Disabled Select</span>
+      </label>
+    <li>
+      <label class="input file">
+        <button type="button">Browse ...</button>
+        <input class="fileInputPath" readonly value="" placeholder="file-input" autocomplete="off">
+        <input type="file" style="display: none;" autocomplete="off" >
+        <span class="label">File Input</span>
+      </label>
+      <script>
+      $( 'body' )
+        .on( 'click', '.input.file button, .input.file input[readonly]', function(ev){
+          console.log( 'click')
+          $(this)
+            .parent( '.input.file' )
+            .find( 'input[type="file"]' )
+            .trigger( 'click' );
+        });
+      $( 'body' )
+        .on( 'change', '.input.file input[type="file"]', function(ev){
+          console.log( 'change')
+          const $this = $(this);
+          $this
+            .parent( '.input.file' )
+            .find( '.fileInputPath' )
+            .val( $this.val() );
+        });
+      </script>
+    <li>
+      <label class="input">
+        <textarea></textarea>
+        <span class="label">Textarea</span>
+      </label>
+    <li>
+      <div class="inline-input">
+        Inline select with label:
+        <label class="input">        
+          <select>
+            <option>111</option>
+            <option>AAA</option>
+            <option>TTT</option>
+            <option>LLL</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+          </select>
+          <span class="label">Text</span>
+        </label>
+      </div>
+    <li>
+      <div class="inline-input">
+        Inline select without label:
+        <select>
+          <option>111</option>
+          <option>AAA</option>
+          <option>TTT</option>
+          <option>LLL</option>
+          <option>5</option>
+          <option>6</option>
+          <option>7</option>
+          <option>8</option>
+        </select>
+      </div>
+    <li>
+      <label class="input">
+        <input type="checkbox" autocomplete="off"/>
+        <span class="label">Checkbox (unchecked)</span>
+      </label>
+      <label class="input">
+        <input type="checkbox" autocomplete="off" disabled />
+        <span class="label">Checkbox (unchecked, disabled)</span>
+      </label>
+
+    <li>
+      <label class="input">
+        <input type="checkbox" checked="checked" autocomplete="off"/>
+        <span class="label">Checkbox (checked)</span>
+      </label>
+      <label class="input">
+        <input type="checkbox" checked="checked" disabled autocomplete="off"/>
+        <span class="label">Checkbox (checked, disabled)</span>
+      </label>
+
+    <li>
+      <label class="input">
+        <input type="radio" name="radio" autocomplete="off"/>
+        <span class="label">Radio button (unchecked)</span>
+      </label>
+      <label class="input">
+        <input type="radio" disabled autocomplete="off"/>
+        <span class="label">Radio button (unhecked, disabled)</span>
+      </label>
+
+    <li>
+      <label class="input">
+        <input type="radio" checked="checked" name="radio" autocomplete="off"/>
+        <span class="label">Radio button (checked)</span>
+      </label>
+      <label class="input">
+        <input type="radio" checked="checked" disabled autocomplete="off"/>
+        <span class="label">Radio button (checked, disabled)</span>
+      </label>
+    
+    
+    <li>
+      Slider<br>
+      <div id="slider"></div>
+      <script>
+      $( '#slider' ).slider({
+        range:  true,
+        min:    0,
+        max:    100,
+        values: [ 10, 80 ],
+      });
+      </script>
+  </ul>
+  
+  
+  <h2>Autocomplete</h2>
+  
+  <label class="input" style="margin-bottom: 6em;">
+    <input id="autocomplete" type="text" placeholder="text-input" autocomplete="off" value="ab">
+    <span class="label">Autocomplete Text</span>
+  </label>
+  <script>
+    $( '#autocomplete' )
+      .autocomplete({
+        source:   [ 'abc', 'abcd', 'abcde', 'abcdef' ],
+        appendTo: $( '#autocomplete' ).parent(),
+      })
+    // http://stackoverflow.com/a/1823732/1169798
+    $(document).ready(() => {
+      $("#autocomplete").autocomplete('search', 'ab');
+    })
+  </script>
+  
+  
+  <h2>DateTimePicker</h2>
+  
+  <label class="input" style="margin-bottom: 15em;">
+    <input type="text" id="datetime" style="margin">
+    <span class="label">Datepicker Text</span>
+  </label> 
+  <script>
+  $( '#datetime' )
+    .datetimepicker({
+      timepicker:   false,
+      todayButton:  false,
+      defaultSelect: false,
+      theme:        'dark',
+      closeOnWithoutClick: false,
+      onGenerate: function(time, $input) {
+        const $this = $(this);
+        $input.after( $this );
+        $this.css({
+          'top': '3.1rem',
+          'left': '0'
+        })
+      },
+      format:'Y-m-d'
+    });
+  $(document).ready(() => {
+    $("#datetime").datetimepicker( 'show' );
+  })
+  </script>
+</section>
+
+<section>
+  <h1>Modal Dialogs</h1>
+  
+  <h2>Basic Dialog</h2>
+  <ul>
+    <li>no buttons in content area; just in bottom area
+    <li>Order: [primary buttons] > [secondary buttons]
+      <ul>
+        <li>primary: "ok", "execute", "proceed", ...
+        <li>secondary: "cancel"; "reset", ...
+      </ul>
+  </ul>
+  <br>
+  
+  <div id="basicDialogContainer"></div>
+  <div id="basicDialog" title="some title">
+    <h1>Some Header</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque volutpat ex nisi, in egestas turpis ultricies sit amet. Aliquam pharetra finibus ligula, eu molestie nulla tempor mattis. 
+    
+    <h2>Level 2 heading</h2>
+    Nulla consectetur vestibulum eros id feugiat. 
+    
+    <h3>Level 3 heading</h3>
+    In ex neque, aliquam at feugiat ac, ultricies vel magna. Ut sollicitudin sit amet ligula vitae placerat.
+  </div>
+  <script>
+  $( '#basicDialog' ).dialog({
+    minWidth: 400,
+    appendTo: '#basicDialogContainer',
+    draggable: false,
+    resizable: false,
+    closeOnEscape: true,
+    buttons: [
+      { text: 'OK' },
+      { text: 'Deactivated', disabled: true },
+      { text: 'Cancel', class: 'secondary' },
+    ],
+    // replace the close icon
+    // http://stackoverflow.com/a/7910817/1169798
+    'create': function(){
+      const widget = $(this).dialog("widget");
+      $(".ui-dialog-titlebar-close", widget)
+        // .removeClass("ui-icon-closethick")
+        .html( "\uf057" );
+    }
+  });
+  $( '#basicDialog' ).parents( '.ui-dialog' ).css({
+    position: 'relative',
+    top: 'auto',
+    left: 'auto'
+  });
+  </script>
+  
+  
+  <h2>Basic Dialog with error message</h2>
+  <br>
+  <div id="basicDialogErrorContainer"></div>
+  <div id="basicDialogError" title="dialog with error message">
+    <div class="errMsg" style="display: block;">
+      <span data-name="noresult" style="display: inline;">Some error message!</span>
+    </div>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque volutpat ex nisi, in egestas turpis ultricies sit amet. Aliquam pharetra finibus ligula, eu molestie nulla tempor mattis. Nulla consectetur vestibulum eros id feugiat. In ex neque, aliquam at feugiat ac, ultricies vel magna. Ut sollicitudin sit amet ligula vitae placerat.
+  </div>
+  <script>
+  $( '#basicDialogError' ).dialog({
+    minWidth:  500,
+    appendTo:  '#basicDialogErrorContainer',
+    draggable: false,
+    resizable: false,
+    closeOnEscape: true,
+    buttons: [
+      { text: 'OK' },
+      { text: 'Deactivated', disabled: true },
+      { text: 'Cancel', class: 'secondary' },
+    ],
+    // replace the close icon
+    // http://stackoverflow.com/a/7910817/1169798
+    'create': function(){
+      const widget = $(this).dialog("widget");
+      $(".ui-dialog-titlebar-close", widget)
+        // .removeClass("ui-icon-closethick")
+        .html( "\uf057" );
+    }
+  });
+  $( '#basicDialogError' ).parents( '.ui-dialog' ).css({
+    position: 'relative',
+    top: 'auto',
+    left: 'auto'
+  });
+  $( '#basicDialogError .errMsg, #basicDialogError .errMsg > span' ).show();
+  </script>
+  
+  
+  <h2>Basic Dialog with helper button</h2>
+  <br>
+  <div id="basicDialogHelperContainer"></div>
+  <div id="basicDialogHelper" title="dialog with helper button">
+    <button class="helper" style="float: right;">Help!</button>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque volutpat ex nisi, in egestas turpis ultricies sit amet. Aliquam pharetra finibus ligula, eu molestie nulla tempor mattis. Nulla consectetur vestibulum eros id feugiat. In ex neque, aliquam at feugiat ac, ultricies vel magna. Ut sollicitudin sit amet ligula vitae placerat.
+  </div>
+  <script>
+  $( '#basicDialogHelper' ).dialog({
+    minWidth:  500,
+    appendTo:  '#basicDialogHelperContainer',
+    draggable: false,
+    resizable: false,
+    closeOnEscape: true,
+    buttons: [
+      { text: 'OK' },
+      { text: 'Deactivated', disabled: true },
+      { text: 'Cancel', class: 'secondary' },
+    ],
+    // replace the close icon
+    // http://stackoverflow.com/a/7910817/1169798
+    'create': function(){
+      const widget = $(this).dialog("widget");
+      $(".ui-dialog-titlebar-close", widget)
+        // .removeClass("ui-icon-closethick")
+        .html( "\uf057" );
+    }
+  });
+  $( '#basicDialogHelper' ).parents( '.ui-dialog' ).css({
+    position: 'relative',
+    top: 'auto',
+    left: 'auto'
+  });
+  </script>
+  
+
+  <h2>Basic Dialog with additional information (expandable)</h2>
+  <br>
+  <div id="basicDialogAddinfoContainerExp"></div>
+  <div id="basicDialogAddinfExp" title="dialog with add. information">
+    <div style="margin-bottom: 1em;">
+      <input type="checkbox" id="infoToggle" autocomplete="off" class="infoToggle" />
+      <label for="infoToggle" class="infoToggle">
+        <span class="shown">Hide</span>
+        <span class="hidden">Show</span>
+        additional information
+      </label>
+      <div class="infoBox" style="padding: 1em;">some more information</div>
+    </div>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque volutpat ex nisi, in egestas turpis ultricies sit amet. Aliquam pharetra finibus ligula, eu molestie nulla tempor mattis. Nulla consectetur vestibulum eros id feugiat. In ex neque, aliquam at feugiat ac, ultricies vel magna. Ut sollicitudin sit amet ligula vitae placerat.
+  </div>
+  <script>
+  $( '#basicDialogAddinfExp' ).dialog({
+    minWidth:  700,
+    appendTo:  '#basicDialogAddinfoContainerExp',
+    draggable: false,
+    resizable: false,
+    closeOnEscape: true,
+    buttons: [
+      { text: 'OK' },
+    ],
+    // replace the close icon
+    // http://stackoverflow.com/a/7910817/1169798
+    'create': function(){
+      const widget = $(this).dialog("widget");
+      $(".ui-dialog-titlebar-close", widget)
+        // .removeClass("ui-icon-closethick")
+        .html( "\uf057" );
+    }
+  });
+  $( '#basicDialogAddinfExp' ).parents( '.ui-dialog' ).css({
+    position: 'relative',
+    top: 'auto',
+    left: 'auto'
+  });
+  </script>
+
+
+  <h2>Basic Dialog with additional information</h2>
+  <br>
+  <div id="basicDialogAddinfoContainer"></div>
+  <div id="basicDialogAddinfo" title="dialog with add. information">
+    <div class="infoMsg" style="display: block;">
+      <span data-name="addInfo1" style="display: inline;">some more information</span>
+    </div>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque volutpat ex nisi, in egestas turpis ultricies sit amet. Aliquam pharetra finibus ligula, eu molestie nulla tempor mattis. Nulla consectetur vestibulum eros id feugiat. In ex neque, aliquam at feugiat ac, ultricies vel magna. Ut sollicitudin sit amet ligula vitae placerat.
+  </div>
+  <script>
+  $( '#basicDialogAddinfo' ).dialog({
+    minWidth:  700,
+    appendTo:  '#basicDialogAddinfoContainer',
+    draggable: false,
+    resizable: false,
+    closeOnEscape: true,
+    buttons: [
+      { text: 'OK' },
+    ],
+    // replace the close icon
+    // http://stackoverflow.com/a/7910817/1169798
+    'create': function(){
+      const widget = $(this).dialog("widget");
+      $(".ui-dialog-titlebar-close", widget)
+        // .removeClass("ui-icon-closethick")
+        .html( "\uf057" );
+    }
+  });
+  $( '#basicDialogAddinfo' ).parents( '.ui-dialog' ).css({
+    position: 'relative',
+    top: 'auto',
+    left: 'auto'
+  });
+  </script>
+
+</section>
+
+<section>
+  <h1>Tabs</h1>
+  
+  <h2>Single Level Tabs</h2>
+  
+  <div id="singleTabContainer" style="width: 400px">
+    <ul>
+      <li><a href="#singleTab1">Tab 1</a></li>
+      <li><a href="#singleTab2">Tab 2</a></li>
+      <li><a href="#singleTab3">disabled tab</a></li>
+    </ul>
+    <div id="singleTab1">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+    <div id="singleTab2">Pellentesque volutpat ex nisi, in egestas turpis ultricies sit amet. </div>
+    <div id="singleTab3">Aliquam pharetra finibus ligula, eu molestie nulla tempor mattis.</div>
+  </div>
+  <script>
+  $( '#singleTabContainer' ).tabs({ disabled: [ 2 ] });
+  </script>
+
+  
+  <h2>Two Level Tabs</h2>
+  
+  <div id="twoTabContainer" style="width: 400px; height: 300px;">
+    <ul>
+      <li><a href="#twoTab1">Tab 1</a></li>
+      <li><a href="#twoTab2">Tab 2</a></li>
+      <li><a href="#twoTab3">Tab 3</a></li>
+    </ul>
+    <div id="twoTab1">
+      <div id="twoTabSubContainer" style="width: 100%;">
+        <ul>
+          <li><a href="#twoSubTab1">Tab 1</a></li>
+          <li><a href="#twoSubTab2">Tab 2</a></li>
+          <li><a href="#twoSubTab3">Tab 3</a></li>
+        </ul>
+        <div id="twoSubTab1">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+        <div id="twoSubTab2">Pellentesque volutpat ex nisi, in egestas turpis ultricies sit amet. </div>
+        <div id="twoSubTab3">Aliquam pharetra finibus ligula, eu molestie nulla tempor mattis.</div>
+      </div>
+    </div>
+    <div id="twoTab2">Pellentesque volutpat ex nisi, in egestas turpis ultricies sit amet. </div>
+    <div id="twoTab3">Aliquam pharetra finibus ligula, eu molestie nulla tempor mattis.</div>
+  </div>
+  <script>
+   $( '#twoTabContainer' ).tabs();
+   $( '#twoTabSubContainer' ).tabs();
+  </script>
+</section>
+
+<section>
+  <h1>Context Menu</h1>
+  
+  <ul>
+    <li><span id="ctxMenu">Context Menu (right click)</span>
+  </ul>
+  <script>
+  $(document).contextmenu({
+    delegate: "#ctxMenu",
+    autoFocus: true,
+    preventContextMenuForPopup: true,
+    preventSelect: true,
+    taphold: true,
+    menu: [
+      {title: "Entry One", cmd: "opt1",  uiIcon: ""},
+      {title: "Entry Two", cmd: "opt2",  uiIcon: ""},
+      {title: "Entry Three", cmd: "opt3",  uiIcon: ""},
+      {title: "Entry Four", cmd: "opt4",  uiIcon: ""},
+      {title: "Entry Five", cmd: "opt5",  uiIcon: ""},
+      {title: "Entry Six", cmd: "opt6",  uiIcon: ""},
+      ],
+  });
+  </script>
+</section>
+
+<section>
+  <h1>Action Icons</h1>
+  
+  <div id="menu">
+  
+    <script>
+    /* dummy define function to be able to load the menu configs */
+    function define( a, def ) {
+      
+      // dummy constants object
+      const ConstantDummy = { DATATYPE: {}, ROLE: {} };
+      
+      // get entries
+      const entries = def( ConstantDummy ).entries;
+      
+      // build DOM string
+      const out = [];
+      for( let entry of entries ) {
+        out.push( `<li>${entry.label}: <div class="${entry.classes}" title="${entry.label}"></div>` );
+      }
+      
+      // insert list
+      document.write( '<ul>' + out.join( '\n' ) + '</ul>' );
+    }
+    </script>
+    <h2>Top Menu</h2>
+    <script src="../../js/modules/config/ui/top.menu.js"></script>
+    
+    <h2 style="margin-top: 1em;">Dataset Context Menu</h2>
+    <script src="../../js/modules/config/ui/dataset.contextmenu.js"></script>
+          
+    <h2 style="margin-top: 1em;">Column Context Menu</h2>
+    <script src="../../js/modules/config/ui/datatables.contextmenu.js"></script>
+
+    <h2 style="margin-top: 1em;">Other</h2>
+    <ul>
+      <li>Active connection: <div title="Connected" class="icon icon-connected"></div>
+      <li>Disabled connection: <div title="Disconnected" class="icon icon-disconnected"></div>
+      <li>New Datasets (dataset nav): <div title="New Dataset"  class="icon dsNavNewItem"></div>
+      <li>Drop dataset (dataset nav):  <div title="Drop Dataset" class="icon icon-dropDs"></div>
+      <li>Rename dataset (dataset nav): <div title="Rename Dataset" class="icon icon-dropDs"></div>
+    </ul>
+  </div>
+</section>
+
+<script src="./script.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+# given codelists and respective values, find all values, that are included in that very codelists
+#
+# Variables
+# {parts}     ...   parts of this query as defined in valuesInCodelist.rq
+# {separator} ...   separtor used in aggregation list
+PREFIX skos:  <http://www.w3.org/2004/02/skos/core#>
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?enumRange 
+       (GROUP_CONCAT( ?enumValue; separator="{separator}" ) AS ?gEnumValue)
+WHERE {
+  {parts}
+}
+GROUP BY (?enumRange)

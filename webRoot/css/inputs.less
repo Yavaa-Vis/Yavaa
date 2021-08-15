@@ -1,0 +1,283 @@
+/* height for input elements */
+@input-height: 2em;
+
+/* styles after http://materializecss.com */
+
+input, 
+select,
+label.input span.fileInputPath,
+textarea {
+  border: none;
+  border-bottom: 1px solid @color-accent;
+  border-radius: 0;
+  outline: none;
+
+  flex:       auto;
+  height:     @input-height;
+  width:      100%;
+  margin:     0 0 10px 0;
+  padding:    0;
+  box-shadow: none;
+  box-sizing: content-box;
+
+  transition-property: opacity, border-color, color;
+  transition-duration: 0.3s;
+  
+  font-size:        100%;
+  background-color: transparent;
+  color:            @text-color;
+}
+
+.inline-input {
+  display: flex;
+  white-space: nowrap; 
+  align-items: baseline;
+}
+
+.inline-input input, 
+.inline-input select,
+.inline-input label.input span.fileInputPath,{
+  margin-left: 1em;
+  width: auto;
+  flex-grow: 1;
+}
+
+.inline-input label.input input ~ span.label,
+.inline-input label.input select ~ span.label,
+.inline-input label.input textarea ~ span {
+  left: 2.25em;
+}
+
+textarea {
+  margin-top: 1rem;
+  .font-monospaced;
+}
+
+select {
+
+  option {
+    background-color: @bgcolor-highlight;
+    color:            @text-color;
+  }
+  
+  option[disabled] {
+    display: none;
+  }
+}
+
+label.input button {
+  flex:         auto;
+  margin-right: 0.75rem;
+  bottom:       -10px;
+  position:     relative;
+  white-space:  nowrap;
+}
+
+input[disabled], 
+select[disabled], 
+textarea[disabled],
+label.input > input[disabled] + span.label, 
+label.input > select[disabled] + span.label, 
+label.input > textarea[disabled] + span.label {
+  opacity: @opacity-disabled !important;
+  cursor:   no-drop;
+}
+
+
+.file button {
+  height: @input-height;
+}
+
+.legend {
+  font-size: 80%;
+  opacity: @opacity-sec;
+}
+
+label.input {
+  position: relative;
+  vertical-align: top;
+
+  display: inline-flex;
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0 0.75rem;
+
+  input ~ span.label,
+  select ~ span.label,
+  textarea ~ span {
+    .legend;
+    -webkit-transform: translateY(-140%);
+            transform: translateY(-140%);
+    position: absolute;
+    top: 0.8rem;
+    left: 0.75rem;
+  }
+  
+  input:focus + span.label,
+  select:focus + span.label,
+  textarea:focus + span.label {
+    color: @color-accent-light;
+    opacity: @opacity-prim;
+    position: absolute;
+    top: 0.8rem;
+    left: 0.75rem;
+  }
+}
+
+/* ------------------------- checkboxes ------------------------- */
+
+@checkbox-width: 1em;
+
+label.input input[type="checkbox"] {
+  
+  display: none;
+  
+  & + span.label {
+    -webkit-transform: none;
+            transform: none;
+    position: relative;
+    top:      auto;
+    left:     auto;
+    font-size: 100%;
+    opacity:   @opacity-prim;
+    padding-left: @checkbox-width * 2;
+    
+    &:before {
+      position: absolute;
+      left: 0;
+      top: 0;
+    
+      content: ' ';
+      display: inline-block;
+      width:  @checkbox-width;
+      height: @checkbox-width;
+      margin-right: 1em;
+
+      border: 2px solid @color-accent-light;
+      transition: .15s;
+    }
+  }
+  
+  &[disabled] + span.label:before {
+    opacity: @opacity-disabled;
+  }
+}
+
+label.input input[type="checkbox"]:checked {
+  & + span.label:before {
+    width: @checkbox-width*0.3;
+    transform: rotate(40deg);
+    -webkit-transform-origin: 100% 100%;
+            transform-origin: 100% 100%;
+    backface-visibility: hidden;
+    border-color: transparent @color-accent-light @color-accent-light transparent;
+  }
+}
+
+/* ------------------------- checkboxes ------------------------- */
+
+@radio-width: 1em;
+
+label.input input[type="radio"] {
+  
+  display: none;
+  
+  & + span.label {
+    -webkit-transform: none;
+            transform: none;
+    position: relative;
+    top:      auto;
+    left:     auto;
+    font-size: 100%;
+    opacity:   @opacity-prim;
+    padding-left: @radio-width * 2;
+    
+    &:before, &:after {
+      position: absolute;
+      left: 0;
+      top: 0;
+      box-sizing: border-box;
+    
+      content: ' ';
+      display: inline-block;
+      width:  @radio-width;
+      height: @radio-width;
+      margin-right: 1em;
+      
+      border-radius: 50%;
+      transition: .15s;
+      
+      border: 2px solid @color-accent-light;
+    }
+    
+    &:before {
+    }
+    
+    &:after {     
+      background-color: @color-accent-light;
+      
+      -webkit-transform: scale( 0 );
+              transform: scale( 0 );
+    }
+
+  }
+  
+  &[disabled] + span.label:before {
+    opacity: @opacity-disabled;
+  }
+}
+
+label.input input[type="radio"]:checked {
+  & + span.label:after {
+      -webkit-transform: scale( 0.4 );
+              transform: scale( 0.4 );
+  }
+}
+
+fieldset {
+  border-color: @color-accent-dark;
+}
+
+/* ------------------------- autocomplete ------------------------- */
+
+.ui-autocomplete {
+  background-color: @bgcolor-highlight;
+  z-index: 2000;
+  
+  .ui-menu-item {
+  
+    opacity: @opacity-disabled;
+  
+    &.ui-state-focus {
+      opacity: @opacity-prim;
+    }
+  }
+}
+
+/* ------------------------- datetimepicker ------------------------- */
+
+body .xdsoft_datetimepicker.xdsoft_dark .xdsoft_calendar td:hover, 
+body .xdsoft_datetimepicker.xdsoft_dark .xdsoft_timepicker .xdsoft_time_box > div > div:hover {
+  background: @color-accent !important;
+}
+
+body .xdsoft_datetimepicker.xdsoft_dark .xdsoft_calendar td.xdsoft_default, 
+body .xdsoft_datetimepicker.xdsoft_dark .xdsoft_calendar td.xdsoft_current, 
+body .xdsoft_datetimepicker.xdsoft_dark .xdsoft_timepicker .xdsoft_time_box > div > div.xdsoft_current {
+  background: @color-accent;
+  box-shadow: @color-accent 0 1px 3px 0 inset;
+  color: #000;
+}
+
+body .xdsoft_datetimepicker.xdsoft_dark .xdsoft_calendar td.xdsoft_today {
+  color: #999999;
+}
+.xdsoft_mounthpicker {
+  & > button {
+    margin-bottom: 1em;
+  }
+  .xdsoft_today_button {
+    display: none;
+  }
+  
+}

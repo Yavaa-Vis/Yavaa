@@ -1,0 +1,23 @@
+# get all systems and their labels, that are represented by at least one unnit
+#
+# Variables
+# {unit}     ... list of representative units
+
+PREFIX om: <http://www.wurvoc.org/vocabularies/om-1.8/> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?unit 
+       ?system
+     ?systemLabel
+WHERE{
+
+  # bind input
+  VALUES ?unit { {units} }
+
+  # get respective systems
+  ?system (om:base_unit|om:derived_unit) ?unit ;
+        rdfs:label                     ?systemLabel .
+        
+  # just English labels
+  FILTER( LANG(?systemLabel) = "en" )
+}

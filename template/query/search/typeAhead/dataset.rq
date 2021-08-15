@@ -1,0 +1,16 @@
+# find all datasets, whose label contains needle 
+#
+# Variables
+# {needle} ... the value to look for
+# {amount} ... number of returned items
+PREFIX qb: <http://purl.org/linked-data/cube#>
+PREFIX dct:<http://purl.org/dc/terms/>
+PREFIX luc: <http://www.ontotext.com/owlim/lucene#>
+
+SELECT DISTINCT ?concept ?label 
+WHERE {
+  ?concept a              qb:DataSet .
+  ?concept dct:title      ?label .
+  ?concept luc:labelIndex "{needleLucene}" .
+}
+ORDER BY ASC(?label)

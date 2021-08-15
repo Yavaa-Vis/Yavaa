@@ -1,0 +1,24 @@
+# retrieve all restricted codelists by a list of their values
+#
+# Variables
+# {value}     ...     list of values to be contained
+# {amount}    ...     the minimum number of supported values
+
+PREFIX skos:  <http://www.w3.org/2004/02/skos/core#>
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?enumRange
+WHERE {
+
+  # bind input values
+  VALUES ?colEnumVal { {value} }
+  
+  # must be a restricted codelist and not the concept itself
+  ?enumRange    a           skos:ConceptScheme .
+  ?someCol      rdfs:range  ?enumRange .
+
+  # and contain the values
+  ?enumRange skos:hasTopConcept ?colEnumVal .
+}
+GROUP BY( ?enumRange )
+HAVING (COUNT(?colEnumVal) >= {amount})

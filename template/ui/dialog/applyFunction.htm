@@ -1,0 +1,41 @@
+<div id="applyFunction" title="Apply Function" data-help="https://tutorial.yavaa.org/#yavaa,transform">
+  <div class="errMsg" style="display: none;">
+    <span data-name="nonExist"  style="display: inline;">Column does not exist #<span></span>.</span>
+    <span data-name="wrongType" style="display: inline;">Incompatible column #<span></span>. Only numeric columns allowed in formulae.</span>
+    <span data-name="noValue"   style="display: inline;">Keyword <i>value</i> can only be used when accessed through column context menu.</span>
+  </div>
+  <div class="newcol inline-input">
+    <label class="input">
+      <input type="checkbox" autocomplete="off" id="applyFunctionNewCol" />
+      <span class="label">Create as new column</span>
+    </label>
+    <label class="input">
+      <input type="text" placeholder="derived column" autocomplete="off" id="applyFunctionColLabel" />
+      <span class="label">Label</span>
+    </label>
+    <br />
+    <label class="input" style="margin-left: 2em;">
+      <input type="checkbox" autocomplete="off" id="applyFunctionRemCols" />
+      <span class="label">Drop source columns</span>
+    </label>
+  </div>
+  <div id="applyFunctionShortcuts">
+    <input type="checkbox" id="applyFunctionShortcutToggle" autocomplete="off" class="infoToggle" />
+    <label for="applyFunctionShortcutToggle" class="infoToggle">
+      <span class="shown">Hide</span>
+      <span class="hidden">Show</span>
+      Shortcuts
+    </label>
+    <div class="infoBox"></div>
+  </div>
+  <div id="applyFunctionEditor">
+    Enter formula to apply:
+    <textarea></textarea>
+  </div>
+  <template id="shortcut">
+    <div class="shortcutItem">
+      <span class="shortcut"></span>
+      <div class="colContainer"></div>
+    </div>
+  </template>
+</div>

@@ -1,0 +1,5 @@
+# restriction by keyword
+#
+# Variables
+# {keyword}     ... the respective keyword
+FILTER ( REGEX( STR(?title), "{keyword}", "i") ) .
