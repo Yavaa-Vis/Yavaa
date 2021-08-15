@@ -1,14 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet type="text/css" href="../_common.css"?>
-<?xml-stylesheet type="text/css" href="../_onto.css"?>
 <svg xmlns="http://www.w3.org/2000/svg"
      xmlns:xlink="http://www.w3.org/1999/xlink"
      viewBox="0 110 520 710">
 
   <defs>
     <style>
-      :not(.noStyle) rect {
+      rect {
         fill: white;
+        stroke: black;
+        stroke-width: 1px;
+      }
+      path {
+        fill: none;
+        stroke: black;
+      }
+      text {
+        text-anchor: middle;
+        dominant-baseline: central;
+        font-size: 80%;
+      }
+
+      .prop { font-size: 70%; text-anchor: start; }
+      .relation { font-size: 90%; }
+      .arrow {
+        marker-end: url( #arrowHeadEnd );
+      }
+      .arrow_derive {
+        marker-end: url( #arrowHeadEnd_derive );
+      }
+      .background {
+        fill: white;
+        stroke: transparent;
       }
     </style>
     <marker id="arrowHeadEnd"
