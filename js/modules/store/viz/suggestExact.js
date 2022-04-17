@@ -382,7 +382,7 @@ define([
 
     switch( param['function'].toLowerCase() ){
 
-      case 'heaviside': return value >= param.threshold ? 0 : 1;
+      case 'heaviside': return value >= param.threshold ? 1 : 0;
 
       case 'linear':    const ret = 0.5 + (x- param.threshold) * (0.5 / param.variance);
                         return Math.max( 0, Math.min( 1, ret ) );

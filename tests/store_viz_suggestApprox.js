@@ -27,32 +27,32 @@ function( Constants,
                             "role" :      Constants.ROLE.DIM,
                             "datatype":   Constants.DATATYPE.SEMANTIC,
                             "desc":       "col1",
-                              
+
                             values:   3,
                           },{
                             "role" :      Constants.ROLE.DIM,
                             "datatype":   Constants.DATATYPE.NUMERIC,
                             "desc":       "col2",
-                              
+
                             values:   10,
                           },{
                             "role" :      Constants.ROLE.MEAS,
                             "datatype":   Constants.DATATYPE.NUMERIC,
                             "desc":       "col3",
-                              
+
                             values:   10,
                           },{
                             "role" :      Constants.ROLE.MEAS,
                             "datatype":   Constants.DATATYPE.NUMERIC,
                             "desc":       "col4",
-                              
+
                             values:   10,
                           },
                           ]
                         }),
         test_dccq_mq = DataStore.getDataset( testId_dccq_mq );
     createTest( QUnit, test_dccq_mq, {
-      whitelist: ['LineChart', 
+      whitelist: ['LineChart',
                   { layout: 'Rows', nested: 'LineChart' },
                  ],
       blacklist: ['BoxPlot'],
@@ -79,7 +79,7 @@ function( Constants,
                               + ')'
                     })
                     .join( ' | ' );
-    
+
     // start test
     QUnit.test( title, async function( assert ){
 
@@ -87,17 +87,16 @@ function( Constants,
       const done = assert.async();
 
       try {
-      
+
         // find list of matching visualizations
         const viz       = await suggestApprox( ds ),
               exactViz  = await suggestExact( ds );   // we also compare against the exact suggestions
-viz.forEach( (v) => v.b = JSON.stringify( v.binding.binding ) )
-console.table( viz )
+
         // the result should be an desc-ordered array
-        assert.ok( viz instanceof Array, 'result should be an array' );
+        assert.ok( viz.suggestion instanceof Array, 'result should be an array' );
         let ordered = true;
-        for( let i=1; i<viz.length; i++ ) {
-          if( viz[i].binding.score < viz[i-1].binding.score ) {
+        for( let i=1; i<viz.suggestion.length; i++ ) {
+          if( viz.suggestion[i].binding.score < viz.suggestion[i-1].binding.score ) {
             ordered = false;
             break;
           }
@@ -107,16 +106,16 @@ console.table( viz )
         // some types should be in there
         if( 'whitelist' in cfg ) {
           for( let whiteItem of cfg.whitelist ) {
-            
+
             // nested viz?
             const nestedViz = typeof whiteItem != 'string';
 
             // a matching binding has to exist
             let binding;
             if( !nestedViz ) {
-              binding = viz.find( el => el.id == whiteItem );
+              binding = viz.suggestion.find( el => el.id == whiteItem );
             } else {
-              binding = viz.find( el => (el.id.layout == whiteItem.layout) && (el.id.nested == whiteItem.nested) );
+              binding = viz.suggestion.find( el => (el.id.layout == whiteItem.layout) && (el.id.nested == whiteItem.nested) );
             }
             assert.ok( !!binding, nestedViz
                                     ? `${whiteItem.layout}[${whiteItem.nested}] should be in the results`
@@ -127,13 +126,13 @@ console.table( viz )
 
             // check, that all mandatory fields are bound
             if( !nestedViz ) {
-              
+
               const desc = await requireP( `viz/${whiteItem}.desc` );
               checkMandatory( assert, whiteItem, binding, binding.id, binding.bindingId, desc );
-              
+
             } else {
 
-              const descs = await requireP( [ `viz/${whiteItem.layout}.desc`, 
+              const descs = await requireP( [ `viz/${whiteItem.layout}.desc`,
                                               `viz/${whiteItem.nested}.desc` ] );
               const name = `${whiteItem.layout}[${whiteItem.nested}]`;
               checkMandatory( assert, name, binding, binding.id.layout, binding.bindingId.layout, descs[0] );
@@ -147,7 +146,7 @@ console.table( viz )
         // some types should NOT be in there
         if( 'blacklist' in cfg ) {
           for( let i=0; i<cfg.blacklist.length; i++ ) {
-            assert.notOk( !!viz.find( el => el.id == cfg.blacklist[i] ), `${cfg.blacklist[i]} should NOT be in the results` );
+            assert.notOk( !!viz.suggestion.find( el => el.id == cfg.blacklist[i] ), `${cfg.blacklist[i]} should NOT be in the results` );
           }
         }
 
@@ -155,30 +154,28 @@ console.table( viz )
         for( const exactV of exactViz ) {
 
           // try to find corresponding approx viz
-          const approxV = viz.find( () => true );
+          const approxV = viz.suggestion.find( () => true );
           assert.ok( approxV, `should include ${exactV.id}` );
 
         }
 
       } catch( e ) {
-        
         console.log(e);
         assert.ok( false, 'error while executing test' );
       }
-      
 
       // we are done
       done();
 
     });
   }
-  
-  
+
+
   /**
    * validate that all mandatory fields are bound
    */
   function checkMandatory( assert, name, bindingDesc, bindingName, bindingId, desc ) {
-    
+
     // shortcut(s)
     const binding = bindingDesc.binding.binding;
 
@@ -188,7 +185,7 @@ console.table( viz )
         assert.ok( col.id in binding, `${name}: ${bindingName}.${col.id} should be bound.` );
       }
     }
-    
+
   }
 
 });

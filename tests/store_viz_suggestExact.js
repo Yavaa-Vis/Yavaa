@@ -24,13 +24,11 @@ function( Constants,
                             "role" :      Constants.ROLE.DIM,
                             "datatype":   Constants.DATATYPE.NUMERIC,
                             "desc":       "col1",
-                              
                             values:   10,
                           },{
                             "role" :      Constants.ROLE.MEAS,
                             "datatype":   Constants.DATATYPE.NUMERIC,
                             "desc":       "col2",
-                              
                             values:   10,
                           }]
                         }),
@@ -45,14 +43,12 @@ function( Constants,
                           columns: [{
                             "role" :      Constants.ROLE.DIM,
                             "datatype":   Constants.DATATYPE.SEMANTIC,
-                            "desc":       "col1",
-                              
-                            values:   10,
+                            "desc":       "col1_dim_sem",
+                            values:   3,
                           },{
                             "role" :      Constants.ROLE.MEAS,
                             "datatype":   Constants.DATATYPE.NUMERIC,
-                            "desc":       "col2",
-                              
+                            "desc":       "col2_meas_num",
                             values:   10,
                           },
                           ]
@@ -69,19 +65,16 @@ function( Constants,
                             "role" :      Constants.ROLE.DIM,
                             "datatype":   Constants.DATATYPE.SEMANTIC,
                             "desc":       "col1",
-                              
                             values:   10,
                           },{
                             "role" :      Constants.ROLE.DIM,
                             "datatype":   Constants.DATATYPE.NUMERIC,
                             "desc":       "col2",
-                              
                             values:   10,
                           },{
                             "role" :      Constants.ROLE.MEAS,
                             "datatype":   Constants.DATATYPE.NUMERIC,
                             "desc":       "col3",
-                              
                             values:   10,
                           },
                           ]
@@ -99,33 +92,29 @@ function( Constants,
                           columns: [{
                             "role" :      Constants.ROLE.DIM,
                             "datatype":   Constants.DATATYPE.SEMANTIC,
-                            "desc":       "col1",
-                              
+                            "desc":       "col1_dim_sem",
                             values:   3,
                           },{
                             "role" :      Constants.ROLE.DIM,
                             "datatype":   Constants.DATATYPE.SEMANTIC,
-                            "desc":       "col2",
-                              
+                            "desc":       "col2_dim_sem",
                             values:   1,
                           },{
                             "role" :      Constants.ROLE.DIM,
                             "datatype":   Constants.DATATYPE.NUMERIC,
-                            "desc":       "col3",
-                              
+                            "desc":       "col3_dim_num",
                             values:   10,
                           },{
                             "role" :      Constants.ROLE.MEAS,
                             "datatype":   Constants.DATATYPE.NUMERIC,
-                            "desc":       "col4",
-                              
+                            "desc":       "col4_meas_num",
                             values:   10,
                           },
                           ]
                         }),
         test_dccq_mq = DataStore.getDataset( testId_dccq_mq );
     createTest( QUnit, test_dccq_mq, {
-      whitelist: ['LineChart', 
+      whitelist: ['LineChart',
                   { layout: 'Rows', nested: 'LineChart' },
                  ],
       blacklist: ['BoxPlot'],
@@ -152,7 +141,7 @@ function( Constants,
                               + ')'
                     })
                     .join( ' | ' );
-    
+
     // start test
     QUnit.test( title, async function( assert ){
 
@@ -160,7 +149,7 @@ function( Constants,
       const done = assert.async();
 
       try {
-      
+
         // find list of matching visualizations
         const viz = await suggestExact( ds );
 
@@ -178,7 +167,7 @@ function( Constants,
         // some types should be in there
         if( 'whitelist' in cfg ) {
           for( let whiteItem of cfg.whitelist ) {
-            
+
             // nested viz?
             const nestedViz = typeof whiteItem != 'string';
 
@@ -198,13 +187,13 @@ function( Constants,
 
             // check, that all mandatory fields are bound
             if( !nestedViz ) {
-              
+
               const desc = await requireP( `viz/${whiteItem}.desc` );
               checkMandatory( assert, whiteItem, binding, binding.id, binding.bindingId, desc );
-              
+
             } else {
 
-              const descs = await requireP( [ `viz/${whiteItem.layout}.desc`, 
+              const descs = await requireP( [ `viz/${whiteItem.layout}.desc`,
                                               `viz/${whiteItem.nested}.desc` ] );
               const name = `${whiteItem.layout}[${whiteItem.nested}]`;
               checkMandatory( assert, name, binding, binding.id.layout, binding.bindingId.layout, descs[0] );
@@ -221,26 +210,26 @@ function( Constants,
             assert.notOk( !!viz.find( el => el.id == cfg.blacklist[i] ), cfg.blacklist[i] + ' should NOT be in the results' );
           }
         }
-            
+
       } catch( e ) {
-        
+
         console.log(e);
         assert.ok( false, 'error while executing test' );
       }
-      
+
 
       // we are done
       done();
 
     });
   }
-  
-  
+
+
   /**
    * validate that all mandatory fields are bound
    */
   function checkMandatory( assert, name, bindingDesc, bindingName, bindingId, desc ) {
-    
+
     // shortcut(s)
     const binding = bindingDesc.binding.binding;
 
@@ -250,7 +239,7 @@ function( Constants,
         assert.ok( col.id in binding, `${name}: ${bindingName}.${col.id} should be bound.` );
       }
     }
-    
+
   }
 
 });
