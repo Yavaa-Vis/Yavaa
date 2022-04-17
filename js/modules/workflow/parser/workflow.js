@@ -20,7 +20,7 @@ define( [], function(){
     function getLevelRec( id ) {
 
       // get respective element
-      const el = prov['activities'][id];
+      const el = prov['activity'][id];
 
       // shortcut, if level is already known
       if( id in levels ) {
@@ -40,7 +40,7 @@ define( [], function(){
     }
 
     // actually get activities and create commands
-    const keys = Object.keys( prov['activities'] ),
+    const keys = Object.keys( prov['activity'] ),
           commandStack = [],
           commandRepo = {};
     for( let i=keys.length; i--; ) {
@@ -53,7 +53,7 @@ define( [], function(){
           level:    level,
           activity: keys[i],
           command:  createCommand( prov, keys[i] ),
-          uses:     prov['activities'][ keys[i] ]['yavaa:prevActivity']
+          uses:     prov['activity'][ keys[i] ]['yavaa:prevActivity']
       });
 
       // add to commandRepo
@@ -76,11 +76,11 @@ define( [], function(){
   function createCommand( prov, id ){
 
     // get params, if present
-    var params = JSON.parse( prov['activities'][id]['yavaa:params'] || '{}' );
+    var params = JSON.parse( prov['activity'][id]['yavaa:params'] || '{}' );
 
     // return executable command
     return {
-      'action': prov['activities'][id]['yavaa:action'],
+      'action': prov['activity'][id]['yavaa:action'],
       'params': params
     };
 

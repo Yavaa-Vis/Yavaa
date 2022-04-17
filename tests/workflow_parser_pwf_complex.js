@@ -1,7 +1,7 @@
 /**
  * test workflow/parser/pwf
  *
- * parsing psuedo-workflow into a sequence of commands wrt to dependencies
+ * parsing pseudo-workflow into a sequence of commands wrt to dependencies
  */
 define( [ 'workflow/parser/pwf',
           'testdata/workflow_parser_pwf'

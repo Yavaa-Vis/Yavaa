@@ -34,13 +34,13 @@ define( [
     let objects = []            // entities and activities
         , columns = []          // column data
         // temporary variables
-        , obj, keys, act, ent, prev, next, level
+        , obj, keys, act, ent, next, level
         , actKey, entKey
-        , cols, col, mapping, used, changed, prevMapping, colId, newCol;
+        , cols, mapping, used, changed, prevMapping, colId, newCol;
 
     const ids = {  // respective ids for all involved entities and activities
-        'act': Object.keys( prov['activities'] ),
-        'ent': Object.keys( prov['entities'] ),
+        'act': Object.keys( prov['activity'] ),
+        'ent': Object.keys( prov['entity'] ),
         'hadMember': new Set(),
     };
 
@@ -61,7 +61,7 @@ define( [
       obj = {
         'type':   CONSTANTS.activity,
         'key':    keys[i],
-        'entry':  prov['activities'][ keys[i] ],
+        'entry':  prov['activity'][ keys[i] ],
         'level': 0,
         'next': null,
         'prev': [],
@@ -69,7 +69,7 @@ define( [
       };
 
       // link to origin
-      prov['activities'][ keys[i] ][ 'paintObject' ] = obj;
+      prov['activity'][ keys[i] ][ 'paintObject' ] = obj;
 
       // insert to object list
       objects.push( obj );
@@ -84,7 +84,7 @@ define( [
       obj = {
         'type':   CONSTANTS.entity,
         'key':    keys[i],
-        'entry':  prov['entities'][ keys[i] ],
+        'entry':  prov['entity'][ keys[i] ],
         'level': 0,
         'next': null,
         'prev': [],
@@ -92,7 +92,7 @@ define( [
       };
 
       // link to origin
-      prov['entities'][ keys[i] ][ 'paintObject' ] = obj;
+      prov['entity'][ keys[i] ][ 'paintObject' ] = obj;
 
       // insert to object list
       objects.push( obj );
@@ -117,8 +117,8 @@ define( [
         }
 
         // get involved activity and entity
-        act = prov['activities'][ actKey ]['paintObject'];
-        ent = prov['entities']  [ entKey ]['paintObject'];
+        act = prov['activity'][ actKey ]['paintObject'];
+        ent = prov['entity']  [ entKey ]['paintObject'];
 
         // update respective entries in objects
         ent['next'] = act;
@@ -142,8 +142,8 @@ define( [
         }
 
         // get involved activity and entity
-        act = prov['activities'][ actKey ]['paintObject'];
-        ent = prov['entities']  [ entKey ]['paintObject'];
+        act = prov['activity'][ actKey ]['paintObject'];
+        ent = prov['entity']  [ entKey ]['paintObject'];
 
         // update respective entries in objects
         act['next'] = ent;
@@ -158,7 +158,7 @@ define( [
     for( let i=0; i<keys.length; i++ ) {
 
       // shortcut
-      ent = prov['entities'][ keys[i] ];
+      ent = prov['entity'][ keys[i] ];
 
       // is it an intermediate result?
       if( ('yavaa:intermediateResult' in ent) && (ent['yavaa:intermediateResult'] == true) ) {
@@ -199,7 +199,7 @@ define( [
     for( let i=0; i<keys.length; i++ ) {
 
       // shortcut
-      obj = prov['entities'][ keys[i] ]['paintObject'];
+      obj = prov['entity'][ keys[i] ]['paintObject'];
 
       // we don't care about some entities anymore
       if( (('removable' in obj) && (obj['removable'] === true))   // intermediate results
@@ -261,7 +261,7 @@ define( [
 
       // some shortcuts
       obj = objects[i];
-      cols = obj['entry']['yavaa:columns'];
+      cols = JSON.parse( obj['entry']['yavaa:columns'] );
 
       // column mapping after this activity
       mapping = [];

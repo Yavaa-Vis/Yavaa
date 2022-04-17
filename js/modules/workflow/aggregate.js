@@ -6,15 +6,14 @@
 define( [ 'basic/error' ], function( Error ){
 
   // fields used to track stuff, while processing
-  var idField = '__id',                 // used to keep track of workflow entries
-      resultField = '__resultEntity';   // used to track resulting entities of a workflow
+  const resultField = '__resultEntity';   // used to track resulting entities of a workflow
 
 
   // symbols; will not be serialized in output
   const symbols = {
       colsAfter: Symbol.for( 'columns present in a dataset after an activity' ),
       linkedActivity: Symbol.for( 'the PROV activity this entry is linked to' ),
-      linkedResult:   Symbol.for( 'the PROV entitiy representing the result of this entry' ),
+      linkedResult:   Symbol.for( 'the PROV entity representing the result of this entry' ),
   };
 
   async function aggregate( wfEntry ) {
@@ -30,9 +29,15 @@ define( [ 'basic/error' ], function( Error ){
     // JSON result
     const wfData = {
 
+        // common prefixes
+        'prefix': {
+          'yavaa':  'http://yavaa.org/ns/',
+          'dct':    'http://purl.org/dc/terms/',
+        },
+
         // objects
-        'entities': {},
-        'activities': {},
+        'entity': {},
+        'activity': {},
 
         // relations
         'used': {},
@@ -40,6 +45,7 @@ define( [ 'basic/error' ], function( Error ){
         'wasGeneratedBy': {},
         'wasInfluencedBy': {},
         'hadMember':      {},
+
     };
 
     // XXXXXXXXX Step1: walk entries in pre-order; getting activity dependencies
@@ -185,19 +191,19 @@ define( [ 'basic/error' ], function( Error ){
     }
 
     // get parent activity
-    var parentAct = result['activities'][ parentId ];
+    var parentAct = result['activity'][ parentId ];
 
     // add to 'yavaa:prevActivity'
     parentAct['yavaa:prevActivity'].push( newActId );
 
     // add "used" link
-    result['used'][ 'used' + idCounter['relation']++ ] = {
+    result['used'][ '_:used' + idCounter['relation']++ ] = {
         'prov:activity': parentId,
         'prov:entity':   newEntId
     };
 
     // mark connecting entity as intermediate
-    result['entities']
+    result['entity']
           [ newEntId ]
           [ 'yavaa:intermediateResult' ] = true;
 
@@ -221,8 +227,8 @@ define( [ 'basic/error' ], function( Error ){
   function handleLoad( result, idCounter, item, parentId ) {
 
     // create an entity for the source dataset
-    const sourceId = 'source' + idCounter['entity']++;
-    result['entities'][ sourceId ] = {
+    const sourceId = '_:source' + idCounter['entity']++;
+    result['entity'][ sourceId ] = {
         'prov:atLocation':  item.getData( 'source/url' ),
         'yavaa:type':       item.getData( 'source/type' ),
         'yavaa:datasetId':  item.getData( 'source/datasetId' ),
@@ -232,33 +238,32 @@ define( [ 'basic/error' ], function( Error ){
     };
 
     // activity for loading
-    const actId = 'load' + idCounter['activity']++,
+    const actId = '_:load' + idCounter['activity']++,
           actStartTime = (new Date( item.getData( 'startTime' ) )).toISOString(),
           actEndTime =   (new Date( item.getData( 'endTime' ) )).toISOString();
-    result['activities'][ actId ] = {
+    result['activity'][ actId ] = {
         'prov:startTime':   actStartTime,
         'prov:endTime':     actEndTime,
         'prov:type':        { '$': convertType( item.getData( 'type' ) ), 'type': 'xsd:QName' },
         'yavaa:action':     item.getData( 'action' ),
-        'yavaa:columns':    item.getData( 'columns' ),
+        'yavaa:columns':    JSON.stringify( item.getData( 'columns' ) ),
         'yavaa:params':     JSON.stringify( item.getData('params') ),
-        'yavaa:prevActivity': null
     };
 
     // add connection between activity and loaded resource
-    result['used'][ 'used' + idCounter['relation']++ ] = {
+    result['used'][ '_:used' + idCounter['relation']++ ] = {
         'prov:activity':  actId,
         'prov:entity':    sourceId
     };
 
     // resulting (intermediate?) entity
-    const newEntId = 'result' + idCounter['entity']++;
-    result['entities'][ newEntId ] = {
+    const newEntId = '_:result' + idCounter['entity']++;
+    result['entity'][ newEntId ] = {
         'prov:type': { '$': 'prov:Collection', 'type': 'xsd:QName' },
     };
 
     // link to resulting entity
-    result['wasGeneratedBy'][ 'wasGeneratedBy' + idCounter['relation']++ ] = {
+    result['wasGeneratedBy'][ '_:wasGeneratedBy' + idCounter['relation']++ ] = {
         'prov:entity':    newEntId,
         'prov:activity':  actId
     };
@@ -275,29 +280,29 @@ define( [ 'basic/error' ], function( Error ){
   function handleComp( result, idCounter, item, parentId ) {
 
     // activity data
-    var actId = 'comp' + idCounter['activity']++,
+    var actId = '_:comp' + idCounter['activity']++,
         actStartTime = (new Date( item.getData( 'startTime' ) )).toISOString(),
         actEndTime = (new Date( item.getData( 'endTime' ) )).toISOString();
 
     // activity entry
-    result['activities'][ actId ] = {
+    result['activity'][ actId ] = {
         'prov:startTime':   actStartTime,
         'prov:endTime':     actEndTime,
         'prov:type':        { '$': convertType( item.getData( 'type' ) ), 'type': 'xsd:QName' },
         'yavaa:params':     JSON.stringify( item.getData('params') ),
         'yavaa:action':     item.getData( 'action' ),
-        'yavaa:columns':    item.getData( 'columns' ),
+        'yavaa:columns':    JSON.stringify( item.getData( 'columns' ) ),
         'yavaa:prevActivity': []
     };
 
     // resulting (intermediate?) entity
-    var newEntId = 'result' + idCounter['entity']++;
-    result['entities'][ newEntId ] = {
+    var newEntId = '_:result' + idCounter['entity']++;
+    result['entity'][ newEntId ] = {
         'prov:type': { '$': 'prov:Collection', 'type': 'xsd:QName' },
     };
 
     // link to resulting entity with activity
-    result['wasGeneratedBy'][ 'wasGeneratedBy' + idCounter['relation']++ ] = {
+    result['wasGeneratedBy'][ '_:wasGeneratedBy' + idCounter['relation']++ ] = {
         'prov:entity':    newEntId,
         'prov:activity':  actId
     };
@@ -317,29 +322,29 @@ define( [ 'basic/error' ], function( Error ){
   function handleJoin( result, idCounter, item, parentId ) {
 
     // activity data
-    var actId = 'join' + idCounter['activity']++,
+    var actId = '_:join' + idCounter['activity']++,
         actStartTime = (new Date( item.getData( 'startTime' ) )).toISOString(),
         actEndTime = (new Date( item.getData( 'endTime' ) )).toISOString();
 
     // activity entry
-    result['activities'][ actId ] = {
+    result['activity'][ actId ] = {
         'prov:startTime':   actStartTime,
         'prov:endTime':     actEndTime,
         'prov:type':        convertType( item.getData( 'type' ) ),
         'yavaa:params':     JSON.stringify( item.getData('params') ),
         'yavaa:action':     item.getData( 'action' ),
-        'yavaa:columns':    item.getData( 'columns' ),
+        'yavaa:columns':    JSON.stringify( item.getData( 'columns' ) ),
         'yavaa:prevActivity': []
     };
 
     // resulting (intermediate?) entity
-    var newEntId = 'result' + idCounter['entity']++;
-    result['entities'][ newEntId ] = {
+    var newEntId = '_:result' + idCounter['entity']++;
+    result['entity'][ newEntId ] = {
         'prov:type': { '$': 'prov:Collection', 'type': 'xsd:QName' },
     };
 
     // link to resulting entity
-    result['wasGeneratedBy'][ 'wasGeneratedBy' + idCounter['relation']++ ] = {
+    result['wasGeneratedBy'][ '_:wasGeneratedBy' + idCounter['relation']++ ] = {
         'prov:entity':    newEntId,
         'prov:activity':  actId
     };
@@ -356,16 +361,16 @@ define( [ 'basic/error' ], function( Error ){
   function handleViz( result, idCounter, item ) {
 
     // respective activity
-    const actId = 'viz' + idCounter['activity']++,
+    const actId = '_:viz' + idCounter['activity']++,
           actStartTime  = (new Date( item.getData( 'startTime' ) )).toISOString(),
           actEndTime    = (new Date( item.getData( 'endTime' ) )).toISOString();
-    result['activities'][ actId ] = {
+    result['activity'][ actId ] = {
         'prov:startTime':   actStartTime,
         'prov:endTime':     actEndTime,
         'prov:type':        convertType( item.getData( 'type' ) ),
         'yavaa:params':     JSON.stringify( item.getData('params') ),
         'yavaa:action':     item.getData( 'action' ),
-        'yavaa:columns':    item.getData( 'columns' ),
+        'yavaa:columns':    JSON.stringify( item.getData( 'columns' ) ),
         'yavaa:prevActivity': []
     };
 
@@ -398,15 +403,15 @@ define( [ 'basic/error' ], function( Error ){
         // new column; may be dependent on an old one
 
         // new PROV-object's ID
-        colId = 'column' + idCounter['column']++;
+        colId = '_:column' + idCounter['column']++;
 
         // add entity to result
-        wfData['entities'][ colId ] = {
+        wfData['entity'][ colId ] = {
           'dct:title':   colsWf[i]['label']
         };
 
         // link to the creating activity
-        wfData['wasGeneratedBy'][ 'wasGeneratedBy' + idCounter['relation']++ ] = {
+        wfData['wasGeneratedBy'][ '_:wasGeneratedBy' + idCounter['relation']++ ] = {
             'prov:entity':    colId,
             'prov:activity':  actId,
         };
@@ -418,13 +423,13 @@ define( [ 'basic/error' ], function( Error ){
           const sourceCol = colsPrev[ colsWf[i]['former'] ];
 
           // link both
-          wfData['wasDerivedFrom'][ 'wasDerivedFrom' + idCounter['relation']++ ] = {
+          wfData['wasDerivedFrom'][ '_:wasDerivedFrom' + idCounter['relation']++ ] = {
               'prov:generatedEntity': colId,
               'prov:usedEntity':      sourceCol,
           };
 
           // copy it's name
-          wfData['entities'][ colId ][ 'dct:title' ] = wfData['entities'][ sourceCol ][ 'dct:title' ];
+          wfData['entity'][ colId ][ 'dct:title' ] = wfData['entity'][ sourceCol ][ 'dct:title' ];
 
         }
 
@@ -441,7 +446,7 @@ define( [ 'basic/error' ], function( Error ){
         // link to influencing columns
         // there should be a previous activity along with resulting columns
         for( let j=0; j<colsWf[i]['basedOn'].length; j++ ) {
-          wfData['wasInfluencedBy'][ 'wasInfluencedBy' + idCounter['relation']++ ] = {
+          wfData['wasInfluencedBy'][ '_:wasInfluencedBy' + idCounter['relation']++ ] = {
               'prov:influencer': colsPrev[ colsWf[i]['basedOn'][j] ],
               'prov:influencee': colId,
           };
@@ -453,7 +458,7 @@ define( [ 'basic/error' ], function( Error ){
       colsProv.push( colId );
 
       // link to the resulting dataset
-      wfData['hadMember'][ 'hadMember' + idCounter['relation']++ ] = {
+      wfData['hadMember'][ '_:hadMember' + idCounter['relation']++ ] = {
           'prov:collection': resultId,
           'prov:entity':     colId,
       };

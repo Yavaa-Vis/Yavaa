@@ -2,7 +2,7 @@
  * test inputs for workflow/parser/workflow tests
  */
 define([],[{
-  
+
  /* XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX */
 
  label: 'Complex workflow; multiple joins',
@@ -105,7 +105,7 @@ define([],[{
 
   result: [
     {
-      "activity": "join13",
+      "activity": "_:join13",
       "command": {
         "action": "join",
         "params": {
@@ -124,12 +124,12 @@ define([],[{
         }
       },
       "uses": [
-        "join8",
-        "drop12"
+        "_:join8",
+        "_:drop12"
       ]
     },
     {
-      "activity": "drop12",
+      "activity": "_:drop12",
       "command": {
         "action": "dropColumns",
         "params": {
@@ -140,11 +140,11 @@ define([],[{
         }
       },
       "uses": [
-        "agg11"
+        "_:agg11"
       ]
     },
     {
-      "activity": "agg11",
+      "activity": "_:agg11",
       "command": {
         "action": "aggregate",
         "params": {
@@ -157,11 +157,11 @@ define([],[{
         }
       },
       "uses": [
-        "filter10"
+        "_:filter10"
       ]
     },
     {
-      "activity": "filter10",
+      "activity": "_:filter10",
       "command": {
         "action": "filterData",
         "params": {
@@ -173,22 +173,18 @@ define([],[{
                 "operator": "EntityFilter",
                 "include": true,
                 "column": 1,
-                "values": [
-                  "DE",
-                  "FR",
-                  "UK"
-                ]
+                "values": ["http://eurostat.linked-statistics.org/dic/geo#DE", "http://eurostat.linked-statistics.org/dic/geo#FR", "http://eurostat.linked-statistics.org/dic/geo#UK"]
               }
             ]
           }
         }
       },
       "uses": [
-        "load9"
+        "_:load9"
       ]
     },
     {
-      "activity": "load9",
+      "activity": "_:load9",
       "command": {
         "action": "loadData",
         "params": {
@@ -198,7 +194,7 @@ define([],[{
       "uses": null
     },
     {
-      "activity": "join8",
+      "activity": "_:join8",
       "command": {
         "action": "join",
         "params": {
@@ -217,12 +213,12 @@ define([],[{
         }
       },
       "uses": [
-        "drop3",
-        "drop7"
+        "_:drop3",
+        "_:drop7"
       ]
     },
     {
-      "activity": "drop7",
+      "activity": "_:drop7",
       "command": {
         "action": "dropColumns",
         "params": {
@@ -233,11 +229,11 @@ define([],[{
         }
       },
       "uses": [
-        "filter6"
+        "_:filter6"
       ]
     },
     {
-      "activity": "filter6",
+      "activity": "_:filter6",
       "command": {
         "action": "filterData",
         "params": {
@@ -250,7 +246,7 @@ define([],[{
                 "include": true,
                 "column": 0,
                 "values": [
-                  "L03_5"
+                  'http://eurostat.linked-statistics.org/dic/indic_ed#L03_5'
                 ]
               }
             ]
@@ -258,11 +254,11 @@ define([],[{
         }
       },
       "uses": [
-        "filter5"
+        "_:filter5"
       ]
     },
     {
-      "activity": "filter5",
+      "activity": "_:filter5",
       "command": {
         "action": "filterData",
         "params": {
@@ -275,21 +271,21 @@ define([],[{
                 "include": true,
                 "column": 1,
                 "values": [
-                  "DE",
-                  "FR",
-                  "UK"
-                ]
+                  "http://eurostat.linked-statistics.org/dic/geo#DE",
+                  "http://eurostat.linked-statistics.org/dic/geo#FR",
+                  "http://eurostat.linked-statistics.org/dic/geo#UK"
+                ],
               }
             ]
           }
         }
       },
       "uses": [
-        "load4"
+        "_:load4"
       ]
     },
     {
-      "activity": "load4",
+      "activity": "_:load4",
       "command": {
         "action": "loadData",
         "params": {
@@ -299,7 +295,7 @@ define([],[{
       "uses": null
     },
     {
-      "activity": "drop3",
+      "activity": "_:drop3",
       "command": {
         "action": "dropColumns",
         "params": {
@@ -310,11 +306,11 @@ define([],[{
         }
       },
       "uses": [
-        "filter2"
+        "_:filter2"
       ]
     },
     {
-      "activity": "filter2",
+      "activity": "_:filter2",
       "command": {
         "action": "filterData",
         "params": {
@@ -327,7 +323,7 @@ define([],[{
                 "include": true,
                 "column": 0,
                 "values": [
-                  "L03_8"
+                  'http://eurostat.linked-statistics.org/dic/indic_ed#L03_8'
                 ]
               }
             ]
@@ -335,11 +331,11 @@ define([],[{
         }
       },
       "uses": [
-        "filter1"
+        "_:filter1"
       ]
     },
     {
-      "activity": "filter1",
+      "activity": "_:filter1",
       "command": {
         "action": "filterData",
         "params": {
@@ -352,21 +348,21 @@ define([],[{
                 "include": true,
                 "column": 1,
                 "values": [
-                  "DE",
-                  "FR",
-                  "UK"
-                ]
+                  "http://eurostat.linked-statistics.org/dic/geo#DE",
+                  "http://eurostat.linked-statistics.org/dic/geo#FR",
+                  "http://eurostat.linked-statistics.org/dic/geo#UK"
+                ],
               }
             ]
           }
         }
       },
       "uses": [
-        "load0"
+        "_:load0"
       ]
     },
     {
-      "activity": "load0",
+      "activity": "_:load0",
       "command": {
         "action": "loadData",
         "params": {

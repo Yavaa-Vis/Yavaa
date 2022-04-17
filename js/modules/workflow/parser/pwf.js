@@ -1,7 +1,7 @@
 /**
  * convert the given pseudo-workflow into a sequence of commands
  * commands are ordered by their distance from the root (== final result) in the workflow,
- * such that commands with no dependcies can be executed first
+ * such that commands with no dependencies can be executed first
  */
 "use strict";
 define( [], function(){
@@ -77,7 +77,7 @@ define( [], function(){
     switch( node.op.toUpperCase() ) {
 
       // load dataset
-      case 'L': node.activity = 'load' + unique;
+      case 'L': node.activity = '_:load' + unique;
                 return  {
                           activity: node.activity,
                           command: {
@@ -90,7 +90,7 @@ define( [], function(){
                         };
 
       // join two datasets
-      case 'J': node.activity = 'join' + unique;
+      case 'J': node.activity = '_:join' + unique;
                 return  {
                           activity: node.activity,
                           command:{
@@ -105,7 +105,7 @@ define( [], function(){
                         };
 
       // join two datasets
-      case 'U': node.activity = 'union' + unique;
+      case 'U': node.activity = '_:union' + unique;
                 return  {
                           activity: node.activity,
                           command:{
@@ -120,7 +120,7 @@ define( [], function(){
                         };
 
       // drop a column
-      case 'D': node.activity = 'drop' + unique;
+      case 'D': node.activity = '_:drop' + unique;
                 return  {
                           activity: node.activity,
                           command:{
@@ -135,7 +135,7 @@ define( [], function(){
 
       // aggregate
       case 'A': // unique id for this activity
-                node.activity = 'agg' + unique;
+                node.activity = '_:agg' + unique;
 
                 // collect aggregation functions
                 const aggFkt = [];
@@ -158,7 +158,7 @@ define( [], function(){
 
       // filter
       case 'F': // unique id for this activity
-                node.activity = 'filter' + unique;
+                node.activity = '_:filter' + unique;
 
                 // build filter objects for all necessary
                 const filters = node.param
