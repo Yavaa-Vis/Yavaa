@@ -5,9 +5,9 @@
 define( [], function(){
   return {
     'entries':[
-      { 'id': 'viewData',         'label': 'View: Data',         'view': 'data',                'classes': 'icon icon-none',            'contextmenuonly': true },
-      { 'id': 'viewViz',          'label': 'View: Visulization', 'view': 'viz',                 'classes': 'icon icon-none',            'contextmenuonly': true },
-      { 'id': 'viewWf',           'label': 'View: Workflow',     'view': 'wf',                  'classes': 'icon icon-none',            'contextmenuonly': true },
+      { 'id': 'viewData',         'label': 'View: Data',          'view': 'data',                'classes': 'icon icon-none',            'contextmenuonly': true },
+      { 'id': 'viewViz',          'label': 'View: Visualization', 'view': 'viz',                 'classes': 'icon icon-none',            'contextmenuonly': true },
+      { 'id': 'viewWf',           'label': 'View: Workflow',      'view': 'wf',                  'classes': 'icon icon-none',            'contextmenuonly': true },
       {                           'label': '---',                                                                                       'contextmenuonly': true },
       { 'id': 'changeView',       'label': 'Change View',        'dialog': 'changeView',        'classes': 'icon icon-changeView' },
       { 'id': 'resolveColValues', 'label': 'Resolve Labels',     'dialog': 'resolveColValues',  'classes': 'icon icon-resolve' },
